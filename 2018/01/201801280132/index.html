@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="author" content='RGM'>
+  <meta name='keywords' content='前端,front end,javascript,js,css,html,node'>
+  <meta name='description' content='RGM的个人博客，分享自己的学习与理解'>
+  <title>RGM's BLOG</title>
+  <link rel="stylesheet" href="/css/main.min.css">
+</head>
+<body>
+  <div class='main full-width'>
+    <header>
+  <a href='/' class='brand'>RGM's BLOG</a>
+
+  <span class='about-me'>About me</a>
+</header>
+
+<nav class='top-nav'>
+  <ul class='nav'>
+  
+
+  
+    <li>
+      <a href='/' class='current'>我的随笔</a>
+    </li>
+  
+  </ul>
+</nav>
+
+
+    <article class="article-main">
+  <div class="article-title">
+    <h1 class="title">我在学Python（二）</h1>
+  </div>
+  <div class="article-meta">
+  
+    <span class="article-time">Saturday, 27 Jan 2018</span>
+  </div>
+  <div class="article-content">
+    <h1 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h1><h2 id="函数的定义"><a href="#函数的定义" class="headerlink" title="函数的定义"></a>函数的定义</h2><p>使用def关键词+函数名+(参数):</p>
+<pre><code class="python">def sum(x, y):
+    return x + y
+</code></pre>
+<p>在Java/C等语言中一个函数只能返回一个值，而python则可以返回多个值：</p>
+<pre><code class="python">def func(x, y):
+    a = x + y
+    b = x * y
+    return a, b
+</code></pre>
+<p>不过，这其实还是返回了一个值，上面这条return语句实际上等同于return (a, b)，返回的是一个tuple</p>
+<h2 id="位置参数"><a href="#位置参数" class="headerlink" title="位置参数"></a>位置参数</h2><pre><code class="python">def func(x):
+    return x
+</code></pre>
+<p>像x这样的就是这个函数的位置参数</p>
+<h2 id="默认参数"><a href="#默认参数" class="headerlink" title="默认参数"></a>默认参数</h2><p>python中的函数接收到的参数不足会抛出异常，而有时候我们获取的数据不全，无法给函数传递足够的参数怎么办？很简单，我们给参数设置一个默认值</p>
+<pre><code class="python">def func(x, y = 0):
+    return x + y
+</code></pre>
+<p>但是要注意，默认参数要是不可变对象，不然若有对作为默认参数的可变对象进行改变，下一次使用的默认参数就会跟随上一次的改变</p>
+<pre><code class="python">def func(list = []):
+    list.append(1)
+    return list
+
+print(func())         #[1]
+print(func())         #[1, 1]
+</code></pre>
+<h2 id="可变参数"><a href="#可变参数" class="headerlink" title="可变参数"></a>可变参数</h2><pre><code class="python">def func(*arguments):
+    for i in arguments:
+        print(i)
+
+func(1, 2, 3, 4)
+func()
+</code></pre>
+<pre><code class="python">arguments = [1, 2, 3]
+def func(*arguments):
+    for i in arguments:
+        print(i)
+
+func(*arguments)
+</code></pre>
+<p>在上面这个例子当中，arguments前面加了个*号是表示arguments作为可变参数传递进来</p>
+<h2 id="关键字参数"><a href="#关键字参数" class="headerlink" title="关键字参数"></a>关键字参数</h2><pre><code class="python">def person(name, age, **other):
+    print(&#39;name:&#39;, name, &#39;age:&#39;, age, &#39;other:&#39;, other)
+
+person(&#39;xiaoming&#39;, 20)  #name: xiaoming age: 20 other: {}
+person(&#39;xiaoming&#39;, 20, city=&#39;GuangZhou&#39;, sex=&#39;male&#39;)  #name: xiaoming age: 20 other: {&#39;city&#39;: &#39;GuangZhou&#39;, &#39;sex&#39;: &#39;male&#39;}
+msg = {&#39;city&#39;: &#39;GuangDong&#39;, &#39;sex&#39;: &#39;male&#39;}
+person(&#39;xiaoming&#39;, 20, **msg)  #name: xiaoming age: 20 other: {&#39;city&#39;: &#39;GuangZhou&#39;, &#39;sex&#39;: &#39;male&#39;}
+</code></pre>
+<p>以上面这个例子为例，在person函数中对other的修改不会影响到被传的参，因为other是通过对要被传的参复制而来的</p>
+<h2 id="命名关键字参数"><a href="#命名关键字参数" class="headerlink" title="命名关键字参数"></a>命名关键字参数</h2><p>有时候我们并不需要太多的关键字参数，这时候就要限制关键字参数的名字：</p>
+<pre><code class="python">def person(name, age, *, city, sex):
+    print(&#39;name:&#39;, name, &#39;age:&#39;, age, &#39;city:&#39;, city, &#39;sex:&#39;, sex)
+
+person(&#39;xiaoming&#39;, 20, city=&#39;GuangZhou&#39;, sex=&#39;male&#39;)  #name: xiaoming age: 20 city: GuangZhou sex: male
+msg = {&#39;city&#39;: &#39;GuangZhou&#39;, &#39;sex&#39;: &#39;male&#39;}
+person(&#39;xiaoming&#39;, 20, **msg)  #name: xiaoming age: 20 city: GuangZhou sex: male
+</code></pre>
+<p>命名关键字参数需要跟在*后面，而如果在命名关键字参数前面有可变参数，那这个*就可以省略了<br>当传入其他关键字参数时就会抛出异常，当然，传入的关键字参数少了也会抛出异常</p>
+<h2 id="组合参数"><a href="#组合参数" class="headerlink" title="组合参数"></a>组合参数</h2><p>组合参数顾名思义就是把前面几种所说的参数类型组合起来，但需要注意的是，传参的顺序必须是必选参数、默认参数、可变参数、命名关键字参数、关键字参数<br>但不推荐使用组合参数，因为会造成程序的可读性变差</p>
+<h1 id="slice-切片"><a href="#Slice-切片" class="headerlink" title="Slice 切片"></a>Slice 切片</h1><p>切片可以取出list或tuple或字符串中的一部分，格式为[x:y]，x是开始截取的下标，y-1是结束的下标，当下标为0时可省略</p>
+<pre><code class="python">list = [1, 2, 3, 4, 5]
+print(list[:3])          #[1, 2, 3]
+
+tuple = (1, 2, 3, 4, 5)
+print(tuple[1:-2])       #(2, 3)
+
+str = &#39;abcdef&#39;
+print(str[-3:-1])       #de
+print(str[-3:])         #def
+</code></pre>
+<p>除此之外，切片还有更高级的玩法：</p>
+<pre><code class="python">list = list(range(11))
+print(list)           #[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+# 从下标0开始到下标9之中每两个元素取出一个
+print(list[:10:2])    #[0, 2, 4, 6, 8]
+
+# 从整个list中每两个元素取出一个（取list中偶数下标的元素）
+print(list[::2])      #[0, 2, 4, 6, 8, 10]
+
+# 复制一份list
+list2 = list[:]
+print(list2)          #[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+</code></pre>
+<h1 id="iteration-迭代"><a href="#Iteration-迭代" class="headerlink" title="Iteration 迭代"></a>Iteration 迭代</h1><p>我们可以用for…in…迭代list或tuple</p>
+<pre><code class="python">list = [1, 2, 3]
+for i in list:
+    print(i)
+</code></pre>
+<p>对于上面这个例子，会依次打印1、2、3</p>
+<pre><code class="python">list = [[1, 2], [3, 4], [5, 6]]
+for i, j in list:
+    print(i, j)
+</code></pre>
+<p>对于上面这个例子，会依次打印1 2、3 4、5 6</p>
+<p>实际上我们还可以迭代其他可迭代对象<br>迭代dict：</p>
+<pre><code class="python">dict = {&#39;a&#39;: 97, &#39;b&#39;: 98, &#39;c&#39;: 97}
+# 迭代dict的key
+for key in dict:
+    print(key)
+
+# 迭代dict的value
+for value in dict.values():
+    print(value)
+
+# 同时迭代dict的key和value
+for key, value in dict.items():
+    print(key, value)
+</code></pre>
+<p>迭代str：</p>
+<pre><code class="python">str = &#39;abc&#39;
+for ch in str:
+    print(ch)
+</code></pre>
+<h2 id="列表生成式"><a href="#列表生成式" class="headerlink" title="列表生成式"></a>列表生成式</h2><p>有时候我们需要初始化一个list，比如要初始化一个值全0，长度为10的list，我们可以使用for…in…循环，但是有没有简便的方法？有，那就是使用列表生成式：</p>
+<pre><code class="python">list = [0 for i in range(10)]
+print(list)                    #[0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+</code></pre>
+<p>在上面的例子中0的位置上还可以写表达式：</p>
+<pre><code class="python">list = [i * i for i in range(10)]
+print(list)                    #[0, 1, 4, 9, 16, 25, 36, 49, 64, 81]
+</code></pre>
+<p>for…in…循环后面还可以加上if判断，这样就可以筛选出仅偶数的平方：</p>
+<pre><code class="python">list = [i * i for i in range(10) if i % 2 == 0]
+print(list)                    #[0, 4, 16, 36, 64]
+</code></pre>
+<p>for…in…循环后面不仅可以加判断，还可以嵌套循环，生成全排列：</p>
+<pre><code class="python">list = [m + n for m in &#39;ABC&#39; for n in &#39;XYZ&#39;]
+print(list)                    #[&#39;AX&#39;, &#39;AY&#39;, &#39;AZ&#39;, &#39;BX&#39;, &#39;BY&#39;, &#39;BZ&#39;, &#39;CX&#39;, &#39;CY&#39;, &#39;CZ&#39;]
+</code></pre>
+<p>列表生成式还可以利用dict来生成列表：</p>
+<pre><code class="python">dict = {&#39;x&#39;: &#39;a&#39;, &#39;y&#39;: &#39;b&#39;, &#39;z&#39;: &#39;c&#39;}
+list = [key + &#39;=&#39; + value for key, value in dict.items()]
+print(list)                    #[&#39;x=a&#39;, &#39;y=b&#39;, &#39;z=c&#39;]
+</code></pre>
+<h2 id="generator-生成器"><a href="#generator-生成器" class="headerlink" title="generator 生成器"></a>generator 生成器</h2><p>创建生成器的写法跟列表生成式很相似：</p>
+<pre><code class="python">g = (x * x for x in range(10))
+print(g)                       #&lt;generator object &lt;genexpr&gt; at 0x000001E0D9025938&gt;
+</code></pre>
+<p>可以发现我们用print()是不可以直接把生成器中的元素打印出来的，那怎么办？使用for…in…去迭代</p>
+<pre><code class="python">g = (x * x for x in range(10))
+for i in g:
+    print(i)
+</code></pre>
+<p>当一个函数中有yield这个关键字时，这个函数就成了一个生成器，例如下面这个生成斐波那契数列的例子：</p>
+<pre><code class="python">def fab(max): 
+    n, a, b = 0, 0, 1 
+    while n &lt; max: 
+        yield b 
+        a, b = b, a + b 
+        n = n + 1 
+
+for n in fab(5):
+    print(n)      #依次打印1、1、2、3、5
+</code></pre>
+<p>在上面的例子中调用fab()并不会真正执行函数而是会返回一个生成器对象，每一次执行fab()内部的代码时，遇见yield就会返回一个迭代值，下一次执行的时候回执行yield语句下方的语句直到又遇见yield<br>使用next函数可以看到fab()执行的效果</p>
+<pre><code class="python">def fab(max):
+    n, a, b = 0, 0, 1
+    while n &lt; max:
+        yield b
+        a, b = b, a + b
+        n = n + 1
+
+f = fab(5)
+print(next(f))  #1
+print(next(f))  #1
+print(next(f))  #2
+print(next(f))  #3
+print(next(f))  #5
+</code></pre>
+<p>第八行并不会执行fab()，而是创建了一个生成器，next()执行是才会执行，在for…in…中会自动调用next()</p>
+<h1 id="高阶函数"><a href="#高阶函数" class="headerlink" title="高阶函数"></a>高阶函数</h1><p>高阶函数是至少满足下列一个条件的函数：<br>1、接受一个或多个函数作为输入<br>2、输出一个函数</p>
+<p>而Python均满足以上两个条件</p>
+<h2 id="函数可以赋值给一个变量"><a href="#函数可以赋值给一个变量" class="headerlink" title="函数可以赋值给一个变量"></a>函数可以赋值给一个变量</h2><pre><code class="python">def func(num):
+    print(num)
+
+fun1 = func(1)
+fun2 = func
+fun1            #1
+fun2(4)         4
+</code></pre>
+<h2 id="函数名也是一个变量"><a href="#函数名也是一个变量" class="headerlink" title="函数名也是一个变量"></a>函数名也是一个变量</h2><pre><code class="python">def func(num):
+    print(num)
+
+func = 1
+</code></pre>
+<p>此时如果调用func()则会报错，因为现在func是值1</p>
+<h2 id="函数的参数可以是函数"><a href="#函数的参数可以是函数" class="headerlink" title="函数的参数可以是函数"></a>函数的参数可以是函数</h2><pre><code class="python">def func2():
+    print(&#39;func2&#39;)
+
+def func1(func):
+    func()
+
+func1(func2)        #func2
+</code></pre>
+<p>map()是python中内置的一个高阶函数，它可以传入两个参数，第一个是函数，第二个是Iterable（可迭代对象），作用是把函数作用在这个Iterable上，并返回一个Iterable</p>
+<pre><code class="python">def func(x):
+    return x * x
+
+l = [1, 2, 3, 4, 5]
+
+list2 = list(map(func, l))
+print(list2)                #[1, 4, 9, 16, 25]
+</code></pre>
+<p>reduce()也是python中内置的函数，它需要传入两个参数，第一个是函数，第二个是Iterable，作用是把这个函数作用在Iterable上做累积计算</p>
+<pre><code class="python">from functools import reduce
+
+
+def func(x, y):
+    return x * 10 + y
+
+
+l = [1, 2, 3, 4, 5]
+
+# 把list中的1、2、3、4、5变为整数12345
+res = reduce(func, l)
+print(res)             #12345
+</code></pre>
+<p>filter()也是Python内置的，同样也接收函数和Iterable两个参数，但不同的是，filter()根据传入的函数作用于Iterable，然后根据函数返回的True或False来决定Iterable中的元素该保留还是该去掉</p>
+<pre><code class="python">def is_odd(n):
+    return n % 2 == 1
+
+
+l = [1, 2, 4, 5, 6, 9, 10, 15]
+print(list(filter(is_odd, l)))  #[1, 5, 9, 15]
+</code></pre>
+<p>内置的sorted()可以排序：</p>
+<pre><code class="python">l = [3, 76, 1, 8, 2]
+l2 = sorted(l)
+
+# 反向排序
+l3 = sorted(l, reverse=True)
+print(l2)             #[1, 2, 3, 8, 76]
+print(l3)             #[76, 8, 3, 2, 1]
+</code></pre>
+<p>忽略大小写的排序：<br>传入key函数使list中的字符转化为小写（或大写）再排序，这里是反向的排序</p>
+<pre><code class="python">l = [&#39;a&#39;, &#39;B&#39;, &#39;c&#39;]
+l2 = sorted(l, key=str.lower, reverse=True)
+print(l2)    #[&#39;c&#39;, &#39;B&#39;, &#39;a&#39;]
+</code></pre>
+<h2 id="函数的返回值可以是函数"><a href="#函数的返回值可以是函数" class="headerlink" title="函数的返回值可以是函数"></a>函数的返回值可以是函数</h2><pre><code class="python">def func1(x):
+    def func2():
+        return x
+    return func2
+
+f = func1(1)
+f()
+</code></pre>
+<p>像在一个函数中定义另一个函数的称为闭包，里面的函数可以访问其外部的变量，而外面的这一层函数则不能访问内层函数中的变量；在上面这个例子中f = func1(1)并没有调用func1函数，而是到了下一行的f()才调用，而实际上调用的则是func1()里的func2()</p>
+<pre><code class="python">def func1(x):
+    def func2():
+        return x
+    return func2
+
+f1 = func1(1)
+f2 = func1(1)
+print(f1 == f2)  #False
+</code></pre>
+<p>另外，即使传入相同的参数，每次调用func1函数都会返回一个新的函数，f1、f2互不影响</p>
+<h1 id="匿名函数"><a href="#匿名函数" class="headerlink" title="匿名函数"></a>匿名函数</h1><p>匿名函数使用lambda关键字表示，优点是简化了函数的定义，并且也没有了函数名的存在，不用担心命名会冲突</p>
+<pre><code class="python">def func(x):
+    return x * x
+</code></pre>
+<p>像上面这个用来求一个数的平方的函数可以定义成：</p>
+<pre><code class="python">lambda x: x * x
+</code></pre>
+<p>冒号前的是参数，冒号后面就是函数的返回值<br>也可以把匿名函数赋值给一个变量，这样就可以利用这个变量去调用这个匿名函数</p>
+<pre><code class="python">func = lambda x: x * x
+</code></pre>
+<h1 id="偏函数"><a href="#偏函数" class="headerlink" title="偏函数"></a>偏函数</h1><p>偏函数partial()的作用是把一个函数中的参数固定住（设置默认参数），然后返回一个新的函数</p>
+<pre><code class="python">from functools import partial
+
+
+def func(x, y):
+    return x + y
+
+func2 = partial(func, y=1)
+print(func2(1))    #2
+</code></pre>
+<h1 id="decorator-装饰器"><a href="#Decorator-装饰器" class="headerlink" title="Decorator 装饰器"></a>Decorator 装饰器</h1><p>装饰器是用来实现在调用某个函数前执行一些动作的，比如在执行一个函数前打印出一段日志：<br>定义一个decorator：</p>
+<pre><code class="python">def log(func):
+    def f(*args, **kw):
+        print(&#39;执行%s&#39; % func.__name__)
+        return func(*args, **kw)  #(*args, **kw)是指可以接受任何参数
+    return f
+</code></pre>
+<p>把decorator置于函数的定义处：</p>
+<pre><code class="python">@log
+def fun():
+    print(&#39;执行了fun&#39;)
+</code></pre>
+<p>@log相当于fun = log(fun)，由于log()返回一个函数，所以fun()还是存在的，只不过它的名字的指向变了，现在执行fun()：</p>
+<pre><code class="python">fun()  #依次打印“执行fun”和“执行了fun”
+</code></pre>
+<p>如果decorator本身需要传入参数，那就要使用三层的函数嵌套，比如要使decorator打印的东西是可以自定义的：</p>
+<pre><code class="python">def log(text):
+    def decorator(func):
+        def f(*args, **kw):
+            print(text + func.__name__)
+            return func(*args, **kw)
+        return f
+    return decorator
+
+@log(&#39;执行&#39;)
+def fun():
+    print(&#39;执行了fun&#39;)
+
+fun()  #依次打印“执行fun”和“执行了fun”
+</code></pre>
+<p>@log(‘执行’)相当于log(‘执行’)(fun)<br>不过现在出现了一个问题，就是fun的__name__被改变了：</p>
+<pre><code class="python">print(fun.__name__)  #f
+</code></pre>
+<p>这就需要把原始函数的__name__等属性复制到f函数中去，而functools.wraps的作用就是这个：</p>
+<pre><code class="python">import functools
+
+
+def log(text):
+    def decorator(func):
+        @functools.wraps(func)
+        def f(*args, **kw):
+            print(text + func.__name__)
+            return func(*args, **kw)
+        return f
+    return decorator
+
+@log(&#39;执行&#39;)
+def fun():
+    print(&#39;执行了fun&#39;)
+
+fun()
+print(fun.__name__)  #fun
+</code></pre>
+
+  </div>
+</article>
+<!-- Highlight.js -->
+<link rel="stylesheet" href="/css/atom-one-dark.min.css">
+<script src="/js/highlight.pack.min.js"></script>
+<script>
+  (function(){
+    hljs.initHighlightingOnLoad();
+
+    var articleContent = document.getElementsByClassName('article-content')[0];
+    setTimeout(function () {
+      articleContent.className = "article-content article-content-come";
+    }, 100);
+  })();
+</script>
+
+    
+  </div>
+  <div class='me'>
+    <img src="/img/avatar.jpg" alt="avatar" class='avatar'>
+    <p class='me-p'>Live by the sword and die by the sword.</p>
+    <div class='links'>
+      <a href='https://github.com/RGM-89sc' target='_blank' class='link github-link' title='github'></a>
+      <a href='mailto:171716669@qq.com' class='link mail-link' title='mail'></a>
+    </div>
+  </div>
+</body>
+<script src="/js/main.min.js"></script>
+
+</html>

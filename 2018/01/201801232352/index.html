@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="author" content='RGM'>
+  <meta name='keywords' content='前端,front end,javascript,js,css,html,node'>
+  <meta name='description' content='RGM的个人博客，分享自己的学习与理解'>
+  <title>RGM's BLOG</title>
+  <link rel="stylesheet" href="/css/main.min.css">
+</head>
+<body>
+  <div class='main full-width'>
+    <header>
+  <a href='/' class='brand'>RGM's BLOG</a>
+
+  <span class='about-me'>About me</a>
+</header>
+
+<nav class='top-nav'>
+  <ul class='nav'>
+  
+
+  
+    <li>
+      <a href='/' class='current'>我的随笔</a>
+    </li>
+  
+  </ul>
+</nav>
+
+
+    <article class="article-main">
+  <div class="article-title">
+    <h1 class="title">删除多个元素的类名时类名被成功删除的元素只占了一半？</h1>
+  </div>
+  <div class="article-meta">
+  
+    <span class="article-time">Tuesday, 23 Jan 2018</span>
+  </div>
+  <div class="article-content">
+    <p>如图，我将要删除class属性为”tag”的li标签的class属性值<br><img src="/img/2018/01/23/20180123-1.png" alt=""><br>代码：</p>
+<pre><code class="javascript">let tags = document.getElementsByClassName(&quot;tag&quot;);
+for(let i = 0; i &lt; tags.length; i++){
+    tags[i].className = &quot;&quot;;
+}
+</code></pre>
+<p>当使用for循环把各个带”tag”类名的p标签的类名置为””时，只成功把一半数量的className删除掉：<br><img src="/img/2018/01/23/20180123-2.png" alt=""><br>为什么？我们先来试试在每次把className置为””前在控制台打印一下tags和i</p>
+<pre><code class="javascript">let tags = document.getElementsByClassName(&quot;tag&quot;);
+for(let i = 0; i &lt; tags.length; i++){
+    console.log(tags);
+    console.log(i);
+    tags[i].className = &quot;&quot;;
+}
+</code></pre>
+<p><img src="/img/2018/01/23/20180123-3.png" alt=""><br>可以看见，每把一个元素的className置为””，tages这个元素集合的length属性值就会-1，这里共有6个p标签的className需要被置””，而当把tags中的第4个元素的className置为””，即i的值为3时，tags的长度已经变为3，所以此时会退出循环，这样就只把一半数量的className删掉了</p>
+<p>解决办法：</p>
+<pre><code class="javascript">let tags = document.getElementsByClassName(&quot;tag&quot;);
+for(let i = tags.length - 1; i &gt;= 0; i--){
+    tags[i].className = &quot;&quot;;
+}
+</code></pre>
+<p>同样的，我们在循环中打印一下tags和i：<br><img src="/img/2018/01/23/20180123-4.png" alt=""><br>从输出结果来看一切正常，并且，成功把所有要删除的className删除了：<br><img src="/img/2018/01/23/20180123-5.png" alt=""></p>
+<p>这次i是从tags的长度-1开始，每次循环都把tags中最后一个元素的className置为””，直到tags中没有元素了就是已经把需要删除的className全部删除了</p>
+
+  </div>
+</article>
+<!-- Highlight.js -->
+<link rel="stylesheet" href="/css/atom-one-dark.min.css">
+<script src="/js/highlight.pack.min.js"></script>
+<script>
+  (function(){
+    hljs.initHighlightingOnLoad();
+
+    var articleContent = document.getElementsByClassName('article-content')[0];
+    setTimeout(function () {
+      articleContent.className = "article-content article-content-come";
+    }, 100);
+  })();
+</script>
+
+    
+  </div>
+  <div class='me'>
+    <img src="/img/avatar.jpg" alt="avatar" class='avatar'>
+    <p class='me-p'>Live by the sword and die by the sword.</p>
+    <div class='links'>
+      <a href='https://github.com/RGM-89sc' target='_blank' class='link github-link' title='github'></a>
+      <a href='mailto:171716669@qq.com' class='link mail-link' title='mail'></a>
+    </div>
+  </div>
+</body>
+<script src="/js/main.min.js"></script>
+
+</html>

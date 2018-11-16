@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="author" content='RGM'>
+  <meta name='keywords' content='前端,front end,javascript,js,css,html,node'>
+  <meta name='description' content='RGM的个人博客，分享自己的学习与理解'>
+  <title>RGM's BLOG</title>
+  <link rel="stylesheet" href="/css/main.min.css">
+</head>
+<body>
+  <div class='main full-width'>
+    <header>
+  <a href='/' class='brand'>RGM's BLOG</a>
+
+  <span class='about-me'>About me</a>
+</header>
+
+<nav class='top-nav'>
+  <ul class='nav'>
+  
+
+  
+    <li>
+      <a href='/' class='current'>我的随笔</a>
+    </li>
+  
+  </ul>
+</nav>
+
+
+    <article class="article-main">
+  <div class="article-title">
+    <h1 class="title">我用Hexo搭建博客时遇到的问题：目录生成</h1>
+  </div>
+  <div class="article-meta">
+  
+    <span class="article-time">Tuesday, 23 Jan 2018</span>
+  </div>
+  <div class="article-content">
+    <p>hexo自带了生成目录的辅助函数<a href="https://hexo.io/zh-cn/docs/helpers.html#toc" target="_blank" rel="noopener">toc</a></p>
+<p>我们可以在layout/_partial/中创建文件toc.ejs</p>
+<pre><code class="html">&lt;div class=&quot;toc-article&quot;&gt;
+    &lt;h2 class=&quot;toc-article-title&quot;&gt;目录&lt;/h2&gt;
+    &lt;%- toc(page.content) %&gt;
+&lt;/div&gt;
+</code></pre>
+<p>在文章详情页post.ejs中的适当位置引入toc.ejs</p>
+<pre><code class="html">&lt;%- partial(&#39;_partial/toc&#39;) %&gt;
+</code></pre>
+<p>使用</p>
+<pre><code class="bash">$ hexo clean
+$ hexo g
+$ hexo s --debug
+</code></pre>
+<p>三个命令刷新后可以发现，目录列表都正确生成出来了，然而这些a标签的href属性值都为#undefined</p>
+<p><img src="/img/2018/01/22/20180122-1.png" alt=""></p>
+<p>各层标题的id都已经生成了，怎么a标签的href属性就没有获取到其id值呢？<br>一开始我想到是不是中文才会出现这样的问题？所以我新建了一篇文章，使用英文的标题名称，这样id就是英文的了，结果是id确实变为了英文，可目录中a标签的href属性值依然是#undefined。之后又经过几番周折，终于在<a href="https://github.com/YenYuHsuan/hexo-theme-beantech/issues/11/#issuecomment-351266490" target="_blank" rel="noopener">这里</a>找到了解决办法<br>按照解决方案提供者的说法，新版本的hexo-toc会把标题诸如## title编译成</p>
+<pre><code class="html">&lt;h2&gt;&lt;span id=&quot;title&quot;&gt;title&lt;/span&gt;&lt;/h2&gt;
+</code></pre>
+<p>而旧版本则会编译成</p>
+<pre><code class="html">&lt;h2 id=&quot;title&quot;&gt;title&lt;/h2&gt;
+</code></pre>
+<p>h2没有定义id属性的值，目录中a标签的href属性值也就变成undefined了<br>解决办法就是找到/node_modules/hexo-toc/lib/filter.js，把被注释掉的第28行取消注释，然后把第29~31注释掉<br>修改完成后：</p>
+<pre><code class="javascript">$title.attr(&#39;id&#39;, id);
+// $title.children(&#39;a&#39;).remove();
+// $title.html( &#39;&lt;span id=&quot;&#39; + id + &#39;&quot;&gt;&#39; + $title.html() + &#39;&lt;/span&gt;&#39; );
+// $title.removeAttr(&#39;id&#39;);
+</code></pre>
+<p>这样就就可以恢复到旧版本，正确获取到目录中a标签href属性值了<br><img src="/img/2018/01/22/20180122-2.png" alt=""></p>
+
+  </div>
+</article>
+<!-- Highlight.js -->
+<link rel="stylesheet" href="/css/atom-one-dark.min.css">
+<script src="/js/highlight.pack.min.js"></script>
+<script>
+  (function(){
+    hljs.initHighlightingOnLoad();
+
+    var articleContent = document.getElementsByClassName('article-content')[0];
+    setTimeout(function () {
+      articleContent.className = "article-content article-content-come";
+    }, 100);
+  })();
+</script>
+
+    
+  </div>
+  <div class='me'>
+    <img src="/img/avatar.jpg" alt="avatar" class='avatar'>
+    <p class='me-p'>Live by the sword and die by the sword.</p>
+    <div class='links'>
+      <a href='https://github.com/RGM-89sc' target='_blank' class='link github-link' title='github'></a>
+      <a href='mailto:171716669@qq.com' class='link mail-link' title='mail'></a>
+    </div>
+  </div>
+</body>
+<script src="/js/main.min.js"></script>
+
+</html>
