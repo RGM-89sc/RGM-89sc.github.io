@@ -54,7 +54,7 @@ console.log(&#39;\x1b[46m %s \x1b[0m %s&#39;, &#39;INFO&#39;, &#39;doing somethi
 <p>8位：</p>
 <p>拥有256种颜色，但兼容性欠佳</p>
 <p>语法：</p>
-<p>ESC[38;5;\<n\>m选择前景色<br>ESC[48;5;\<n\>m选择背景色</n\></n\></p>
+<p>ESC[38;5;&lt;n&gt;m选择前景色<br>ESC[48;5;&lt;n&gt;m选择背景色</p>
 <p>其中n的取值：</p>
 <p>0 - 7：标准颜色（同ESC [ 30–37 m）</p>
 <p>8 - 15：高强度颜色（同ESC [ 90–97 m）</p>
@@ -66,7 +66,7 @@ console.log(&#39;\x1b[48;5;46m %s \x1b[0m %s&#39;, &#39;INFO&#39;, &#39;doing so
 </code></pre>
 <p>24位：</p>
 <p>使用rgb定义颜色，语法：</p>
-<p>ESC[38;2;\<r\>;\<g\>;\<b\>m选择RGB前景色<br>ESC[48;2;\<r\>;\<g\>;\<b\>m选择RGB背景色</b\></g\></r\></b\></g\></r\></p>
+<p>ESC[38;2;&lt;r&gt;;&lt;g&gt;;&lt;b&gt;m选择RGB前景色<br>ESC[48;2;&lt;r&gt;;&lt;g&gt;;&lt;b&gt;m选择RGB背景色</p>
 <p>使用方法：</p>
 <pre><code class="javascript">console.log(&#39;\x1b[38;2;100;100;255m %s \x1b[0m %s&#39;, &#39;INFO&#39;, &#39;doing something...&#39;);
 console.log(&#39;\x1b[48;2;100;100;255m %s \x1b[0m %s&#39;, &#39;INFO&#39;, &#39;doing something...&#39;);
