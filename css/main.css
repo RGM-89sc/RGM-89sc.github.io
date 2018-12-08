@@ -410,8 +410,6 @@ header {
     font-size: 1.7rem;
     font-weight: 500;
     color: #41daa7; }
-    .article-title .title::before {
-      content: ''; }
 
 .article-meta {
   text-align: center;
