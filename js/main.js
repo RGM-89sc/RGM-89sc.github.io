@@ -1,7 +1,13 @@
 (function () {
-  var avatar = document.getElementsByClassName('avatar')[0];
-  avatar.src = avatar.dataset.src;
-
+  // 预加载图片
+  var avatar = document.getElementsByClassName('avatar')[0],
+    isSupportWebp = document.createElement('canvas').toDataURL('image/webp').indexOf('data:image/webp') == 0;
+  if(isSupportWebp){
+    avatar.src = 'img/avatar.webp';
+  } else {
+    avatar.src = '/img/avatar.jpg';
+  }
+  
   // 渐入动画
   var posts = document.getElementsByClassName('post'),
     pageNav = document.getElementsByClassName('page-nav')[0];
