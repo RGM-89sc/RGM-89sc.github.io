@@ -2,11 +2,8 @@
   // 预加载图片
   var avatar = document.getElementsByClassName('avatar')[0],
     isSupportWebp = document.createElement('canvas').toDataURL('image/webp').indexOf('data:image/webp') == 0;
-  if(isSupportWebp){
-    avatar.src = 'img/avatar.webp';
-  } else {
-    avatar.src = '/img/avatar.jpg';
-  }
+
+    avatar.src = isSupportWebp ? 'img/avatar.webp' : '/img/avatar.jpg';
   
   // 渐入动画
   var posts = document.getElementsByClassName('post'),
