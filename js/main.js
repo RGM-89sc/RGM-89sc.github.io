@@ -1,4 +1,7 @@
 (function () {
+  var avatar = document.getElementsByClassName('avatar')[0];
+  avatar.src = avatar.dataset.src;
+
   // 渐入动画
   var posts = document.getElementsByClassName('post'),
     pageNav = document.getElementsByClassName('page-nav')[0];
