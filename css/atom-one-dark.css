@@ -85,11 +85,12 @@ hue-6-2: #e6c07b
 .hljs {
   margin: 10px 0 20px !important;
   padding: 15px 20px !important;
+  font-size: 0.9rem !important;
   font-family: Consolas, 'Courier New', monospace !important;
   -webkit-border-radius: 5px;
      -moz-border-radius: 5px;
           border-radius: 5px; }
   @media only screen and (max-width: 760px) {
     .hljs {
-      font-size: 0.9rem !important;
+      font-size: 0.8rem !important;
       padding: 10px 15px !important; } }

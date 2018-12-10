@@ -10,11 +10,7 @@
   font-family: 'Sylfaen' !important;
   src: url("../fonts/Sylfaen.ttf"); }
 
-html {
-  width: 100%;
-  height: 100%; }
-
-body {
+html, body {
   margin: 0;
   padding: 0;
   width: 100%;
@@ -446,8 +442,6 @@ header {
     max-width: 100%;
     cursor: pointer; }
   .article-content p {
-    word-spacing: 0.1ch;
-    letter-spacing: 0.1ch;
     line-height: 2rem;
     word-break: break-all; }
 
