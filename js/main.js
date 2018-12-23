@@ -3,7 +3,7 @@
   var avatar = document.getElementsByClassName('avatar')[0],
     isSupportWebp = document.createElement('canvas').toDataURL('image/webp').indexOf('data:image/webp') == 0;
 
-    avatar.src = isSupportWebp ? '/img/avatar.webp' : '/img/avatar.jpg';
+  avatar.src = isSupportWebp ? '/img/avatar.webp' : '/img/avatar.jpg';
 
   // 开闭 about-me 板块
   var aboutMe = document.getElementsByClassName('about-me')[0],
@@ -44,4 +44,11 @@
       aboutOpen = true;
     }
   };
+
+  // 一监听到滚动就关闭 about-me 模块
+  document.addEventListener('scroll', function () {
+    if (aboutOpen) {
+      aboutMe.click();
+    }
+  });
 })();
