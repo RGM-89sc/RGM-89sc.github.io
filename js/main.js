@@ -12,6 +12,7 @@
     me_avatar = me.getElementsByClassName('avatar')[0],
     me_p = me.getElementsByTagName('p')[0],
     me_links = me.getElementsByClassName('links')[0],
+    all_tags = me.getElementsByClassName('all-tags')[0];
     aboutOpen = false;
 
   aboutMe.onclick = function () {
@@ -22,6 +23,7 @@
       me_avatar.className = "avatar";
       me_p.className = "me-p";
       me_links.className = "links";
+      all_tags.className = 'all-tags';
       aboutOpen = false;
     } else {
       aboutMe.className = "about-me about-me-open";
@@ -36,6 +38,9 @@
       setTimeout(function () {
         me_links.className = "links links-come";
       }, 900);
+      setTimeout(function () {
+        all_tags.className = 'all-tags all-tags-come';
+      }, 1250);
       aboutOpen = true;
     }
   };

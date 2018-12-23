@@ -98,7 +98,7 @@
       <a class="post-title-link" href="/2018/01/201801232255/">我用Hexo搭建博客时遇到的问题：目录生成</a>
       <div class="post-tags">
       
-        <span class="post-tag">hexo</span>
+        <span class="post-tag">Hexo</span>
       
       </div>
     </div>
@@ -117,7 +117,7 @@
       setTimeout(function () {
         post.className = "post post-come";
 
-        if (index >= posts.length - 1) {
+        if (index >= posts.length - 1 && pageNav) {
           setTimeout(function () {
             pageNav.className = "page-nav page-nav-come";
           }, 500);
@@ -127,14 +127,18 @@
   })();
 </script>
   </div>
-  <div class='me'>
-    <img alt="avatar" class='avatar'>
-    <p class='me-p'>Live by the sword and die by the sword.</p>
-    <div class='links'>
-      <a href='https://github.com/RGM-89sc' target='_blank' class='link github-link' title='github'></a>
-      <a href='mailto:171716669@qq.com' class='link mail-link' title='mail'></a>
-    </div>
+  <div class="me">
+  <img alt="avatar" class="avatar">
+  <p class="me-p">Live by the sword and die by the sword.</p>
+  <div class="links">
+    <a href="https://github.com/RGM-89sc" target="_blank" class="link github-link" title="github"></a>
+    <a href="mailto:171716669@qq.com" class="link mail-link" title="mail"></a>
   </div>
+  <div class="all-tags">
+  <span>Tags: </span>
+  <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ANSI/">ANSI</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a><span class="tag-list-count">19</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/">MySQL</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Node-js/">Node.js</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vue-js/">Vue.js</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/内网穿透/">内网穿透</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据库/">数据库</a><span class="tag-list-count">2</span></li></ul>
+  </div>
+</div>
   <script src="/js/main.min.js"></script>
   
 </body>

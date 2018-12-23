@@ -38,6 +38,14 @@
   <div class="article-meta">
   
     <span class="article-time">Sunday, 04 Feb 2018</span>
+    <div class="tags">
+      Tags: 
+      
+        <span style="background-color: #f5de19; color: #fff" data-path="tags/JavaScript/">
+          JavaScript
+        </span>
+      
+    </div>
   </div>
   <div class="article-content">
     <h1 id="迭代方法"><a href="#迭代方法" class="headerlink" title="迭代方法"></a>迭代方法</h1><h2 id="every"><a href="#every" class="headerlink" title="every()"></a>every()</h2><p>对数组中的每一项运行给定的函数，如果该函数对每一项都返回true，则返回true</p>
@@ -120,6 +128,7 @@ console.log(result);  //15
 
   </div>
 </article>
+<div class="end-line"></div>
 <!-- Highlight.js -->
 <link rel="stylesheet" href="/css/atom-one-dark.min.css">
 <script src="/js/highlight.pack.min.js"></script>
@@ -131,6 +140,17 @@ console.log(result);  //15
     setTimeout(function () {
       articleContent.className = "article-content article-content-come";
     }, 100);
+
+    // 新窗口打开图片
+    function openImg (event) {
+      window.open(event.target.src, '_blank');
+    }
+
+    var imgs = document.getElementsByClassName('article-content')[0].getElementsByTagName('img');
+    
+    Array.prototype.forEach.call(imgs, function (img) {
+      img.addEventListener('click', openImg);
+    });
   })();
 </script>
 
@@ -145,7 +165,7 @@ console.log(result);  //15
       setTimeout(function () {
         post.className = "post post-come";
 
-        if (index >= posts.length - 1) {
+        if (index >= posts.length - 1 && pageNav) {
           setTimeout(function () {
             pageNav.className = "page-nav page-nav-come";
           }, 500);
@@ -155,14 +175,18 @@ console.log(result);  //15
   })();
 </script>
   </div>
-  <div class='me'>
-    <img alt="avatar" class='avatar'>
-    <p class='me-p'>Live by the sword and die by the sword.</p>
-    <div class='links'>
-      <a href='https://github.com/RGM-89sc' target='_blank' class='link github-link' title='github'></a>
-      <a href='mailto:171716669@qq.com' class='link mail-link' title='mail'></a>
-    </div>
+  <div class="me">
+  <img alt="avatar" class="avatar">
+  <p class="me-p">Live by the sword and die by the sword.</p>
+  <div class="links">
+    <a href="https://github.com/RGM-89sc" target="_blank" class="link github-link" title="github"></a>
+    <a href="mailto:171716669@qq.com" class="link mail-link" title="mail"></a>
   </div>
+  <div class="all-tags">
+  <span>Tags: </span>
+  <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ANSI/">ANSI</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a><span class="tag-list-count">19</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/">MySQL</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Node-js/">Node.js</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vue-js/">Vue.js</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/内网穿透/">内网穿透</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据库/">数据库</a><span class="tag-list-count">2</span></li></ul>
+  </div>
+</div>
   <script src="/js/main.min.js"></script>
   
 </body>

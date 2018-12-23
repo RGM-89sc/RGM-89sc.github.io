@@ -38,6 +38,14 @@
   <div class="article-meta">
   
     <span class="article-time">Sunday, 11 Feb 2018</span>
+    <div class="tags">
+      Tags: 
+      
+        <span style="background-color: #f5de19; color: #fff" data-path="tags/JavaScript/">
+          JavaScript
+        </span>
+      
+    </div>
   </div>
   <div class="article-content">
     <p>事件冒泡是指当在一个元素上触发了某一类型事件，那么这一类型事件就会逐级向上传播，其父元素、其父元素的父元素······body元素、html元素、document直至window对象（在IE8中只传播到document为止）</p>
@@ -109,6 +117,7 @@
 
   </div>
 </article>
+<div class="end-line"></div>
 <!-- Highlight.js -->
 <link rel="stylesheet" href="/css/atom-one-dark.min.css">
 <script src="/js/highlight.pack.min.js"></script>
@@ -120,6 +129,17 @@
     setTimeout(function () {
       articleContent.className = "article-content article-content-come";
     }, 100);
+
+    // 新窗口打开图片
+    function openImg (event) {
+      window.open(event.target.src, '_blank');
+    }
+
+    var imgs = document.getElementsByClassName('article-content')[0].getElementsByTagName('img');
+    
+    Array.prototype.forEach.call(imgs, function (img) {
+      img.addEventListener('click', openImg);
+    });
   })();
 </script>
 
@@ -134,7 +154,7 @@
       setTimeout(function () {
         post.className = "post post-come";
 
-        if (index >= posts.length - 1) {
+        if (index >= posts.length - 1 && pageNav) {
           setTimeout(function () {
             pageNav.className = "page-nav page-nav-come";
           }, 500);
@@ -144,14 +164,18 @@
   })();
 </script>
   </div>
-  <div class='me'>
-    <img alt="avatar" class='avatar'>
-    <p class='me-p'>Live by the sword and die by the sword.</p>
-    <div class='links'>
-      <a href='https://github.com/RGM-89sc' target='_blank' class='link github-link' title='github'></a>
-      <a href='mailto:171716669@qq.com' class='link mail-link' title='mail'></a>
-    </div>
+  <div class="me">
+  <img alt="avatar" class="avatar">
+  <p class="me-p">Live by the sword and die by the sword.</p>
+  <div class="links">
+    <a href="https://github.com/RGM-89sc" target="_blank" class="link github-link" title="github"></a>
+    <a href="mailto:171716669@qq.com" class="link mail-link" title="mail"></a>
   </div>
+  <div class="all-tags">
+  <span>Tags: </span>
+  <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ANSI/">ANSI</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a><span class="tag-list-count">19</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/">MySQL</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Node-js/">Node.js</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vue-js/">Vue.js</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/内网穿透/">内网穿透</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据库/">数据库</a><span class="tag-list-count">2</span></li></ul>
+  </div>
+</div>
   <script src="/js/main.min.js"></script>
   
 </body>
