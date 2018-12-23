@@ -144,11 +144,11 @@ html, body {
   text-align: left;
   overflow: hidden;
   opacity: 0;
-  -webkit-transform: translateY(50%);
-  -moz-transform: translateY(50%);
-  -ms-transform: translateY(50%);
-  -o-transform: translateY(50%);
-     transform: translateY(50%); }
+  -webkit-transform: translateY(60%);
+  -moz-transform: translateY(60%);
+  -ms-transform: translateY(60%);
+  -o-transform: translateY(60%);
+     transform: translateY(60%); }
   .all-tags > span {
     display: block;
     margin: 50px 10% 0;
@@ -468,12 +468,14 @@ header {
     color: #787878; }
   .article-meta .tags {
     font-size: 0.7rem; }
-    .article-meta .tags span {
-      margin: 0 5px;
-      padding: 5px 10px;
-      -webkit-border-radius: 5px;
-         -moz-border-radius: 5px;
-              border-radius: 5px; }
+    .article-meta .tags a {
+      text-decoration: none; }
+      .article-meta .tags a span {
+        margin: 0 5px;
+        padding: 5px 10px;
+        -webkit-border-radius: 5px;
+           -moz-border-radius: 5px;
+                border-radius: 5px; }
 
 .article-content {
   margin-top: 60px;

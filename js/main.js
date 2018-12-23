@@ -40,7 +40,7 @@
       }, 900);
       setTimeout(function () {
         all_tags.className = 'all-tags all-tags-come';
-      }, 1250);
+      }, 1400);
       aboutOpen = true;
     }
   };
