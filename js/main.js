@@ -3,23 +3,7 @@
   var avatar = document.getElementsByClassName('avatar')[0],
     isSupportWebp = document.createElement('canvas').toDataURL('image/webp').indexOf('data:image/webp') == 0;
 
-    avatar.src = isSupportWebp ? 'img/avatar.webp' : '/img/avatar.jpg';
-  
-  // 渐入动画
-  var posts = document.getElementsByClassName('post'),
-    pageNav = document.getElementsByClassName('page-nav')[0];
-
-  Array.prototype.forEach.call(posts, function (post, index) {
-    setTimeout(function () {
-      post.className = "post post-come";
-
-      if (index >= posts.length - 1) {
-        setTimeout(function () {
-          pageNav.className = "page-nav page-nav-come";
-        }, 500);
-      }
-    }, index === 0 ? 0 : index * 200);
-  });
+    avatar.src = isSupportWebp ? '/img/avatar.webp' : '/img/avatar.jpg';
 
   // 开闭 about-me 板块
   var aboutMe = document.getElementsByClassName('about-me')[0],

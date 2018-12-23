@@ -140,6 +140,25 @@ var h = box.height || (box.bottom - box.top);
 </script>
 
     
+<script>
+  (function () {
+    // 渐入动画
+    var posts = document.getElementsByClassName('post'),
+      pageNav = document.getElementsByClassName('page-nav')[0];
+
+    Array.prototype.forEach.call(posts, function (post, index) {
+      setTimeout(function () {
+        post.className = "post post-come";
+
+        if (index >= posts.length - 1) {
+          setTimeout(function () {
+            pageNav.className = "page-nav page-nav-come";
+          }, 500);
+        }
+      }, index === 0 ? 0 : index * 200);
+    });
+  })();
+</script>
   </div>
   <div class='me'>
     <img alt="avatar" class='avatar'>

@@ -181,6 +181,25 @@
     <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
 </div>
 
+<script>
+  (function () {
+    // 渐入动画
+    var posts = document.getElementsByClassName('post'),
+      pageNav = document.getElementsByClassName('page-nav')[0];
+
+    Array.prototype.forEach.call(posts, function (post, index) {
+      setTimeout(function () {
+        post.className = "post post-come";
+
+        if (index >= posts.length - 1) {
+          setTimeout(function () {
+            pageNav.className = "page-nav page-nav-come";
+          }, 500);
+        }
+      }, index === 0 ? 0 : index * 200);
+    });
+  })();
+</script>
   </div>
   <div class='me'>
     <img alt="avatar" class='avatar'>
