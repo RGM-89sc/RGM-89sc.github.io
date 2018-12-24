@@ -12,7 +12,7 @@
     me_avatar = me.getElementsByClassName('avatar')[0],
     me_p = me.getElementsByTagName('p')[0],
     me_links = me.getElementsByClassName('links')[0],
-    all_tags = me.getElementsByClassName('all-tags')[0];
+    all_tags = me.getElementsByClassName('all-tags')[0],
     aboutOpen = false;
 
   aboutMe.onclick = function () {
@@ -44,11 +44,4 @@
       aboutOpen = true;
     }
   };
-
-  // 一监听到滚动就关闭 about-me 模块
-  document.addEventListener('scroll', function () {
-    if (aboutOpen) {
-      aboutMe.click();
-    }
-  });
 })();

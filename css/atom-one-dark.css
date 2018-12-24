@@ -94,5 +94,5 @@ hue-6-2: #e6c07b
   @media only screen and (max-width: 760px) {
     .hljs {
       padding: 10px 15px !important;
-      font-size: 0.7rem !important;
+      font-size: 0.75rem !important;
       line-height: 1.3rem; } }

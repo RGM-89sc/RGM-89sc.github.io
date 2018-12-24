@@ -151,7 +151,8 @@ html, body {
      transform: translateY(60%); }
   .all-tags > span {
     display: block;
-    margin: 50px 10% 0;
+    margin: 60px 10% 0;
+    text-align: center;
     font-size: 1.1rem;
     font-weight: bold;
     color: #747474; }
@@ -160,7 +161,7 @@ html, body {
     list-style: none; }
     .all-tags .tag-list .tag-list-item {
       display: inline-block;
-      padding: 5px 10px; }
+      padding: 5px 20px 5px 0; }
       .all-tags .tag-list .tag-list-item .tag-list-link {
         text-decoration: none;
         color: #646464;
