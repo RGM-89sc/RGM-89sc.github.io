@@ -27,10 +27,15 @@
       <a href="/" class="current">我的随笔</a>
     </li>
   
+    <li>
+      <a href="/tags/" class="">我的标签</a>
+    </li>
+  
   </ul>
 </nav>
 
 
+    
     <article class="article-main">
   <div class="article-title">
     <h1 class="title">我在学Python（二）</h1>
@@ -38,6 +43,7 @@
   <div class="article-meta">
   
     <span class="article-time">Saturday, 27 Jan 2018</span>
+    
     <div class="tags">
       Tags: 
       
@@ -48,6 +54,7 @@
         </a>
       
     </div>
+    
   </div>
   <div class="article-content">
     <h1 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h1><h2 id="函数的定义"><a href="#函数的定义" class="headerlink" title="函数的定义"></a>函数的定义</h2><p>使用def关键词+函数名+(参数):</p>
@@ -393,25 +400,60 @@ print(fun.__name__)  #fun
 <script src="/js/highlight.pack.min.js"></script>
 <script>
   (function(){
+    // 代码高亮初始化
     hljs.initHighlightingOnLoad();
 
+    // 文章内容渐入
     var articleContent = document.getElementsByClassName('article-content')[0];
     setTimeout(function () {
       articleContent.className = "article-content article-content-come";
     }, 100);
 
-    // 新窗口打开图片
-    function openImg (event) {
-      window.open(event.target.src, '_blank');
+    // 以下是文章内容中图片的查看
+    var imgs = document.getElementsByClassName('article-content')[0].getElementsByTagName('img'),
+      imgView = document.createElement('div'),
+      imgViewImg = document.createElement('img');
+
+      imgView.appendChild(imgViewImg);
+      imgView.className = 'img-view';
+
+    // 打开图片后禁止触摸下拉上拉动作
+    function preventTouchStart (event) {
+      event.preventDefault();
     }
 
-    var imgs = document.getElementsByClassName('article-content')[0].getElementsByTagName('img');
-    
+    // 新窗口打开图片
+    function openImg (event) {
+      document.body.addEventListener('touchstart', preventTouchStart);
+      document.body.style.paddingRight = window.innerWidth - document.body.offsetWidth + 'px';  // 滚动条宽度
+      document.body.style.overflow = 'hidden';
+      imgViewImg.src = event.target.src;
+      document.body.appendChild(imgView);
+      setTimeout(function () {
+        imgView.className = 'img-view img-view-open';
+      }, 0);
+    }
+
+    // 关闭图片
+    function closeImg (event) {
+      event.stopPropagation();  // 阻止冒泡，防止点到遮罩层下的东西
+      imgView.className = 'img-view';
+      document.body.removeEventListener('touchstart', preventTouchStart);
+      document.body.style.overflow = '';
+      document.body.style.paddingRight = '';
+      setTimeout(function () {
+        document.body.removeChild(imgView);
+      }, 300);
+    }
+
     Array.prototype.forEach.call(imgs, function (img) {
       img.addEventListener('click', openImg);
     });
+    
+    imgView.addEventListener('click', closeImg);
   })();
 </script>
+    
 
     
 <script>
@@ -429,7 +471,7 @@ print(fun.__name__)  #fun
             pageNav.className = "page-nav page-nav-come";
           }, 500);
         }
-      }, index === 0 ? 0 : index * 200);
+      }, index === 0 ? 0 : index * 100);
     });
   })();
 </script>

@@ -24,13 +24,18 @@
 
   
     <li>
-      <a href="/" class="current">我的随笔</a>
+      <a href="/" class="">我的随笔</a>
+    </li>
+  
+    <li>
+      <a href="/tags/" class="current">我的标签</a>
     </li>
   
   </ul>
 </nav>
 
 
+    
     <section class="posts">
 
 
@@ -51,6 +56,7 @@
   </article>
 
 </section>
+    
 
     
 <script>
@@ -68,7 +74,7 @@
             pageNav.className = "page-nav page-nav-come";
           }, 500);
         }
-      }, index === 0 ? 0 : index * 200);
+      }, index === 0 ? 0 : index * 100);
     });
   })();
 </script>
