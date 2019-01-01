@@ -38,103 +38,24 @@
     
     <article class="article-main">
   <div class="article-title">
-    <h1 class="title">编写一个简单的Node.js C++插件</h1>
+    <h1 class="title">VS Code解决格式化Vue代码时单引号变双引号</h1>
   </div>
   <div class="article-meta">
   
-    <span class="article-time">Friday, 15 Jun 2018</span>
+    <span class="article-time">Tuesday, 01 Jan 2019</span>
     
     <div class="tags">
       <span>Tags: </span>
       
-        <a href="/tags/JavaScript/" style="background-color: #f5de19; color: #fff">
-          JavaScript
-        </a>
-      
-        <a href="/tags/Node-js/" style="background-color: #76ae65; color: #fff">
-          Node.js
+        <a href="/tags/VS-Code/" style="background-color: #e9e9e9; color: #000">
+          VS Code
         </a>
       
     </div>
     
   </div>
   <div class="article-content">
-    <h1 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h1><p>安装Python2: <a href="https://www.python.org/downloads/" target="_blank" rel="noopener">https://www.python.org/downloads/</a></p>
-<p>安装node-gyp:</p>
-<pre><code class="bash">npm install node-gyp -g
-</code></pre>
-<p>在工程目录下创建package.json文件：</p>
-<pre><code class="bash">npm init
-</code></pre>
-<p>一路选择默认即可，也可根据提示填写相关内容，确认生成package.json文件后对其进行修改，增加以下内容：</p>
-<pre><code class="json">&quot;dependencies&quot;: {
-    &quot;bindings&quot;: &quot;&quot;,
-    &quot;nan&quot;: &quot;&quot;
- }
-</code></pre>
-<p>使用npm install命令来安装依赖包bindings和nan</p>
-<pre><code class="bash">npm install
-</code></pre>
-<h1 id="开始编写"><a href="#开始编写" class="headerlink" title="开始编写"></a>开始编写</h1><p>创建hello.cc文件，示例内容：</p>
-<pre><code class="lang-cpp">#include &lt;node.h&gt;
-
-namespace demo {
-
-    using v8::FunctionCallbackInfo;
-    using v8::Isolate;
-    using v8::Local;
-    using v8::Object;
-    using v8::String;
-    using v8::Value;
-
-    void Method(const FunctionCallbackInfo&lt;Value&gt;&amp; args) {
-        Isolate* isolate = args.GetIsolate();
-        args.GetReturnValue().Set(String::NewFromUtf8(isolate, &quot;world&quot;));
-    }
-
-    void init(Local&lt;Object&gt; exports) {
-        NODE_SET_METHOD(exports, &quot;hello&quot;, Method);
-    }
-
-    NODE_MODULE(addon, init)  // 导出初始化函数init，插件名为addon
-
-}
-</code></pre>
-<h1 id="构建"><a href="#构建" class="headerlink" title="构建"></a>构建</h1><p>在项目根目录下创建binding.gyp文件，内容为：</p>
-<pre><code class="json">{
-  &quot;targets&quot;: [
-    {
-      &quot;target_name&quot;: &quot;addon&quot;,
-      &quot;sources&quot;: [ &quot;hello.cc&quot; ]
-    }
-  ]
-}
-</code></pre>
-<p>使用命令</p>
-<pre><code class="bash">node-gyp configure
-</code></pre>
-<p>为当前平台生成相应的项目构建文件，在 build/ 目录下会生成一个 Makefile 文件（在 Unix 平台上）或 vcxproj 文件（在 Windows 上）</p>
-<p>由于node-gyp不支持Python3，只支持Python2，所以在使用这个命令前要先安装好Python2，否则就会出现gyp ERR! stack Error: Can’t find Python executable ‘python’报错，如果Python2已经安装好了，但node-gyp找不到Python2的路径，则需要设置：</p>
-<pre><code class="bash">node-gyp --python /path/to/python2.7
-</code></pre>
-<p>接下来是对插件源代码进行编译：<br>使用命令：</p>
-<pre><code class="bash">node-gyp build
-</code></pre>
-<p>生成编译后的 addon.node 的文件，它会被放进 build/Release/ 目录</p>
-<p>当需要再次生成编译后的文件时可以使用命令：</p>
-<pre><code class="bash">node-gyp rebuild
-</code></pre>
-<p>这个命令可以一次性执行clean、configure和build命令</p>
-<p>更多有关node-gyp的内容可参见：<a href="https://github.com/nodejs/node-gyp" target="_blank" rel="noopener">https://github.com/nodejs/node-gyp</a></p>
-<h1 id="加载模块"><a href="#加载模块" class="headerlink" title="加载模块"></a>加载模块</h1><p>构建完成后就可以使用require()来加载我们写好的插件模块了</p>
-<pre><code class="lang-javascript">const addon = require(&#39;./build/Release/addon&#39;);
-
-console.log(addon.hello());
-</code></pre>
-<p>运行后就会在控制台中输出”world”</p>
-<hr>
-<p>以上内容参考自Node.js v10.3.0 文档：<a href="http://nodejs.cn/api/addons.html" target="_blank" rel="noopener">http://nodejs.cn/api/addons.html</a></p>
-
+    
   </div>
 </article>
 <div class="end-line"></div>
