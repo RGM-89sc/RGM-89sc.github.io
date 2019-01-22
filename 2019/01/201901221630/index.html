@@ -38,11 +38,11 @@
     
     <article class="article-main">
   <div class="article-title">
-    <h1 class="title">Number()与parseInt()</h1>
+    <h1 class="title">JS中函数传参到底是按值传递还是引用传递</h1>
   </div>
   <div class="article-meta">
   
-    <span class="article-time">Saturday, 03 Feb 2018</span>
+    <span class="article-time">Tuesday, 22 Jan 2019</span>
     
     <div class="tags">
       <span>Tags: </span>
@@ -55,44 +55,29 @@
     
   </div>
   <div class="article-content">
-    <p>Number()与parseInt()都是把非数值转换为数值的函数，其中，Number()的参数可以是任何类型，而parseInt()则只接受字符串类型</p>
-<h1 id="number"><a href="#Number" class="headerlink" title="Number()"></a>Number()</h1><p>由于Number()所接受的参数类型没有限制，所以Number()对参数有多种处理方式：<br>1、如果是布尔值，则true转换为1，false转换为0<br>2、如果是数字值，则原样返回<br>3、如果是null，则转换为0<br>4、如果是undefined，则转换为NaN<br>5、如果是字符串：<br>  （1）如果字符串中只包含数字（包括前面带正负号的），则将其转换为十进制数值，即”1”转换成1，”011”转换成11<br>  （2）如果字符串中包含有效的浮点格式，如”1.1”，则将其转换为对应的浮点数字（会忽略前导0）<br>  （3）如果字符串中包含有效的十六进制格式，例如”0xf”，则将其转换成相同大小的十进制整数值<br>  （4）如果字符串为空（””），则将其转换为0<br>  （5）如果字符串中上述格式以外的字符，则将其转换为NaN<br>6、如果是对象，则调用对象中的valueof()方法，然后依照前面带规则转换返回的值，如果转换出来的值是NaN，则调用对象的toString()方法，然后再依照前面的规则转换返回的值</p>
-<p>示例：</p>
-<pre><code class="javascript">console.log(Number(&quot;str&quot;));  //NaN
-console.log(Number(&quot;012&quot;));  //12
-console.log(Number(true));  //1
-console.log(Number(&quot;&quot;));  //0
-console.log(Number(null));  //0
-console.log(Number(undefined));  //NaN
-console.log(Number(NaN));  // NaN
+    <p>当传入的参数是引用类型（比如一个对象）的值时我们可以发现在函数中修改对象属性是生效的，而且在函数外也可以看到相应的变化（非引用类型（基本类型）：Number、String、Boolean、Null、Undefined、Symbol，引用类型：Object、Array、Map、Set、WeakMap、WeakSet、Date、JSON等）：</p>
+<pre><code class="javascript">function func(obj) {
+  obj.a = 1;
+}
+
+let myObj = {};
+func(myObj);
+console.log(myObj.a);  // 1
 </code></pre>
-<h1 id="parseint"><a href="#parseInt" class="headerlink" title="parseInt()"></a>parseInt()</h1><p>parseInt()会忽略字符串前面的空格，当遇到不是空格的第一个字符不是数字字符或者负号，就会返回NaN，如果遇到的第一个非空格字符是数字字符，那么剩下的字符串中只要遇到非数字字符，剩下的字符都会被忽略</p>
-<pre><code class="javascript">console.log(parseInt(&quot;str&quot;));  //NaN
-console.log(parseInt(&quot;012&quot;));  //12
-console.log(parseInt(&quot;&quot;));  //NaN
-console.log(parseInt(&quot;  2&quot;));  //2
-console.log(parseInt(&quot;12str3&quot;));  //12
+<p>那么，是不是就可以证明在JS中是引用传递呢？不能，因为其实在JS中非引用类型的参数也是按值传递的，这里的值是指数据的地址，在函数中对这个传进来的地址进行操作也就等于对源数据进行操作，所以才有这个引用传递的假象。实际上，我们可以对上面的代码进行改造：</p>
+<pre><code class="javascript">function func(obj) {
+  obj.a = 1;
+  obj = new Object();  // 或者直接把字面量{}赋值给obj
+  obj.b = 1;
+}
+
+let myObj = {};
+func(myObj);
+console.log(myObj.a);  // 1
+console.log(myObj.b);  // undefined
 </code></pre>
-<p>另外，parseInt()还可以传入第二个参数，为数字类型，表示按多少进制去解析字符串（第一个参数）：</p>
-<pre><code class="javascript">console.log(parseInt(&quot;010101&quot;, 2));  //21
-console.log(parseInt(&quot;AF&quot;, 16));  //175
-console.log(parseInt(&quot;70&quot;, 8));  //56
-</code></pre>
-<h1 id="parsefloat"><a href="#parseFloat" class="headerlink" title="parseFloat()"></a>parseFloat()</h1><p>parseFloat()与parseInt()十分相似，只不过parseFloat()可以解析出浮点数，而parseInt()则不可以，但parseFloat()只能解析十进制值，对于十六进制的始终返回0，因此也没有第二个参数</p>
-<p>示例：</p>
-<pre><code class="javascript">console.log(parseFloat(&quot;11.2&quot;));  //11.2
-console.log(parseFloat(&quot;11.2.2&quot;));  //11.2
-console.log(parseFloat(&quot;.2&quot;));  //0.2
-console.log(parseFloat(&quot;..2&quot;));  //NaN
-console.log(parseFloat(&quot;012.1&quot;));  //12.1
-console.log(parseFloat(&quot;0xAF&quot;));  //0
-console.log(parseFloat(&quot;4.0&quot;));  //4
-console.log(parseFloat(&quot;12str3&quot;));  //12
-</code></pre>
-<p>parseFloat()还实现了部分parseInt()的功能，当需要解析的字符串是一个整数的字符串时，返回的也是整数</p>
-<pre><code class="javascript">console.log(parseFloat(&quot;123&quot;));  //123
-console.log(parseFloat(&quot;00123&quot;));  //123
-</code></pre>
+<p>可以看到，在函数中对obj进行重新赋值一个新对象，属性a依然存在，此时obj的值指向了一个新对象，所以给obj新增的属性b并没有在函数外体现出来，因为新增属性a和b是分别在不同的对象上操作的。</p>
+<p>总之，在JS中，函数传参无论是基本类型的值还是引用类型的值，都是按值传递的，不存在引用传递，只不过引用类型的“值”是地址的值而已。</p>
 
   </div>
 </article>
