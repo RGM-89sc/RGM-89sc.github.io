@@ -237,9 +237,7 @@ header {
     .top-nav {
       position: absolute;
       left: 50%;
-      top: -webkit-calc(20px + 0.55rem);
-      top: -moz-calc(20px + 0.55rem);
-      top: calc(20px + 0.55rem);
+      top: 23px;
       width: 55%;
       margin-left: -27.5%; } }
   .top-nav ul {
@@ -272,6 +270,7 @@ header {
         border-bottom: 3px solid #41daa7; }
     .top-nav ul .current {
       color: #41daa7;
+      background-color: #fcfcfc;
       border-bottom: 3px solid #41daa7; }
 
 .posts {
@@ -329,17 +328,17 @@ header {
   -webkit-border-radius: 5px;
      -moz-border-radius: 5px;
           border-radius: 5px;
-  -webkit-box-shadow: 0 0 6px #d2d2d2;
-     -moz-box-shadow: 0 0 6px #d2d2d2;
-          box-shadow: 0 0 6px #d2d2d2;
+  -webkit-box-shadow: 0 0 6px gainsboro;
+     -moz-box-shadow: 0 0 6px gainsboro;
+          box-shadow: 0 0 6px gainsboro;
   -webkit-transition: all 0.5s;
   -moz-transition: all 0.5s;
   -o-transition: all 0.5s;
   transition: all 0.5s; }
   .post-info:hover {
-    -webkit-box-shadow: 0 0 10px #b4b4b4;
-       -moz-box-shadow: 0 0 10px #b4b4b4;
-            box-shadow: 0 0 10px #b4b4b4; }
+    -webkit-box-shadow: 0 0 10px #c8c8c8;
+       -moz-box-shadow: 0 0 10px #c8c8c8;
+            box-shadow: 0 0 10px #c8c8c8; }
     .post-info:hover .post-tags > .post-tag {
       color: #ffcc66; }
   .post-info .post-title-link {
