@@ -492,10 +492,10 @@ header {
   -o-transform: translateY(80px);
      transform: translateY(80px);
   opacity: 0;
-  -webkit-transition: all ease 2s;
-  -moz-transition: all ease 2s;
-  -o-transition: all ease 2s;
-  transition: all ease 2s; }
+  -webkit-transition: all ease 1.5s;
+  -moz-transition: all ease 1.5s;
+  -o-transition: all ease 1.5s;
+  transition: all ease 1.5s; }
   .article-content a {
     color: #41daa7; }
     .article-content a:hover {
@@ -532,10 +532,10 @@ header {
   -o-transform: translateY(0);
      transform: translateY(0);
   opacity: 1;
-  -webkit-transition: all ease 2s;
-  -moz-transition: all ease 2s;
-  -o-transition: all ease 2s;
-  transition: all ease 2s; }
+  -webkit-transition: all ease 1.5s;
+  -moz-transition: all ease 1.5s;
+  -o-transition: all ease 1.5s;
+  transition: all ease 1.5s; }
 
 blockquote {
   margin-left: 0;
