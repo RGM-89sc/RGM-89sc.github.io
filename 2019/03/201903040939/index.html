@@ -1,63 +1,4 @@
-<!DOCTYPE html>
-<html lang="zh-cn">
-<head><meta name="generator" content="Hexo 3.8.0">
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <meta name="author" content="RGM">
-  <meta name="keywords" content="前端,front end,javascript,js,css,html,node">
-  <meta name="description" content="RGM的个人博客，分享自己的学习与理解">
-  <meta name="google-site-verification" content="LKCCs3-UtSC016crWb5f1xvBeQoqat3B9Wg_J9AA7i0">
-  <title>RGM's BLOG</title>
-  <link rel="stylesheet" href="/css/main.min.css">
-</head>
-<body>
-  <div class='main full-width'>
-    <header class="full-width">
-  <a href="/" class="brand">RGM's BLOG</a>
-
-  <span class="about-me">About me
-</span></header>
-
-
-    
-    <article class="article-main">
-<nav class="top-nav">
-  <ul class="nav">
-  
-
-  
-    <li>
-      <a href="/" class="current">我的随笔</a>
-    </li>
-  
-    <li>
-      <a href="/tags/" class="">我的标签</a>
-    </li>
-  
-  </ul>
-</nav>
-
-  <div class="article-title">
-    <h1 class="title">函数防抖与函数节流</h1>
-  </div>
-  <div class="article-meta">
-  
-    <span class="article-time">Monday, 04 Mar 2019</span>
-    
-    <div class="tags">
-      <span>Tags: </span>
-      
-        <a href="/tags/JavaScript/" style="background-color: #f5de19; color: #fff">
-          JavaScript
-        </a>
-      
-    </div>
-    
-  </div>
-  <div class="article-content">
-    <h1 id="函数防抖"><a href="#函数防抖" class="headerlink" title="函数防抖"></a>函数防抖</h1><p>函数防抖是指持续地触发某个功能函数都不会立即执行该功能函数，而是等到某一段时间内再也没有触发时再执行，可以应用在有大量操作或者需要发送Ajax请求的事件处理函数上，如果事件触发非常频繁，那么频繁触发事件处理函数就会造成用户体验非常不好，也浪费资源，函数防抖就可以很好解决这个问题：</p>
-<pre><code class="javascript">function debounce(handle, delay) {
+<!DOCTYPE html><html lang="zh-cn"><head><meta name="generator" content="Hexo 3.8.0"><meta charset="UTF-8"><meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1,minimum-scale=1"><meta http-equiv="X-UA-Compatible" content="ie=edge"><meta name="author" content="RGM"><meta name="keywords" content="前端,front end,javascript,js,css,html,node"><meta name="description" content="RGM的个人博客，分享自己的学习与理解"><meta name="google-site-verification" content="LKCCs3-UtSC016crWb5f1xvBeQoqat3B9Wg_J9AA7i0"><title>RGM's BLOG</title><link rel="stylesheet" href="/css/main.min.css"></head><body><div class="main full-width"><header class="full-width"><a href="/" class="brand">RGM's BLOG</a> <span class="about-me">About me</span></header><article class="article-main"><nav class="top-nav"><ul class="nav"><li><a href="/" class="current">我的随笔</a></li><li><a href="/tags/">我的标签</a></li></ul></nav><div class="article-title"><h1 class="title">函数防抖与函数节流</h1></div><div class="article-meta"><span class="article-time">Monday, 04 Mar 2019</span><div class="tags"><span>Tags: </span><a href="/tags/JavaScript/" style="background-color:#f5de19;color:#fff">JavaScript</a></div></div><div class="article-content"><h1 id="函数防抖"><a href="#函数防抖" class="headerlink" title="函数防抖"></a>函数防抖</h1><p>函数防抖是指持续地触发某个功能函数都不会立即执行该功能函数，而是等到某一段时间内再也没有触发时再执行，可以应用在有大量操作或者需要发送Ajax请求的事件处理函数上，如果事件触发非常频繁，那么频繁触发事件处理函数就会造成用户体验非常不好，也浪费资源，函数防抖就可以很好解决这个问题：</p><pre><code class="javascript">function debounce(handle, delay) {
   let timer;
   return () =&gt; {
     clearTimeout(timer);
@@ -70,10 +11,7 @@ function mousemoveHandle() {
 }
 
 document.getElementById(&#39;my-div&#39;).addEventListener(&#39;mousemove&#39;, debounce(mousemoveHandle, 1000));
-</code></pre>
-<p>假设我们现在有一个id为”my-div”的div元素，监听用户的鼠标是否在这个div上停留够1秒钟。debounce函数就是实现防抖功能的函数，它接收两个参数：handle和delay，handle是真正的事件处理函数，delay是延迟调用handle的毫秒数；当事件不断触发时，debounce函数中的timer变量也不断被clearTimeout函数清空，并重新设定定时器，当不再触发事件1秒后定时器会正常工作。</p>
-<h2 id="修正this指向与接收事件对象"><a href="#修正this指向与接收事件对象" class="headerlink" title="修正this指向与接收事件对象"></a>修正this指向与接收事件对象</h2><p>但上面的代码还有两个问题：this的指向由触发事件的DOM对象变成了全局window，事件处理函数的默认传参event对象也无法在真正的事件处理函数中获取，为解决这个问题就需要在debounce函数所返回的函数中修正this，并接收event对象，所以应当把箭头函数改用成普通的函数声明：</p>
-<pre><code class="javascript">function debounce(handle, delay) {
+</code></pre><p>假设我们现在有一个id为”my-div”的div元素，监听用户的鼠标是否在这个div上停留够1秒钟。debounce函数就是实现防抖功能的函数，它接收两个参数：handle和delay，handle是真正的事件处理函数，delay是延迟调用handle的毫秒数；当事件不断触发时，debounce函数中的timer变量也不断被clearTimeout函数清空，并重新设定定时器，当不再触发事件1秒后定时器会正常工作。</p><h2 id="修正this指向与接收事件对象"><a href="#修正this指向与接收事件对象" class="headerlink" title="修正this指向与接收事件对象"></a>修正this指向与接收事件对象</h2><p>但上面的代码还有两个问题：this的指向由触发事件的DOM对象变成了全局window，事件处理函数的默认传参event对象也无法在真正的事件处理函数中获取，为解决这个问题就需要在debounce函数所返回的函数中修正this，并接收event对象，所以应当把箭头函数改用成普通的函数声明：</p><pre><code class="javascript">function debounce(handle, delay) {
   let timer;
   return function(event) {
     clearTimeout(timer);
@@ -87,10 +25,7 @@ function mousemoveHandle(event) {
 }
 
 document.getElementById(&#39;my-div&#39;).addEventListener(&#39;mousemove&#39;, debounce(mousemoveHandle, 1000));
-</code></pre>
-<p>这样this的指向就正常了，event对象也能成功接收。</p>
-<h1 id="函数节流"><a href="#函数节流" class="headerlink" title="函数节流"></a>函数节流</h1><p>函数节流的概念与函数防抖有点相似，但函数防抖是当一段时间内不再触发功能函数时才执行功能函数，而函数节流是无论怎么频繁触发功能函数，功能函数都只会在某一段时间内执行一次：</p>
-<pre><code class="javascript">function throttle(handle, delay) {
+</code></pre><p>这样this的指向就正常了，event对象也能成功接收。</p><h1 id="函数节流"><a href="#函数节流" class="headerlink" title="函数节流"></a>函数节流</h1><p>函数节流的概念与函数防抖有点相似，但函数防抖是当一段时间内不再触发功能函数时才执行功能函数，而函数节流是无论怎么频繁触发功能函数，功能函数都只会在某一段时间内执行一次：</p><pre><code class="javascript">function throttle(handle, delay) {
   let start = Date.now();
   return function(event) {
     const now = Date.now();
@@ -107,106 +42,4 @@ function mousemoveHandle(event) {
 }
 
 document.getElementById(&#39;my-div&#39;).addEventListener(&#39;mousemove&#39;, throttle(mousemoveHandle, 1000));
-</code></pre>
-<p>在事件注册时，throttle函数就会记录下当前时间戳，当事件触发时就会把触发时的当前时间戳减去之前记录下的时间戳，如果比delay大或者相等则可以“放行”，执行真正的事件处理函数并重新记录下当前时间戳作为当前该事件触发完成的时间，当下一次事件触发时就可以将其作为上一次事件触发的时间了。</p>
-
-  </div>
-</article>
-<div class="end-line"></div>
-<!-- Highlight.js -->
-<script src="/js/highlight.pack.min.js"></script>
-<link rel="stylesheet" href="/css/atom-one-dark.min.css">
-<script>
-  (function () {
-    // 代码高亮初始化
-    hljs.initHighlightingOnLoad();
-
-    // 文章内容渐入
-    var articleContent = document.getElementsByClassName('article-content')[0];
-    setTimeout(function () {
-      articleContent.className = "article-content article-content-come";
-    }, 100);
-
-    // 以下是文章内容中图片的查看
-    var imgs = document.getElementsByClassName('article-content')[0].getElementsByTagName('img'),
-      imgView = document.createElement('div'),
-      imgViewImg = document.createElement('img');
-
-      imgView.appendChild(imgViewImg);
-      imgView.className = 'img-view';
-
-    // 打开图片后禁止触摸下拉上拉动作
-    function preventTouchStart (event) {
-      event.preventDefault();
-    }
-
-    // 新窗口打开图片
-    function openImg (event) {
-      document.body.addEventListener('touchstart', preventTouchStart);
-      document.body.style.paddingRight = window.innerWidth - document.body.offsetWidth + 'px';  // 滚动条宽度
-      document.body.style.overflow = 'hidden';
-      imgViewImg.src = event.target.src;
-      document.body.appendChild(imgView);
-      setTimeout(function () {
-        imgView.className = 'img-view img-view-open';
-      }, 0);
-    }
-
-    // 关闭图片
-    function closeImg (event) {
-      event.stopPropagation();  // 阻止冒泡，防止点到遮罩层下的东西
-      imgView.className = 'img-view';
-      document.body.removeEventListener('touchstart', preventTouchStart);
-      document.body.style.overflow = '';
-      document.body.style.paddingRight = '';
-      setTimeout(function () {
-        document.body.removeChild(imgView);
-      }, 300);
-    }
-
-    Array.prototype.forEach.call(imgs, function (img) {
-      img.addEventListener('click', openImg);
-    });
-    
-    imgView.addEventListener('click', closeImg);
-  })();
-</script>
-    
-
-    
-<script>
-  (function () {
-    // 渐入动画
-    var posts = document.getElementsByClassName('post'),
-      pageNav = document.getElementsByClassName('page-nav')[0];
-
-    Array.prototype.forEach.call(posts, function (post, index) {
-      setTimeout(function () {
-        post.className = "post post-come";
-
-        if (index >= posts.length - 1 && pageNav) {
-          setTimeout(function () {
-            pageNav.className = "page-nav page-nav-come";
-          }, 500);
-        }
-      }, index === 0 ? 0 : index * 100);
-    });
-  })();
-</script>
-  </div>
-  <div class="me">
-  <img alt="avatar" class="avatar">
-  <p class="me-p">Live by the sword and die by the sword.</p>
-  <div class="links">
-    <a href="https://github.com/RGM-89sc" target="_blank" class="link github-link" title="github"></a>
-    <a href="mailto:171716669@qq.com" class="link mail-link" title="mail"></a>
-  </div>
-  <div class="all-tags">
-  <span>TAGS LIST</span>
-  <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ANSI/">ANSI</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a><span class="tag-list-count">23</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/">MySQL</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Node-js/">Node.js</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VS-Code/">VS Code</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vue-js/">Vue.js</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/内网穿透/">内网穿透</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据库/">数据库</a><span class="tag-list-count">2</span></li></ul>
-  </div>
-</div>
-  <script src="/js/main.min.js"></script>
-  
-</body>
-</html>
+</code></pre><p>在事件注册时，throttle函数就会记录下当前时间戳，当事件触发时就会把触发时的当前时间戳减去之前记录下的时间戳，如果比delay大或者相等则可以“放行”，执行真正的事件处理函数并重新记录下当前时间戳作为当前该事件触发完成的时间，当下一次事件触发时就可以将其作为上一次事件触发的时间了。</p></div></article><div class="end-line"></div><script src="/js/highlight.pack.min.js"></script><link rel="stylesheet" href="/css/atom-one-dark.min.css"><script>!function(){hljs.initHighlightingOnLoad();var e=document.getElementsByClassName("article-content")[0];setTimeout(function(){e.className="article-content article-content-come"},100);var t=document.getElementsByClassName("article-content")[0].getElementsByTagName("img"),n=document.createElement("div"),o=document.createElement("img");function i(e){e.preventDefault()}function c(e){document.body.addEventListener("touchstart",i),document.body.style.paddingRight=window.innerWidth-document.body.offsetWidth+"px",document.body.style.overflow="hidden",o.src=e.target.src,document.body.appendChild(n),setTimeout(function(){n.className="img-view img-view-open"},0)}n.appendChild(o),n.className="img-view",Array.prototype.forEach.call(t,function(e){e.addEventListener("click",c)}),n.addEventListener("click",function(e){e.stopPropagation(),n.className="img-view",document.body.removeEventListener("touchstart",i),document.body.style.overflow="",document.body.style.paddingRight="",setTimeout(function(){document.body.removeChild(n)},300)})}()</script><script>!function(){var a=document.getElementsByClassName("post"),n=document.getElementsByClassName("page-nav")[0];Array.prototype.forEach.call(a,function(e,t){setTimeout(function(){e.className="post post-come",t>=a.length-1&&n&&setTimeout(function(){n.className="page-nav page-nav-come"},500)},0===t?0:100*t)})}()</script></div><div class="me"><img alt="avatar" class="avatar"><p class="me-p">Live by the sword and die by the sword.</p><div class="links"><a href="https://github.com/RGM-89sc" target="_blank" class="link github-link" title="github"></a> <a href="mailto:171716669@qq.com" class="link mail-link" title="mail"></a></div><div class="all-tags"><span>TAGS LIST</span><ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ANSI/">ANSI</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a><span class="tag-list-count">23</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/">MySQL</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Node-js/">Node.js</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VS-Code/">VS Code</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vue-js/">Vue.js</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/内网穿透/">内网穿透</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据库/">数据库</a><span class="tag-list-count">2</span></li></ul></div></div><script src="/js/main.min.js"></script></body></html>

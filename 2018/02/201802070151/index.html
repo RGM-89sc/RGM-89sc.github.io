@@ -1,70 +1,8 @@
-<!DOCTYPE html>
-<html lang="zh-cn">
-<head><meta name="generator" content="Hexo 3.8.0">
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <meta name="author" content="RGM">
-  <meta name="keywords" content="前端,front end,javascript,js,css,html,node">
-  <meta name="description" content="RGM的个人博客，分享自己的学习与理解">
-  <meta name="google-site-verification" content="LKCCs3-UtSC016crWb5f1xvBeQoqat3B9Wg_J9AA7i0">
-  <title>RGM's BLOG</title>
-  <link rel="stylesheet" href="/css/main.min.css">
-</head>
-<body>
-  <div class='main full-width'>
-    <header class="full-width">
-  <a href="/" class="brand">RGM's BLOG</a>
-
-  <span class="about-me">About me
-</span></header>
-
-
-    
-    <article class="article-main">
-<nav class="top-nav">
-  <ul class="nav">
-  
-
-  
-    <li>
-      <a href="/" class="current">我的随笔</a>
-    </li>
-  
-    <li>
-      <a href="/tags/" class="">我的标签</a>
-    </li>
-  
-  </ul>
-</nav>
-
-  <div class="article-title">
-    <h1 class="title">7种创建对象的模式</h1>
-  </div>
-  <div class="article-meta">
-  
-    <span class="article-time">Wednesday, 07 Feb 2018</span>
-    
-    <div class="tags">
-      <span>Tags: </span>
-      
-        <a href="/tags/JavaScript/" style="background-color: #f5de19; color: #fff">
-          JavaScript
-        </a>
-      
-    </div>
-    
-  </div>
-  <div class="article-content">
-    <p>一般情况下，我们可以通过字面量的方式来创建一个对象：</p>
-<pre><code class="javascript">var obj = {
+<!DOCTYPE html><html lang="zh-cn"><head><meta name="generator" content="Hexo 3.8.0"><meta charset="UTF-8"><meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1,minimum-scale=1"><meta http-equiv="X-UA-Compatible" content="ie=edge"><meta name="author" content="RGM"><meta name="keywords" content="前端,front end,javascript,js,css,html,node"><meta name="description" content="RGM的个人博客，分享自己的学习与理解"><meta name="google-site-verification" content="LKCCs3-UtSC016crWb5f1xvBeQoqat3B9Wg_J9AA7i0"><title>RGM's BLOG</title><link rel="stylesheet" href="/css/main.min.css"></head><body><div class="main full-width"><header class="full-width"><a href="/" class="brand">RGM's BLOG</a> <span class="about-me">About me</span></header><article class="article-main"><nav class="top-nav"><ul class="nav"><li><a href="/" class="current">我的随笔</a></li><li><a href="/tags/">我的标签</a></li></ul></nav><div class="article-title"><h1 class="title">7种创建对象的模式</h1></div><div class="article-meta"><span class="article-time">Wednesday, 07 Feb 2018</span><div class="tags"><span>Tags: </span><a href="/tags/JavaScript/" style="background-color:#f5de19;color:#fff">JavaScript</a></div></div><div class="article-content"><p>一般情况下，我们可以通过字面量的方式来创建一个对象：</p><pre><code class="javascript">var obj = {
     var1: &quot;var1&quot;,
     var2: &quot;var2&quot;
 }
-</code></pre>
-<p>这种方法要求的代码量比较少，而且给人一种封装数据的感觉，很直观。<br>但ES5是没有类的，当我们需要创建比较多的对象时这种方法就会产生大量的代码<br>而通过工厂模式就可以创建出很多个具有相同属性的对象</p>
-<h1 id="工厂模式"><a href="#工厂模式" class="headerlink" title="工厂模式"></a>工厂模式</h1><p>工厂模式的原理是把创建对象的过程包装在一个函数中，这个函数最后会返回一个新创建的对象，通过调用这个函数就能生产出对象，而每调用一次就产出一个对象</p>
-<pre><code class="javascript">function createPerson(name, age, job){
+</code></pre><p>这种方法要求的代码量比较少，而且给人一种封装数据的感觉，很直观。<br>但ES5是没有类的，当我们需要创建比较多的对象时这种方法就会产生大量的代码<br>而通过工厂模式就可以创建出很多个具有相同属性的对象</p><h1 id="工厂模式"><a href="#工厂模式" class="headerlink" title="工厂模式"></a>工厂模式</h1><p>工厂模式的原理是把创建对象的过程包装在一个函数中，这个函数最后会返回一个新创建的对象，通过调用这个函数就能生产出对象，而每调用一次就产出一个对象</p><pre><code class="javascript">function createPerson(name, age, job){
     var o = new Object();
     o.name = name;
     o.age = age;
@@ -76,16 +14,9 @@
 }
 
 var person1 = createPerson(&quot;Nicholas&quot;, 29, &quot;Software Engineer&quot;);
-</code></pre>
-<p>工厂模式虽解决了创建多个相似对象的问题，但通过工厂模式创建的对象不能检测出对象的类型，因为这些对象都是Object的实例</p>
-<h1 id="构造函数模式"><a href="#构造函数模式" class="headerlink" title="构造函数模式"></a>构造函数模式</h1><p>在创建数组的时候可以这样创建：</p>
-<pre><code class="javascript">var arr = [];
-</code></pre>
-<p>也可以这样：</p>
-<pre><code class="javascript">var arr = new Array();
-</code></pre>
-<p>第二个例子中，Array()就是一个构造函数，这是通过构造函数来创建一个数组对象，我们也可以自定义构造函数来创建对象：</p>
-<pre><code class="javascript">function Person(name, age, job){
+</code></pre><p>工厂模式虽解决了创建多个相似对象的问题，但通过工厂模式创建的对象不能检测出对象的类型，因为这些对象都是Object的实例</p><h1 id="构造函数模式"><a href="#构造函数模式" class="headerlink" title="构造函数模式"></a>构造函数模式</h1><p>在创建数组的时候可以这样创建：</p><pre><code class="javascript">var arr = [];
+</code></pre><p>也可以这样：</p><pre><code class="javascript">var arr = new Array();
+</code></pre><p>第二个例子中，Array()就是一个构造函数，这是通过构造函数来创建一个数组对象，我们也可以自定义构造函数来创建对象：</p><pre><code class="javascript">function Person(name, age, job){
     this.name = name;
     this.age = age;
     this.job = job;
@@ -99,9 +30,7 @@ var person1 = new Person(&quot;Nicholas&quot;, 29, &quot;software Engineer&quot;
 console.log(person1.constructor === Person);  //true
 console.log(person1 instanceof Person);  //true
 console.log(person1 instanceof Object);  //true
-</code></pre>
-<p>需要注意的是如果直接调用而不使用new操作符，由于this指向全局（window），会把对象的各个属性都绑到全局上去，如果全局中的属性被覆盖就不好了，我们可以在绑定属性前判断一下this的指向：</p>
-<pre><code class="javascript">function Person(name, age, job){
+</code></pre><p>需要注意的是如果直接调用而不使用new操作符，由于this指向全局（window），会把对象的各个属性都绑到全局上去，如果全局中的属性被覆盖就不好了，我们可以在绑定属性前判断一下this的指向：</p><pre><code class="javascript">function Person(name, age, job){
     if(this instanceof Person){
         this.name = name;
         this.age = age;
@@ -113,12 +42,7 @@ console.log(person1 instanceof Object);  //true
         return new Person(name, age, job);
     }
 }
-</code></pre>
-<p>这样一来无论在创建对象时有没有使用new操作符都会正确地生成一个Person对象，如果使用了new操作符则进入if语句，否则会进入else语句，强制使用new操作符生成对象</p>
-<p>但是，构造模式与工厂模式都没有解决一个问题：没有共享的变量和方法</p>
-<p>就如上面的例子，每个Person对象都有一个功能相同的sayName()方法，但在每一个实例中的sayName()方法都是互不相同的（即使表面上看这些方法都一模一样），因为函数其实也是对象，在不同实例中创建的Function实例当然也就不相同了，这多余地占用了内存</p>
-<p>当然，我们可以把这个函数调到构造函数以外：</p>
-<pre><code class="javascript">function Person(name, age, job){
+</code></pre><p>这样一来无论在创建对象时有没有使用new操作符都会正确地生成一个Person对象，如果使用了new操作符则进入if语句，否则会进入else语句，强制使用new操作符生成对象</p><p>但是，构造模式与工厂模式都没有解决一个问题：没有共享的变量和方法</p><p>就如上面的例子，每个Person对象都有一个功能相同的sayName()方法，但在每一个实例中的sayName()方法都是互不相同的（即使表面上看这些方法都一模一样），因为函数其实也是对象，在不同实例中创建的Function实例当然也就不相同了，这多余地占用了内存</p><p>当然，我们可以把这个函数调到构造函数以外：</p><pre><code class="javascript">function Person(name, age, job){
     if(this instanceof Person){
         this.name = name;
         this.age = age;
@@ -132,11 +56,7 @@ console.log(person1 instanceof Object);  //true
 function sayName(){
     alert(this.name);
 }
-</code></pre>
-<p>这样，每个不同的实例都引用着同一个Function实例，但是这产生了另一个问题：如果需要共享的属性或方法很多就要在全局环境上绑定很多属性或方法，而且封装性也减弱了</p>
-<h1 id="原型模式"><a href="#原型模式" class="headerlink" title="原型模式"></a>原型模式</h1><p>原型模式里，对象的所有属性和方法都直接存于prototype名下，也就是所有属性都是被共享着的</p>
-<p>示例：</p>
-<pre><code class="javascript">function Person(){}
+</code></pre><p>这样，每个不同的实例都引用着同一个Function实例，但是这产生了另一个问题：如果需要共享的属性或方法很多就要在全局环境上绑定很多属性或方法，而且封装性也减弱了</p><h1 id="原型模式"><a href="#原型模式" class="headerlink" title="原型模式"></a>原型模式</h1><p>原型模式里，对象的所有属性和方法都直接存于prototype名下，也就是所有属性都是被共享着的</p><p>示例：</p><pre><code class="javascript">function Person(){}
 
 Person.prototype.name = &quot;Nicholas&quot;;
 Person.prototype.age = 29;
@@ -152,19 +72,10 @@ var person2 = new Person();
 person2.sayName();  //&quot;Nicholas&quot;
 
 alert(person1.sayName == Person2.sayName);  //true
-</code></pre>
-<p>所有函数都有一个prototype属性，这个属性指向它的原型对象，原型对象中都有一个constructor（构造函数）属性，这个属性又指回这个prototype属性指向本原型对象的函数，对于上面这个例子来说就是Person.prototype.constructor指向Person，Person.prototype除constructor这个属性外还有被绑定在这个原型上的变量和方法，另外还有其他一些从Object继承而来的方法，如toString()等</p>
-<p>当创建了第一个对象person1后，person1就获得了一个内部属性[[prototype]]，这个内部属性指向构造函数的原型对象而不是指向构造函数</p>
-<p>通过isPrototypeOf()方法可以证明这个关系：</p>
-<pre><code class="javascript">console.log(Person.prototype.isPrototypeOf(person1));  //true
+</code></pre><p>所有函数都有一个prototype属性，这个属性指向它的原型对象，原型对象中都有一个constructor（构造函数）属性，这个属性又指回这个prototype属性指向本原型对象的函数，对于上面这个例子来说就是Person.prototype.constructor指向Person，Person.prototype除constructor这个属性外还有被绑定在这个原型上的变量和方法，另外还有其他一些从Object继承而来的方法，如toString()等</p><p>当创建了第一个对象person1后，person1就获得了一个内部属性[[prototype]]，这个内部属性指向构造函数的原型对象而不是指向构造函数</p><p>通过isPrototypeOf()方法可以证明这个关系：</p><pre><code class="javascript">console.log(Person.prototype.isPrototypeOf(person1));  //true
 console.log(Person.prototype.isPrototypeOf(person2));  //true
-</code></pre>
-<p>Person.prototype是不是person1的原型？是，所以返回true<br>Person.prototype是不是person2的原型？是，所以也返回true</p>
-<p>而Object.getPrototypeOf()方法可以获取对象的原型：</p>
-<pre><code class="javascript">console.log(Object.getPrototypeOf(person1) === Person.prototype);  //true
-</code></pre>
-<p>另外，如果在对象实例中重写原型中同名的值，会把原型中的这个属性屏蔽掉：</p>
-<pre><code class="javascript">function Person(){}
+</code></pre><p>Person.prototype是不是person1的原型？是，所以返回true<br>Person.prototype是不是person2的原型？是，所以也返回true</p><p>而Object.getPrototypeOf()方法可以获取对象的原型：</p><pre><code class="javascript">console.log(Object.getPrototypeOf(person1) === Person.prototype);  //true
+</code></pre><p>另外，如果在对象实例中重写原型中同名的值，会把原型中的这个属性屏蔽掉：</p><pre><code class="javascript">function Person(){}
 
 Person.prototype.name = &quot;Nicholas&quot;;
 Person.prototype.age = 29;
@@ -179,10 +90,7 @@ var person2 = new Person();
 person1.name = &quot;Greg&quot;;
 alert(person1.name);  //&quot;Greg&quot;
 alert(person2.name);  //&quot;Nicholas&quot;
-</code></pre>
-<p>这时只有把实例中的这个属性delete掉才可以恢复访问到原型中的name属性，而把这个实例中的同名属性赋值为null还是无法访问到原型的这个属性的</p>
-<p>知道了这一点后，可以引申出一个问题：到底对象里的某个属性的存在于实例中呢还是原型中呢？<br>这时候，hasOwnProperty()方法就可以派上用场了，这个方法可以检测一个属性是否存在于对象实例中，若是，返回true，否则返回false：</p>
-<pre><code class="javascript">function Person(){}
+</code></pre><p>这时只有把实例中的这个属性delete掉才可以恢复访问到原型中的name属性，而把这个实例中的同名属性赋值为null还是无法访问到原型的这个属性的</p><p>知道了这一点后，可以引申出一个问题：到底对象里的某个属性的存在于实例中呢还是原型中呢？<br>这时候，hasOwnProperty()方法就可以派上用场了，这个方法可以检测一个属性是否存在于对象实例中，若是，返回true，否则返回false：</p><pre><code class="javascript">function Person(){}
 
     Person.prototype.name = &quot;Nicholas&quot;;
     Person.prototype.age = 29;
@@ -198,17 +106,10 @@ alert(person2.name);  //&quot;Nicholas&quot;
 
     console.log(person1.hasOwnProperty(&quot;name&quot;));  //true
     console.log(person2.hasOwnProperty(&quot;name&quot;));  //false
-</code></pre>
-<p>在上面这个例子中重写了person1的name属性，hasOwnProperty()方法检测到这个属性是在实例中的，所以返回true，而person2中并没有把原型中的name属性屏蔽掉，所以返回false</p>
-<p>hasOwnProperty()方法结合in操作符就可以解决上面提到的问题了：如何判断一个属性到底是在实例中还是在原型中</p>
-<pre><code class="javascript">function hasPrototypeProperty(object, name){
+</code></pre><p>在上面这个例子中重写了person1的name属性，hasOwnProperty()方法检测到这个属性是在实例中的，所以返回true，而person2中并没有把原型中的name属性屏蔽掉，所以返回false</p><p>hasOwnProperty()方法结合in操作符就可以解决上面提到的问题了：如何判断一个属性到底是在实例中还是在原型中</p><pre><code class="javascript">function hasPrototypeProperty(object, name){
     return !object.hasOwnProperty(name) &amp;&amp; (name in object);
 }
-</code></pre>
-<p>无论一个属性是存在于实例中还是原型中，in操作符的判断都会返回true，简单来说就是检测能否通过对象访问到这个属性，能则返回true，否则返回false</p>
-<p>所以，若属性存在于实例中，hasPrototypeProperty()会返回false，若属性存在于原型中，hasOwnProperty()会返回false，进而hasPrototypeProperty()会返回true</p>
-<p>验证：</p>
-<pre><code class="javascript">function Person(){}
+</code></pre><p>无论一个属性是存在于实例中还是原型中，in操作符的判断都会返回true，简单来说就是检测能否通过对象访问到这个属性，能则返回true，否则返回false</p><p>所以，若属性存在于实例中，hasPrototypeProperty()会返回false，若属性存在于原型中，hasOwnProperty()会返回false，进而hasPrototypeProperty()会返回true</p><p>验证：</p><pre><code class="javascript">function Person(){}
 
 Person.prototype.name = &quot;Nicholas&quot;;
 Person.prototype.age = 29;
@@ -228,9 +129,7 @@ function hasPrototypeProperty(object, name){
 
 console.log(hasPrototypeProperty(person1, &quot;name&quot;));  //false
 console.log(hasPrototypeProperty(person2, &quot;name&quot;));  //true
-</code></pre>
-<p>为了提高原型模式视觉上的封装性，我们可以用一个字面量方式创建的对象重写原型对象：</p>
-<pre><code class="javascript">function Person(){}
+</code></pre><p>为了提高原型模式视觉上的封装性，我们可以用一个字面量方式创建的对象重写原型对象：</p><pre><code class="javascript">function Person(){}
 
 Person.prototype = {
     name: &quot;Nicholas&quot;,
@@ -240,9 +139,7 @@ Person.prototype = {
         alert(this.name);
     }
 };
-</code></pre>
-<p>但重写整个原型对象会，这个原型对象中的constructor属性就不是指向Person函数了，而是指向了Object的构造函数，所以我们可以在使用字面量重写原型对象时显式重新设置constructor的指向：</p>
-<pre><code class="javascript">function Person(){}
+</code></pre><p>但重写整个原型对象会，这个原型对象中的constructor属性就不是指向Person函数了，而是指向了Object的构造函数，所以我们可以在使用字面量重写原型对象时显式重新设置constructor的指向：</p><pre><code class="javascript">function Person(){}
 
 Person.prototype = {
     constructor: Person,
@@ -253,9 +150,7 @@ Person.prototype = {
         alert(this.name);
     }
 };
-</code></pre>
-<p>原型模式虽解决了工厂模式和构造函数都不能解决的共享属性问题，但也有着严重的问题<br>在对象实例中重写属性虽然可以屏蔽原型中的同名属性，但如果是修改则不会屏蔽，这将造成一个严重的问题：一个对象实例中改变了原型中某个引用类型属性的值，那么在另一个对象实例中的这个属性值也被改变了，因为它引用的都是原型中的属性，是共享的</p>
-<pre><code class="javascript">function Person(){}
+</code></pre><p>原型模式虽解决了工厂模式和构造函数都不能解决的共享属性问题，但也有着严重的问题<br>在对象实例中重写属性虽然可以屏蔽原型中的同名属性，但如果是修改则不会屏蔽，这将造成一个严重的问题：一个对象实例中改变了原型中某个引用类型属性的值，那么在另一个对象实例中的这个属性值也被改变了，因为它引用的都是原型中的属性，是共享的</p><pre><code class="javascript">function Person(){}
 
 Person.prototype = {
     constructor: Person,
@@ -276,11 +171,7 @@ person1.friends.push(&quot;Van&quot;);
 alert(person1.friends);  //&quot;Shelby, Court, Van&quot;
 alert(person2.friends);  //&quot;Shelby, Court, Van&quot;
 alert(person1.friends === person2.friends);  //true
-</code></pre>
-<p>原型模式的不足之处还有一点：无法像构造函数那样可以传参进行初始化对象<br>而组合使用构造函数模式和原型模式就可以解决这两个问题</p>
-<h1 id="组合使用构造函数模式和原型模式"><a href="#组合使用构造函数模式和原型模式" class="headerlink" title="组合使用构造函数模式和原型模式"></a>组合使用构造函数模式和原型模式</h1><p>这是一种结合了构造函数模式和原型模式优点的模式，既能有共享的属性，又能向构造函数传参，是创建自定义类型的最常见方式</p>
-<p>示例：</p>
-<pre><code class="javascript">function Person(name, age, job){
+</code></pre><p>原型模式的不足之处还有一点：无法像构造函数那样可以传参进行初始化对象<br>而组合使用构造函数模式和原型模式就可以解决这两个问题</p><h1 id="组合使用构造函数模式和原型模式"><a href="#组合使用构造函数模式和原型模式" class="headerlink" title="组合使用构造函数模式和原型模式"></a>组合使用构造函数模式和原型模式</h1><p>这是一种结合了构造函数模式和原型模式优点的模式，既能有共享的属性，又能向构造函数传参，是创建自定义类型的最常见方式</p><p>示例：</p><pre><code class="javascript">function Person(name, age, job){
     this.name = name;
     this.age = age;
     this.job = job;
@@ -303,9 +194,7 @@ alert(person1.friends);  //&quot;Shelby, Court, Van&quot;
 alert(person2.friends);  //&quot;Shelby, Court&quot;
 alert(person1.friends === person2.friends);  //false
 alert(person1.sayName === person2.sayName);  //true
-</code></pre>
-<h1 id="动态原型模式"><a href="#动态原型模式" class="headerlink" title="动态原型模式"></a>动态原型模式</h1><p>动态原型模式把对象的所有信息都封装在了构造函数中，并且仅在需要的时候才初始化原型</p>
-<pre><code class="javascript">function Person(name, age, job){
+</code></pre><h1 id="动态原型模式"><a href="#动态原型模式" class="headerlink" title="动态原型模式"></a>动态原型模式</h1><p>动态原型模式把对象的所有信息都封装在了构造函数中，并且仅在需要的时候才初始化原型</p><pre><code class="javascript">function Person(name, age, job){
     this.name = name;
     this.age = age;
     this.job = job;
@@ -318,9 +207,7 @@ alert(person1.sayName === person2.sayName);  //true
 }
 
 var friend = new Person(&quot;Nicholas&quot;, 29, &quot;Software Engineer&quot;);
-</code></pre>
-<p>在sayName()方法不存在时才把sayName绑定到原型上去，所以绑定sayName()方法这段代码只在第一次调用构造函数时执行，但绑定方法的时候不能使用字面量的方式重写原型对象，因为使用字面量会让原型指向一个新的对象，而创建的对象实例就与新的原型对象没关系了</p>
-<h1 id="寄生构造函数模式"><a href="#寄生构造函数模式" class="headerlink" title="寄生构造函数模式"></a>寄生构造函数模式</h1><pre><code class="javascript">function Person(name, age, job){
+</code></pre><p>在sayName()方法不存在时才把sayName绑定到原型上去，所以绑定sayName()方法这段代码只在第一次调用构造函数时执行，但绑定方法的时候不能使用字面量的方式重写原型对象，因为使用字面量会让原型指向一个新的对象，而创建的对象实例就与新的原型对象没关系了</p><h1 id="寄生构造函数模式"><a href="#寄生构造函数模式" class="headerlink" title="寄生构造函数模式"></a>寄生构造函数模式</h1><pre><code class="javascript">function Person(name, age, job){
     var o = new Object();
     o.name = name;
     o.age = age;
@@ -332,9 +219,7 @@ var friend = new Person(&quot;Nicholas&quot;, 29, &quot;Software Engineer&quot;)
 }
 
 var friend = new Person(&quot;Nicholas&quot;, 29, &quot;Software Engineer&quot;);
-</code></pre>
-<p>这个模式与工厂模式的区别是没有了工厂模式中最外层用来包装的函数，这个模式的适用范围比较小，例如创建一个具有而外方法的特殊数组</p>
-<pre><code class="javascript">function SpecialArray(){
+</code></pre><p>这个模式与工厂模式的区别是没有了工厂模式中最外层用来包装的函数，这个模式的适用范围比较小，例如创建一个具有而外方法的特殊数组</p><pre><code class="javascript">function SpecialArray(){
     // 创建数组
     var values = new Array();
 
@@ -351,9 +236,7 @@ var friend = new Person(&quot;Nicholas&quot;, 29, &quot;Software Engineer&quot;)
 
 var colors = new SpecialArray(&quot;red&quot;, &quot;blue&quot;, &quot;green&quot;);
 alert(colors.toPipedString());  //&quot;red|blue|green&quot;
-</code></pre>
-<h1 id="稳妥构造函数模式"><a href="#稳妥构造函数模式" class="headerlink" title="稳妥构造函数模式"></a>稳妥构造函数模式</h1><p>首先要知道一个概念：稳妥对象<br>稳妥对象是指没有公共属性，其方法也不引用this的对象</p>
-<pre><code class="javascript">function Person(name, age, job){
+</code></pre><h1 id="稳妥构造函数模式"><a href="#稳妥构造函数模式" class="headerlink" title="稳妥构造函数模式"></a>稳妥构造函数模式</h1><p>首先要知道一个概念：稳妥对象<br>稳妥对象是指没有公共属性，其方法也不引用this的对象</p><pre><code class="javascript">function Person(name, age, job){
     var o = new Object();
 
     // 可以在这里定义私有变量和方法
@@ -367,110 +250,4 @@ alert(colors.toPipedString());  //&quot;red|blue|green&quot;
 
 var friend = Person(&quot;Nicholas&quot;, 29, &quot;Software Engineer&quot;);
 friend.sayName();  //&quot;Nicholas&quot;
-</code></pre>
-<p>使用这种模式创建的对象中，出来可以使用sayName()方法访问到name属性外，没有办法可以访问到name属性了，可以说是十分安全了</p>
-<hr>
-<blockquote>
-<p>以上例子摘自《JavaScript高级程序设计（第三版）》</p>
-</blockquote>
-
-  </div>
-</article>
-<div class="end-line"></div>
-<!-- Highlight.js -->
-<script src="/js/highlight.pack.min.js"></script>
-<link rel="stylesheet" href="/css/atom-one-dark.min.css">
-<script>
-  (function () {
-    // 代码高亮初始化
-    hljs.initHighlightingOnLoad();
-
-    // 文章内容渐入
-    var articleContent = document.getElementsByClassName('article-content')[0];
-    setTimeout(function () {
-      articleContent.className = "article-content article-content-come";
-    }, 100);
-
-    // 以下是文章内容中图片的查看
-    var imgs = document.getElementsByClassName('article-content')[0].getElementsByTagName('img'),
-      imgView = document.createElement('div'),
-      imgViewImg = document.createElement('img');
-
-      imgView.appendChild(imgViewImg);
-      imgView.className = 'img-view';
-
-    // 打开图片后禁止触摸下拉上拉动作
-    function preventTouchStart (event) {
-      event.preventDefault();
-    }
-
-    // 新窗口打开图片
-    function openImg (event) {
-      document.body.addEventListener('touchstart', preventTouchStart);
-      document.body.style.paddingRight = window.innerWidth - document.body.offsetWidth + 'px';  // 滚动条宽度
-      document.body.style.overflow = 'hidden';
-      imgViewImg.src = event.target.src;
-      document.body.appendChild(imgView);
-      setTimeout(function () {
-        imgView.className = 'img-view img-view-open';
-      }, 0);
-    }
-
-    // 关闭图片
-    function closeImg (event) {
-      event.stopPropagation();  // 阻止冒泡，防止点到遮罩层下的东西
-      imgView.className = 'img-view';
-      document.body.removeEventListener('touchstart', preventTouchStart);
-      document.body.style.overflow = '';
-      document.body.style.paddingRight = '';
-      setTimeout(function () {
-        document.body.removeChild(imgView);
-      }, 300);
-    }
-
-    Array.prototype.forEach.call(imgs, function (img) {
-      img.addEventListener('click', openImg);
-    });
-    
-    imgView.addEventListener('click', closeImg);
-  })();
-</script>
-    
-
-    
-<script>
-  (function () {
-    // 渐入动画
-    var posts = document.getElementsByClassName('post'),
-      pageNav = document.getElementsByClassName('page-nav')[0];
-
-    Array.prototype.forEach.call(posts, function (post, index) {
-      setTimeout(function () {
-        post.className = "post post-come";
-
-        if (index >= posts.length - 1 && pageNav) {
-          setTimeout(function () {
-            pageNav.className = "page-nav page-nav-come";
-          }, 500);
-        }
-      }, index === 0 ? 0 : index * 100);
-    });
-  })();
-</script>
-  </div>
-  <div class="me">
-  <img alt="avatar" class="avatar">
-  <p class="me-p">Live by the sword and die by the sword.</p>
-  <div class="links">
-    <a href="https://github.com/RGM-89sc" target="_blank" class="link github-link" title="github"></a>
-    <a href="mailto:171716669@qq.com" class="link mail-link" title="mail"></a>
-  </div>
-  <div class="all-tags">
-  <span>TAGS LIST</span>
-  <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ANSI/">ANSI</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a><span class="tag-list-count">23</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/">MySQL</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Node-js/">Node.js</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VS-Code/">VS Code</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vue-js/">Vue.js</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/内网穿透/">内网穿透</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据库/">数据库</a><span class="tag-list-count">2</span></li></ul>
-  </div>
-</div>
-  <script src="/js/main.min.js"></script>
-  
-</body>
-</html>
+</code></pre><p>使用这种模式创建的对象中，出来可以使用sayName()方法访问到name属性外，没有办法可以访问到name属性了，可以说是十分安全了</p><hr><blockquote><p>以上例子摘自《JavaScript高级程序设计（第三版）》</p></blockquote></div></article><div class="end-line"></div><script src="/js/highlight.pack.min.js"></script><link rel="stylesheet" href="/css/atom-one-dark.min.css"><script>!function(){hljs.initHighlightingOnLoad();var e=document.getElementsByClassName("article-content")[0];setTimeout(function(){e.className="article-content article-content-come"},100);var t=document.getElementsByClassName("article-content")[0].getElementsByTagName("img"),n=document.createElement("div"),o=document.createElement("img");function i(e){e.preventDefault()}function c(e){document.body.addEventListener("touchstart",i),document.body.style.paddingRight=window.innerWidth-document.body.offsetWidth+"px",document.body.style.overflow="hidden",o.src=e.target.src,document.body.appendChild(n),setTimeout(function(){n.className="img-view img-view-open"},0)}n.appendChild(o),n.className="img-view",Array.prototype.forEach.call(t,function(e){e.addEventListener("click",c)}),n.addEventListener("click",function(e){e.stopPropagation(),n.className="img-view",document.body.removeEventListener("touchstart",i),document.body.style.overflow="",document.body.style.paddingRight="",setTimeout(function(){document.body.removeChild(n)},300)})}()</script><script>!function(){var a=document.getElementsByClassName("post"),n=document.getElementsByClassName("page-nav")[0];Array.prototype.forEach.call(a,function(e,t){setTimeout(function(){e.className="post post-come",t>=a.length-1&&n&&setTimeout(function(){n.className="page-nav page-nav-come"},500)},0===t?0:100*t)})}()</script></div><div class="me"><img alt="avatar" class="avatar"><p class="me-p">Live by the sword and die by the sword.</p><div class="links"><a href="https://github.com/RGM-89sc" target="_blank" class="link github-link" title="github"></a> <a href="mailto:171716669@qq.com" class="link mail-link" title="mail"></a></div><div class="all-tags"><span>TAGS LIST</span><ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ANSI/">ANSI</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a><span class="tag-list-count">23</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/">MySQL</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Node-js/">Node.js</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VS-Code/">VS Code</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vue-js/">Vue.js</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/内网穿透/">内网穿透</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据库/">数据库</a><span class="tag-list-count">2</span></li></ul></div></div><script src="/js/main.min.js"></script></body></html>

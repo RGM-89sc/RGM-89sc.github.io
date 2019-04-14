@@ -1,68 +1,5 @@
-<!DOCTYPE html>
-<html lang="zh-cn">
-<head><meta name="generator" content="Hexo 3.8.0">
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <meta name="author" content="RGM">
-  <meta name="keywords" content="前端,front end,javascript,js,css,html,node">
-  <meta name="description" content="RGM的个人博客，分享自己的学习与理解">
-  <meta name="google-site-verification" content="LKCCs3-UtSC016crWb5f1xvBeQoqat3B9Wg_J9AA7i0">
-  <title>RGM's BLOG</title>
-  <link rel="stylesheet" href="/css/main.min.css">
-</head>
-<body>
-  <div class='main full-width'>
-    <header class="full-width">
-  <a href="/" class="brand">RGM's BLOG</a>
-
-  <span class="about-me">About me
-</span></header>
-
-
-    
-    <article class="article-main">
-<nav class="top-nav">
-  <ul class="nav">
-  
-
-  
-    <li>
-      <a href="/" class="current">我的随笔</a>
-    </li>
-  
-    <li>
-      <a href="/tags/" class="">我的标签</a>
-    </li>
-  
-  </ul>
-</nav>
-
-  <div class="article-title">
-    <h1 class="title">typeof与instanceof</h1>
-  </div>
-  <div class="article-meta">
-  
-    <span class="article-time">Saturday, 03 Feb 2018</span>
-    
-    <div class="tags">
-      <span>Tags: </span>
-      
-        <a href="/tags/JavaScript/" style="background-color: #f5de19; color: #fff">
-          JavaScript
-        </a>
-      
-    </div>
-    
-  </div>
-  <div class="article-content">
-    <p>typeof和instanceof都是用于检测数据类型的操作符，但它们的作用并不相同</p>
-<h1 id="typeof"><a href="#typeof" class="headerlink" title="typeof"></a>typeof</h1><p>typeof是一元操作符，求得一个变量或字面量的类型，使用方法：</p>
-<pre><code class="javascript">typeof a;  // 求得a的类型
-</code></pre>
-<p>在ES5标准中，typeof可能返回以下六种类型的字符串形式：<br>“undefined” —–如果这个值未定义<br>“boolean” ——-如果这个值是布尔值<br>“string” ——–如果这个值是字符串<br>“number” ——–如果这个值是数值<br>“object” ——–如果这个值是对象或null<br>“function” ——如果这个值是函数</p>
-<p>示例：</p>
-<pre><code class="javascript">console.log(typeof 1);  // number
+<!DOCTYPE html><html lang="zh-cn"><head><meta name="generator" content="Hexo 3.8.0"><meta charset="UTF-8"><meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1,minimum-scale=1"><meta http-equiv="X-UA-Compatible" content="ie=edge"><meta name="author" content="RGM"><meta name="keywords" content="前端,front end,javascript,js,css,html,node"><meta name="description" content="RGM的个人博客，分享自己的学习与理解"><meta name="google-site-verification" content="LKCCs3-UtSC016crWb5f1xvBeQoqat3B9Wg_J9AA7i0"><title>RGM's BLOG</title><link rel="stylesheet" href="/css/main.min.css"></head><body><div class="main full-width"><header class="full-width"><a href="/" class="brand">RGM's BLOG</a> <span class="about-me">About me</span></header><article class="article-main"><nav class="top-nav"><ul class="nav"><li><a href="/" class="current">我的随笔</a></li><li><a href="/tags/">我的标签</a></li></ul></nav><div class="article-title"><h1 class="title">typeof与instanceof</h1></div><div class="article-meta"><span class="article-time">Saturday, 03 Feb 2018</span><div class="tags"><span>Tags: </span><a href="/tags/JavaScript/" style="background-color:#f5de19;color:#fff">JavaScript</a></div></div><div class="article-content"><p>typeof和instanceof都是用于检测数据类型的操作符，但它们的作用并不相同</p><h1 id="typeof"><a href="#typeof" class="headerlink" title="typeof"></a>typeof</h1><p>typeof是一元操作符，求得一个变量或字面量的类型，使用方法：</p><pre><code class="javascript">typeof a;  // 求得a的类型
+</code></pre><p>在ES5标准中，typeof可能返回以下六种类型的字符串形式：<br>“undefined” —–如果这个值未定义<br>“boolean” ——-如果这个值是布尔值<br>“string” ——–如果这个值是字符串<br>“number” ——–如果这个值是数值<br>“object” ——–如果这个值是对象或null<br>“function” ——如果这个值是函数</p><p>示例：</p><pre><code class="javascript">console.log(typeof 1);  // number
 console.log(typeof &quot;str&quot;);  // string
 console.log(typeof true);  // boolean
 console.log(typeof function func(){});  // function
@@ -72,124 +9,14 @@ console.log(typeof NaN);  // number
 console.log(typeof null);  // object，null表示一个空对象指针
 console.log(typeof Math);  // object
 console.log(typeof Array);  // function
-</code></pre>
-<p>NaN虽然表示“非数值”，但它也是一个特殊的数字值，typeof并不能判断一个值是否是NaN，应当使用isNaN函数：</p>
-<pre><code class="javascript">console.log(isNaN(NaN));  // true
+</code></pre><p>NaN虽然表示“非数值”，但它也是一个特殊的数字值，typeof并不能判断一个值是否是NaN，应当使用isNaN函数：</p><pre><code class="javascript">console.log(isNaN(NaN));  // true
 console.log(isNaN(1));  // false
-</code></pre>
-<p>typeof Array返回的是function，故typeof无法判断一个值是否为数组，应当使用isArray函数：</p>
-<pre><code class="javascript">var arr = [], notArr = 1;
+</code></pre><p>typeof Array返回的是function，故typeof无法判断一个值是否为数组，应当使用isArray函数：</p><pre><code class="javascript">var arr = [], notArr = 1;
 console.log(Array.isArray(arr));  // true
 console.log(Array.isArray(notArr));  // false
-</code></pre>
-<h1 id="instanceof"><a href="#instanceof" class="headerlink" title="instanceof"></a>instanceof</h1><p>instanceof是二元操作符，instanceof的左边放需要检测的值，右边放类型，返回的是一个布尔值，若需要检测的值类型为操作符右边的类型时返回true，反之返回false，使用方法</p>
-<pre><code class="javascript">a instanceof b;
-</code></pre>
-<p>示例：</p>
-<pre><code class="javascript"> var o = {},
+</code></pre><h1 id="instanceof"><a href="#instanceof" class="headerlink" title="instanceof"></a>instanceof</h1><p>instanceof是二元操作符，instanceof的左边放需要检测的值，右边放类型，返回的是一个布尔值，若需要检测的值类型为操作符右边的类型时返回true，反之返回false，使用方法</p><pre><code class="javascript">a instanceof b;
+</code></pre><p>示例：</p><pre><code class="javascript"> var o = {},
     arr = [];
 console.log(o instanceof Object);  // true
 console.log(arr instanceof Array);  // true
-</code></pre>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>typeof更适合用来检测基本类型（Undefined、Null、Boolean、Number、String），而instanceof适合用来检测引用类型（Object、Array、Function、RegExp）</p>
-
-  </div>
-</article>
-<div class="end-line"></div>
-<!-- Highlight.js -->
-<script src="/js/highlight.pack.min.js"></script>
-<link rel="stylesheet" href="/css/atom-one-dark.min.css">
-<script>
-  (function () {
-    // 代码高亮初始化
-    hljs.initHighlightingOnLoad();
-
-    // 文章内容渐入
-    var articleContent = document.getElementsByClassName('article-content')[0];
-    setTimeout(function () {
-      articleContent.className = "article-content article-content-come";
-    }, 100);
-
-    // 以下是文章内容中图片的查看
-    var imgs = document.getElementsByClassName('article-content')[0].getElementsByTagName('img'),
-      imgView = document.createElement('div'),
-      imgViewImg = document.createElement('img');
-
-      imgView.appendChild(imgViewImg);
-      imgView.className = 'img-view';
-
-    // 打开图片后禁止触摸下拉上拉动作
-    function preventTouchStart (event) {
-      event.preventDefault();
-    }
-
-    // 新窗口打开图片
-    function openImg (event) {
-      document.body.addEventListener('touchstart', preventTouchStart);
-      document.body.style.paddingRight = window.innerWidth - document.body.offsetWidth + 'px';  // 滚动条宽度
-      document.body.style.overflow = 'hidden';
-      imgViewImg.src = event.target.src;
-      document.body.appendChild(imgView);
-      setTimeout(function () {
-        imgView.className = 'img-view img-view-open';
-      }, 0);
-    }
-
-    // 关闭图片
-    function closeImg (event) {
-      event.stopPropagation();  // 阻止冒泡，防止点到遮罩层下的东西
-      imgView.className = 'img-view';
-      document.body.removeEventListener('touchstart', preventTouchStart);
-      document.body.style.overflow = '';
-      document.body.style.paddingRight = '';
-      setTimeout(function () {
-        document.body.removeChild(imgView);
-      }, 300);
-    }
-
-    Array.prototype.forEach.call(imgs, function (img) {
-      img.addEventListener('click', openImg);
-    });
-    
-    imgView.addEventListener('click', closeImg);
-  })();
-</script>
-    
-
-    
-<script>
-  (function () {
-    // 渐入动画
-    var posts = document.getElementsByClassName('post'),
-      pageNav = document.getElementsByClassName('page-nav')[0];
-
-    Array.prototype.forEach.call(posts, function (post, index) {
-      setTimeout(function () {
-        post.className = "post post-come";
-
-        if (index >= posts.length - 1 && pageNav) {
-          setTimeout(function () {
-            pageNav.className = "page-nav page-nav-come";
-          }, 500);
-        }
-      }, index === 0 ? 0 : index * 100);
-    });
-  })();
-</script>
-  </div>
-  <div class="me">
-  <img alt="avatar" class="avatar">
-  <p class="me-p">Live by the sword and die by the sword.</p>
-  <div class="links">
-    <a href="https://github.com/RGM-89sc" target="_blank" class="link github-link" title="github"></a>
-    <a href="mailto:171716669@qq.com" class="link mail-link" title="mail"></a>
-  </div>
-  <div class="all-tags">
-  <span>TAGS LIST</span>
-  <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ANSI/">ANSI</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a><span class="tag-list-count">23</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/">MySQL</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Node-js/">Node.js</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VS-Code/">VS Code</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vue-js/">Vue.js</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/内网穿透/">内网穿透</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据库/">数据库</a><span class="tag-list-count">2</span></li></ul>
-  </div>
-</div>
-  <script src="/js/main.min.js"></script>
-  
-</body>
-</html>
+</code></pre><h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>typeof更适合用来检测基本类型（Undefined、Null、Boolean、Number、String），而instanceof适合用来检测引用类型（Object、Array、Function、RegExp）</p></div></article><div class="end-line"></div><script src="/js/highlight.pack.min.js"></script><link rel="stylesheet" href="/css/atom-one-dark.min.css"><script>!function(){hljs.initHighlightingOnLoad();var e=document.getElementsByClassName("article-content")[0];setTimeout(function(){e.className="article-content article-content-come"},100);var t=document.getElementsByClassName("article-content")[0].getElementsByTagName("img"),n=document.createElement("div"),o=document.createElement("img");function i(e){e.preventDefault()}function c(e){document.body.addEventListener("touchstart",i),document.body.style.paddingRight=window.innerWidth-document.body.offsetWidth+"px",document.body.style.overflow="hidden",o.src=e.target.src,document.body.appendChild(n),setTimeout(function(){n.className="img-view img-view-open"},0)}n.appendChild(o),n.className="img-view",Array.prototype.forEach.call(t,function(e){e.addEventListener("click",c)}),n.addEventListener("click",function(e){e.stopPropagation(),n.className="img-view",document.body.removeEventListener("touchstart",i),document.body.style.overflow="",document.body.style.paddingRight="",setTimeout(function(){document.body.removeChild(n)},300)})}()</script><script>!function(){var a=document.getElementsByClassName("post"),n=document.getElementsByClassName("page-nav")[0];Array.prototype.forEach.call(a,function(e,t){setTimeout(function(){e.className="post post-come",t>=a.length-1&&n&&setTimeout(function(){n.className="page-nav page-nav-come"},500)},0===t?0:100*t)})}()</script></div><div class="me"><img alt="avatar" class="avatar"><p class="me-p">Live by the sword and die by the sword.</p><div class="links"><a href="https://github.com/RGM-89sc" target="_blank" class="link github-link" title="github"></a> <a href="mailto:171716669@qq.com" class="link mail-link" title="mail"></a></div><div class="all-tags"><span>TAGS LIST</span><ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ANSI/">ANSI</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a><span class="tag-list-count">23</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/">MySQL</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Node-js/">Node.js</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VS-Code/">VS Code</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vue-js/">Vue.js</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/内网穿透/">内网穿透</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据库/">数据库</a><span class="tag-list-count">2</span></li></ul></div></div><script src="/js/main.min.js"></script></body></html>

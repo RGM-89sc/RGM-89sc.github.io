@@ -1,90 +1,13 @@
-<!DOCTYPE html>
-<html lang="zh-cn">
-<head><meta name="generator" content="Hexo 3.8.0">
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <meta name="author" content="RGM">
-  <meta name="keywords" content="前端,front end,javascript,js,css,html,node">
-  <meta name="description" content="RGM的个人博客，分享自己的学习与理解">
-  <meta name="google-site-verification" content="LKCCs3-UtSC016crWb5f1xvBeQoqat3B9Wg_J9AA7i0">
-  <title>RGM's BLOG</title>
-  <link rel="stylesheet" href="/css/main.min.css">
-</head>
-<body>
-  <div class='main full-width'>
-    <header class="full-width">
-  <a href="/" class="brand">RGM's BLOG</a>
-
-  <span class="about-me">About me
-</span></header>
-
-
-    
-    <article class="article-main">
-<nav class="top-nav">
-  <ul class="nav">
-  
-
-  
-    <li>
-      <a href="/" class="current">我的随笔</a>
-    </li>
-  
-    <li>
-      <a href="/tags/" class="">我的标签</a>
-    </li>
-  
-  </ul>
-</nav>
-
-  <div class="article-title">
-    <h1 class="title">使用frp进行内网穿透并通过自定义域名访问内网Vue应用</h1>
-  </div>
-  <div class="article-meta">
-  
-    <span class="article-time">Thursday, 18 Oct 2018</span>
-    
-    <div class="tags">
-      <span>Tags: </span>
-      
-        <a href="/tags/内网穿透/" style="background-color: #e9e9e9; color: #000">
-          内网穿透
-        </a>
-      
-    </div>
-    
-  </div>
-  <div class="article-content">
-    <p>摘自：<a href="https://github.com/fatedier/frp/blob/master/README_zh.md" target="_blank" rel="noopener">frp中文文档</a>：</p>
-<blockquote>
-<p>frp 是一个可用于内网穿透的高性能的反向代理应用，支持 tcp, udp, http, https 协议。</p>
-<p>frp可以利用处于内网或防火墙后的机器，对外网环境提供 http 或 https 服务。</p>
-<p>对于 http, https 服务支持基于域名的虚拟主机，支持自定义域名绑定，使多个域名可以共用一个80端口。</p>
-<p>利用处于内网或防火墙后的机器，对外网环境提供 tcp 和 udp 服务，例如在家里通过 ssh 访问处于公司内网环境内的主机。</p>
-</blockquote>
-<p>有了frp，我们就可以使用自定义域名访问内网的web应用，下面这个例子是使用frp进行内网穿透，外网访问内网的Vue应用：</p>
-<h1 id="下载frp"><a href="#下载frp" class="headerlink" title="下载frp"></a>下载frp</h1><p>进入frp的releases页面：<a href="https://github.com/fatedier/frp/releases" target="_blank" rel="noopener">https://github.com/fatedier/frp/releases</a></p>
-<p>挑选合适的版本进行下载，比如客户机的操作系统是win 10 64位则下载windows_amd64版本，拥有公网ip的服务器是Ubuntu，CPU架构是X86_64则下载linux_amd64版本</p>
-<p>然后将 <strong>frps</strong> 及 <strong>frps.ini</strong> 放到具有公网 IP 的机器上， <strong>frpc</strong> 及 <strong>frpc.ini</strong> 放到处于内网环境的机器上。</p>
-<h1 id="在拥有公网ip的机器上配置frpsini"><a href="#在拥有公网ip的机器上配置frps-ini" class="headerlink" title="在拥有公网ip的机器上配置frps.ini:"></a>在拥有公网ip的机器上配置frps.ini:</h1><p>解压tar.gz文件：</p>
-<pre><code class="bash">tar -xvf ./frp_0.21.0_linux_amd64.tar.gz
-</code></pre>
-<p>配置frps.ini：</p>
-<pre><code class="ini">; frps.ini
+<!DOCTYPE html><html lang="zh-cn"><head><meta name="generator" content="Hexo 3.8.0"><meta charset="UTF-8"><meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1,minimum-scale=1"><meta http-equiv="X-UA-Compatible" content="ie=edge"><meta name="author" content="RGM"><meta name="keywords" content="前端,front end,javascript,js,css,html,node"><meta name="description" content="RGM的个人博客，分享自己的学习与理解"><meta name="google-site-verification" content="LKCCs3-UtSC016crWb5f1xvBeQoqat3B9Wg_J9AA7i0"><title>RGM's BLOG</title><link rel="stylesheet" href="/css/main.min.css"></head><body><div class="main full-width"><header class="full-width"><a href="/" class="brand">RGM's BLOG</a> <span class="about-me">About me</span></header><article class="article-main"><nav class="top-nav"><ul class="nav"><li><a href="/" class="current">我的随笔</a></li><li><a href="/tags/">我的标签</a></li></ul></nav><div class="article-title"><h1 class="title">使用frp进行内网穿透并通过自定义域名访问内网Vue应用</h1></div><div class="article-meta"><span class="article-time">Thursday, 18 Oct 2018</span><div class="tags"><span>Tags: </span><a href="/tags/内网穿透/" style="background-color:#e9e9e9;color:#000">内网穿透</a></div></div><div class="article-content"><p>摘自：<a href="https://github.com/fatedier/frp/blob/master/README_zh.md" target="_blank" rel="noopener">frp中文文档</a>：</p><blockquote><p>frp 是一个可用于内网穿透的高性能的反向代理应用，支持 tcp, udp, http, https 协议。</p><p>frp可以利用处于内网或防火墙后的机器，对外网环境提供 http 或 https 服务。</p><p>对于 http, https 服务支持基于域名的虚拟主机，支持自定义域名绑定，使多个域名可以共用一个80端口。</p><p>利用处于内网或防火墙后的机器，对外网环境提供 tcp 和 udp 服务，例如在家里通过 ssh 访问处于公司内网环境内的主机。</p></blockquote><p>有了frp，我们就可以使用自定义域名访问内网的web应用，下面这个例子是使用frp进行内网穿透，外网访问内网的Vue应用：</p><h1 id="下载frp"><a href="#下载frp" class="headerlink" title="下载frp"></a>下载frp</h1><p>进入frp的releases页面：<a href="https://github.com/fatedier/frp/releases" target="_blank" rel="noopener">https://github.com/fatedier/frp/releases</a></p><p>挑选合适的版本进行下载，比如客户机的操作系统是win 10 64位则下载windows_amd64版本，拥有公网ip的服务器是Ubuntu，CPU架构是X86_64则下载linux_amd64版本</p><p>然后将 <strong>frps</strong> 及 <strong>frps.ini</strong> 放到具有公网 IP 的机器上， <strong>frpc</strong> 及 <strong>frpc.ini</strong> 放到处于内网环境的机器上。</p><h1 id="在拥有公网ip的机器上配置frpsini"><a href="#在拥有公网ip的机器上配置frps-ini" class="headerlink" title="在拥有公网ip的机器上配置frps.ini:"></a>在拥有公网ip的机器上配置frps.ini:</h1><p>解压tar.gz文件：</p><pre><code class="bash">tar -xvf ./frp_0.21.0_linux_amd64.tar.gz
+</code></pre><p>配置frps.ini：</p><pre><code class="ini">; frps.ini
 [common]
 bind_port = 9000
 ; bind_port是frp在拥有公网ip的机器上运行的端口，默认为7000
 vhost_http_port = 8082
 ; vhost_http_port是http访问端口，默认为8080
 ; 如果想使用https则把vhost_http_port改成vhost_https_port即可
-</code></pre>
-<p>配置完成后启动frps：</p>
-<pre><code class="bash">./frps -c ./frps.ini
-</code></pre>
-<p>如果出现报错：-bash: ./frps: cannot execute binary file: Exec format error则是表明版本下载错了</p>
-<p>然后开放这些端口的访问（比如阿里云的服务器可以在安全组配置中开放端口），将 <code>www.yourdomain.com</code> 的域名 A 记录解析到 IP <code>x.x.x.x</code>，如果服务器已经有对应的域名，也可以将 CNAME 记录解析到服务器原先的域名</p>
-<h1 id="在内网环境机器上配置frpcini"><a href="#在内网环境机器上配置frpc-ini" class="headerlink" title="在内网环境机器上配置frpc.ini"></a>在内网环境机器上配置frpc.ini</h1><pre><code class="ini">; frpc.ini
+</code></pre><p>配置完成后启动frps：</p><pre><code class="bash">./frps -c ./frps.ini
+</code></pre><p>如果出现报错：-bash: ./frps: cannot execute binary file: Exec format error则是表明版本下载错了</p><p>然后开放这些端口的访问（比如阿里云的服务器可以在安全组配置中开放端口），将 <code>www.yourdomain.com</code> 的域名 A 记录解析到 IP <code>x.x.x.x</code>，如果服务器已经有对应的域名，也可以将 CNAME 记录解析到服务器原先的域名</p><h1 id="在内网环境机器上配置frpcini"><a href="#在内网环境机器上配置frpc-ini" class="headerlink" title="在内网环境机器上配置frpc.ini"></a>在内网环境机器上配置frpc.ini</h1><pre><code class="ini">; frpc.ini
 [common]
 server_addr = x.x.x.x
 ; 服务器的公网ip
@@ -98,120 +21,10 @@ local_port = 8082
 ; 本地开放http访问的端口
 custom_domains = www.yourdomain.com
 ; 访问域名
-</code></pre>
-<p>配置完成后启动frpc：</p>
-<pre><code class="bash">./frpc -c ./frpc.ini
-</code></pre>
-<p>在windows下还可以在cmd中运行frpc.exe</p>
-<h1 id="从外网访问内网web服务"><a href="#从外网访问内网web服务" class="headerlink" title="从外网访问内网web服务"></a>从外网访问内网web服务</h1><p>打开浏览器，通过 协议://域名:端口号 访问内网web服务就OK了</p>
-<p>但是如果访问的是Vue应用，那还需要多配置一些东西</p>
-<p>dev模式下启动Vue应用之后再外网访问内网会返回<strong>invalid host header</strong>，这是因为webpack会检查hostname，如果hostname不在配置内，就会拒绝这个访问</p>
-<p>解决办法：在vue.config.js中加上devServer配置：</p>
-<pre><code class="javascript">module.exports = {
+</code></pre><p>配置完成后启动frpc：</p><pre><code class="bash">./frpc -c ./frpc.ini
+</code></pre><p>在windows下还可以在cmd中运行frpc.exe</p><h1 id="从外网访问内网web服务"><a href="#从外网访问内网web服务" class="headerlink" title="从外网访问内网web服务"></a>从外网访问内网web服务</h1><p>打开浏览器，通过 协议://域名:端口号 访问内网web服务就OK了</p><p>但是如果访问的是Vue应用，那还需要多配置一些东西</p><p>dev模式下启动Vue应用之后再外网访问内网会返回<strong>invalid host header</strong>，这是因为webpack会检查hostname，如果hostname不在配置内，就会拒绝这个访问</p><p>解决办法：在vue.config.js中加上devServer配置：</p><pre><code class="javascript">module.exports = {
   devServer: {
     disableHostCheck: true
   },
 }
-</code></pre>
-<p>关于devServer的详细，可以查看Vue-cli的配置参考文档：<a href="https://cli.vuejs.org/zh/config/#devserver" target="_blank" rel="noopener">https://cli.vuejs.org/zh/config/#devserver</a></p>
-
-  </div>
-</article>
-<div class="end-line"></div>
-<!-- Highlight.js -->
-<script src="/js/highlight.pack.min.js"></script>
-<link rel="stylesheet" href="/css/atom-one-dark.min.css">
-<script>
-  (function () {
-    // 代码高亮初始化
-    hljs.initHighlightingOnLoad();
-
-    // 文章内容渐入
-    var articleContent = document.getElementsByClassName('article-content')[0];
-    setTimeout(function () {
-      articleContent.className = "article-content article-content-come";
-    }, 100);
-
-    // 以下是文章内容中图片的查看
-    var imgs = document.getElementsByClassName('article-content')[0].getElementsByTagName('img'),
-      imgView = document.createElement('div'),
-      imgViewImg = document.createElement('img');
-
-      imgView.appendChild(imgViewImg);
-      imgView.className = 'img-view';
-
-    // 打开图片后禁止触摸下拉上拉动作
-    function preventTouchStart (event) {
-      event.preventDefault();
-    }
-
-    // 新窗口打开图片
-    function openImg (event) {
-      document.body.addEventListener('touchstart', preventTouchStart);
-      document.body.style.paddingRight = window.innerWidth - document.body.offsetWidth + 'px';  // 滚动条宽度
-      document.body.style.overflow = 'hidden';
-      imgViewImg.src = event.target.src;
-      document.body.appendChild(imgView);
-      setTimeout(function () {
-        imgView.className = 'img-view img-view-open';
-      }, 0);
-    }
-
-    // 关闭图片
-    function closeImg (event) {
-      event.stopPropagation();  // 阻止冒泡，防止点到遮罩层下的东西
-      imgView.className = 'img-view';
-      document.body.removeEventListener('touchstart', preventTouchStart);
-      document.body.style.overflow = '';
-      document.body.style.paddingRight = '';
-      setTimeout(function () {
-        document.body.removeChild(imgView);
-      }, 300);
-    }
-
-    Array.prototype.forEach.call(imgs, function (img) {
-      img.addEventListener('click', openImg);
-    });
-    
-    imgView.addEventListener('click', closeImg);
-  })();
-</script>
-    
-
-    
-<script>
-  (function () {
-    // 渐入动画
-    var posts = document.getElementsByClassName('post'),
-      pageNav = document.getElementsByClassName('page-nav')[0];
-
-    Array.prototype.forEach.call(posts, function (post, index) {
-      setTimeout(function () {
-        post.className = "post post-come";
-
-        if (index >= posts.length - 1 && pageNav) {
-          setTimeout(function () {
-            pageNav.className = "page-nav page-nav-come";
-          }, 500);
-        }
-      }, index === 0 ? 0 : index * 100);
-    });
-  })();
-</script>
-  </div>
-  <div class="me">
-  <img alt="avatar" class="avatar">
-  <p class="me-p">Live by the sword and die by the sword.</p>
-  <div class="links">
-    <a href="https://github.com/RGM-89sc" target="_blank" class="link github-link" title="github"></a>
-    <a href="mailto:171716669@qq.com" class="link mail-link" title="mail"></a>
-  </div>
-  <div class="all-tags">
-  <span>TAGS LIST</span>
-  <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ANSI/">ANSI</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a><span class="tag-list-count">23</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/">MySQL</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Node-js/">Node.js</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VS-Code/">VS Code</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vue-js/">Vue.js</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/内网穿透/">内网穿透</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据库/">数据库</a><span class="tag-list-count">2</span></li></ul>
-  </div>
-</div>
-  <script src="/js/main.min.js"></script>
-  
-</body>
-</html>
+</code></pre><p>关于devServer的详细，可以查看Vue-cli的配置参考文档：<a href="https://cli.vuejs.org/zh/config/#devserver" target="_blank" rel="noopener">https://cli.vuejs.org/zh/config/#devserver</a></p></div></article><div class="end-line"></div><script src="/js/highlight.pack.min.js"></script><link rel="stylesheet" href="/css/atom-one-dark.min.css"><script>!function(){hljs.initHighlightingOnLoad();var e=document.getElementsByClassName("article-content")[0];setTimeout(function(){e.className="article-content article-content-come"},100);var t=document.getElementsByClassName("article-content")[0].getElementsByTagName("img"),n=document.createElement("div"),o=document.createElement("img");function i(e){e.preventDefault()}function c(e){document.body.addEventListener("touchstart",i),document.body.style.paddingRight=window.innerWidth-document.body.offsetWidth+"px",document.body.style.overflow="hidden",o.src=e.target.src,document.body.appendChild(n),setTimeout(function(){n.className="img-view img-view-open"},0)}n.appendChild(o),n.className="img-view",Array.prototype.forEach.call(t,function(e){e.addEventListener("click",c)}),n.addEventListener("click",function(e){e.stopPropagation(),n.className="img-view",document.body.removeEventListener("touchstart",i),document.body.style.overflow="",document.body.style.paddingRight="",setTimeout(function(){document.body.removeChild(n)},300)})}()</script><script>!function(){var a=document.getElementsByClassName("post"),n=document.getElementsByClassName("page-nav")[0];Array.prototype.forEach.call(a,function(e,t){setTimeout(function(){e.className="post post-come",t>=a.length-1&&n&&setTimeout(function(){n.className="page-nav page-nav-come"},500)},0===t?0:100*t)})}()</script></div><div class="me"><img alt="avatar" class="avatar"><p class="me-p">Live by the sword and die by the sword.</p><div class="links"><a href="https://github.com/RGM-89sc" target="_blank" class="link github-link" title="github"></a> <a href="mailto:171716669@qq.com" class="link mail-link" title="mail"></a></div><div class="all-tags"><span>TAGS LIST</span><ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ANSI/">ANSI</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a><span class="tag-list-count">23</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/">MySQL</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Node-js/">Node.js</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VS-Code/">VS Code</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vue-js/">Vue.js</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/内网穿透/">内网穿透</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据库/">数据库</a><span class="tag-list-count">2</span></li></ul></div></div><script src="/js/main.min.js"></script></body></html>

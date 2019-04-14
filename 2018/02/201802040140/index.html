@@ -1,87 +1,19 @@
-<!DOCTYPE html>
-<html lang="zh-cn">
-<head><meta name="generator" content="Hexo 3.8.0">
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <meta name="author" content="RGM">
-  <meta name="keywords" content="前端,front end,javascript,js,css,html,node">
-  <meta name="description" content="RGM的个人博客，分享自己的学习与理解">
-  <meta name="google-site-verification" content="LKCCs3-UtSC016crWb5f1xvBeQoqat3B9Wg_J9AA7i0">
-  <title>RGM's BLOG</title>
-  <link rel="stylesheet" href="/css/main.min.css">
-</head>
-<body>
-  <div class='main full-width'>
-    <header class="full-width">
-  <a href="/" class="brand">RGM's BLOG</a>
-
-  <span class="about-me">About me
-</span></header>
-
-
-    
-    <article class="article-main">
-<nav class="top-nav">
-  <ul class="nav">
-  
-
-  
-    <li>
-      <a href="/" class="current">我的随笔</a>
-    </li>
-  
-    <li>
-      <a href="/tags/" class="">我的标签</a>
-    </li>
-  
-  </ul>
-</nav>
-
-  <div class="article-title">
-    <h1 class="title">Number()与parseInt()</h1>
-  </div>
-  <div class="article-meta">
-  
-    <span class="article-time">Saturday, 03 Feb 2018</span>
-    
-    <div class="tags">
-      <span>Tags: </span>
-      
-        <a href="/tags/JavaScript/" style="background-color: #f5de19; color: #fff">
-          JavaScript
-        </a>
-      
-    </div>
-    
-  </div>
-  <div class="article-content">
-    <p>Number()与parseInt()都是把非数值转换为数值的函数，其中，Number()的参数可以是任何类型，而parseInt()则只接受字符串类型</p>
-<h1 id="number"><a href="#Number" class="headerlink" title="Number()"></a>Number()</h1><p>由于Number()所接受的参数类型没有限制，所以Number()对参数有多种处理方式：<br>1、如果是布尔值，则true转换为1，false转换为0<br>2、如果是数字值，则原样返回<br>3、如果是null，则转换为0<br>4、如果是undefined，则转换为NaN<br>5、如果是字符串：<br>  （1）如果字符串中只包含数字（包括前面带正负号的），则将其转换为十进制数值，即”1”转换成1，”011”转换成11<br>  （2）如果字符串中包含有效的浮点格式，如”1.1”，则将其转换为对应的浮点数字（会忽略前导0）<br>  （3）如果字符串中包含有效的十六进制格式，例如”0xf”，则将其转换成相同大小的十进制整数值<br>  （4）如果字符串为空（””），则将其转换为0<br>  （5）如果字符串中上述格式以外的字符，则将其转换为NaN<br>6、如果是对象，则调用对象中的valueof()方法，然后依照前面带规则转换返回的值，如果转换出来的值是NaN，则调用对象的toString()方法，然后再依照前面的规则转换返回的值</p>
-<p>示例：</p>
-<pre><code class="javascript">console.log(Number(&quot;str&quot;));  //NaN
+<!DOCTYPE html><html lang="zh-cn"><head><meta name="generator" content="Hexo 3.8.0"><meta charset="UTF-8"><meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1,minimum-scale=1"><meta http-equiv="X-UA-Compatible" content="ie=edge"><meta name="author" content="RGM"><meta name="keywords" content="前端,front end,javascript,js,css,html,node"><meta name="description" content="RGM的个人博客，分享自己的学习与理解"><meta name="google-site-verification" content="LKCCs3-UtSC016crWb5f1xvBeQoqat3B9Wg_J9AA7i0"><title>RGM's BLOG</title><link rel="stylesheet" href="/css/main.min.css"></head><body><div class="main full-width"><header class="full-width"><a href="/" class="brand">RGM's BLOG</a> <span class="about-me">About me</span></header><article class="article-main"><nav class="top-nav"><ul class="nav"><li><a href="/" class="current">我的随笔</a></li><li><a href="/tags/">我的标签</a></li></ul></nav><div class="article-title"><h1 class="title">Number()与parseInt()</h1></div><div class="article-meta"><span class="article-time">Saturday, 03 Feb 2018</span><div class="tags"><span>Tags: </span><a href="/tags/JavaScript/" style="background-color:#f5de19;color:#fff">JavaScript</a></div></div><div class="article-content"><p>Number()与parseInt()都是把非数值转换为数值的函数，其中，Number()的参数可以是任何类型，而parseInt()则只接受字符串类型</p><h1 id="number"><a href="#Number" class="headerlink" title="Number()"></a>Number()</h1><p>由于Number()所接受的参数类型没有限制，所以Number()对参数有多种处理方式：<br>1、如果是布尔值，则true转换为1，false转换为0<br>2、如果是数字值，则原样返回<br>3、如果是null，则转换为0<br>4、如果是undefined，则转换为NaN<br>5、如果是字符串：<br>（1）如果字符串中只包含数字（包括前面带正负号的），则将其转换为十进制数值，即”1”转换成1，”011”转换成11<br>（2）如果字符串中包含有效的浮点格式，如”1.1”，则将其转换为对应的浮点数字（会忽略前导0）<br>（3）如果字符串中包含有效的十六进制格式，例如”0xf”，则将其转换成相同大小的十进制整数值<br>（4）如果字符串为空（””），则将其转换为0<br>（5）如果字符串中上述格式以外的字符，则将其转换为NaN<br>6、如果是对象，则调用对象中的valueof()方法，然后依照前面带规则转换返回的值，如果转换出来的值是NaN，则调用对象的toString()方法，然后再依照前面的规则转换返回的值</p><p>示例：</p><pre><code class="javascript">console.log(Number(&quot;str&quot;));  //NaN
 console.log(Number(&quot;012&quot;));  //12
 console.log(Number(true));  //1
 console.log(Number(&quot;&quot;));  //0
 console.log(Number(null));  //0
 console.log(Number(undefined));  //NaN
 console.log(Number(NaN));  // NaN
-</code></pre>
-<h1 id="parseint"><a href="#parseInt" class="headerlink" title="parseInt()"></a>parseInt()</h1><p>parseInt()会忽略字符串前面的空格，当遇到不是空格的第一个字符不是数字字符或者负号，就会返回NaN，如果遇到的第一个非空格字符是数字字符，那么剩下的字符串中只要遇到非数字字符，剩下的字符都会被忽略</p>
-<pre><code class="javascript">console.log(parseInt(&quot;str&quot;));  //NaN
+</code></pre><h1 id="parseint"><a href="#parseInt" class="headerlink" title="parseInt()"></a>parseInt()</h1><p>parseInt()会忽略字符串前面的空格，当遇到不是空格的第一个字符不是数字字符或者负号，就会返回NaN，如果遇到的第一个非空格字符是数字字符，那么剩下的字符串中只要遇到非数字字符，剩下的字符都会被忽略</p><pre><code class="javascript">console.log(parseInt(&quot;str&quot;));  //NaN
 console.log(parseInt(&quot;012&quot;));  //12
 console.log(parseInt(&quot;&quot;));  //NaN
 console.log(parseInt(&quot;  2&quot;));  //2
 console.log(parseInt(&quot;12str3&quot;));  //12
-</code></pre>
-<p>另外，parseInt()还可以传入第二个参数，为数字类型，表示按多少进制去解析字符串（第一个参数）：</p>
-<pre><code class="javascript">console.log(parseInt(&quot;010101&quot;, 2));  //21
+</code></pre><p>另外，parseInt()还可以传入第二个参数，为数字类型，表示按多少进制去解析字符串（第一个参数）：</p><pre><code class="javascript">console.log(parseInt(&quot;010101&quot;, 2));  //21
 console.log(parseInt(&quot;AF&quot;, 16));  //175
 console.log(parseInt(&quot;70&quot;, 8));  //56
-</code></pre>
-<h1 id="parsefloat"><a href="#parseFloat" class="headerlink" title="parseFloat()"></a>parseFloat()</h1><p>parseFloat()与parseInt()十分相似，只不过parseFloat()可以解析出浮点数，而parseInt()则不可以，但parseFloat()只能解析十进制值，对于十六进制的始终返回0，因此也没有第二个参数</p>
-<p>示例：</p>
-<pre><code class="javascript">console.log(parseFloat(&quot;11.2&quot;));  //11.2
+</code></pre><h1 id="parsefloat"><a href="#parseFloat" class="headerlink" title="parseFloat()"></a>parseFloat()</h1><p>parseFloat()与parseInt()十分相似，只不过parseFloat()可以解析出浮点数，而parseInt()则不可以，但parseFloat()只能解析十进制值，对于十六进制的始终返回0，因此也没有第二个参数</p><p>示例：</p><pre><code class="javascript">console.log(parseFloat(&quot;11.2&quot;));  //11.2
 console.log(parseFloat(&quot;11.2.2&quot;));  //11.2
 console.log(parseFloat(&quot;.2&quot;));  //0.2
 console.log(parseFloat(&quot;..2&quot;));  //NaN
@@ -89,109 +21,6 @@ console.log(parseFloat(&quot;012.1&quot;));  //12.1
 console.log(parseFloat(&quot;0xAF&quot;));  //0
 console.log(parseFloat(&quot;4.0&quot;));  //4
 console.log(parseFloat(&quot;12str3&quot;));  //12
-</code></pre>
-<p>parseFloat()还实现了部分parseInt()的功能，当需要解析的字符串是一个整数的字符串时，返回的也是整数</p>
-<pre><code class="javascript">console.log(parseFloat(&quot;123&quot;));  //123
+</code></pre><p>parseFloat()还实现了部分parseInt()的功能，当需要解析的字符串是一个整数的字符串时，返回的也是整数</p><pre><code class="javascript">console.log(parseFloat(&quot;123&quot;));  //123
 console.log(parseFloat(&quot;00123&quot;));  //123
-</code></pre>
-
-  </div>
-</article>
-<div class="end-line"></div>
-<!-- Highlight.js -->
-<script src="/js/highlight.pack.min.js"></script>
-<link rel="stylesheet" href="/css/atom-one-dark.min.css">
-<script>
-  (function () {
-    // 代码高亮初始化
-    hljs.initHighlightingOnLoad();
-
-    // 文章内容渐入
-    var articleContent = document.getElementsByClassName('article-content')[0];
-    setTimeout(function () {
-      articleContent.className = "article-content article-content-come";
-    }, 100);
-
-    // 以下是文章内容中图片的查看
-    var imgs = document.getElementsByClassName('article-content')[0].getElementsByTagName('img'),
-      imgView = document.createElement('div'),
-      imgViewImg = document.createElement('img');
-
-      imgView.appendChild(imgViewImg);
-      imgView.className = 'img-view';
-
-    // 打开图片后禁止触摸下拉上拉动作
-    function preventTouchStart (event) {
-      event.preventDefault();
-    }
-
-    // 新窗口打开图片
-    function openImg (event) {
-      document.body.addEventListener('touchstart', preventTouchStart);
-      document.body.style.paddingRight = window.innerWidth - document.body.offsetWidth + 'px';  // 滚动条宽度
-      document.body.style.overflow = 'hidden';
-      imgViewImg.src = event.target.src;
-      document.body.appendChild(imgView);
-      setTimeout(function () {
-        imgView.className = 'img-view img-view-open';
-      }, 0);
-    }
-
-    // 关闭图片
-    function closeImg (event) {
-      event.stopPropagation();  // 阻止冒泡，防止点到遮罩层下的东西
-      imgView.className = 'img-view';
-      document.body.removeEventListener('touchstart', preventTouchStart);
-      document.body.style.overflow = '';
-      document.body.style.paddingRight = '';
-      setTimeout(function () {
-        document.body.removeChild(imgView);
-      }, 300);
-    }
-
-    Array.prototype.forEach.call(imgs, function (img) {
-      img.addEventListener('click', openImg);
-    });
-    
-    imgView.addEventListener('click', closeImg);
-  })();
-</script>
-    
-
-    
-<script>
-  (function () {
-    // 渐入动画
-    var posts = document.getElementsByClassName('post'),
-      pageNav = document.getElementsByClassName('page-nav')[0];
-
-    Array.prototype.forEach.call(posts, function (post, index) {
-      setTimeout(function () {
-        post.className = "post post-come";
-
-        if (index >= posts.length - 1 && pageNav) {
-          setTimeout(function () {
-            pageNav.className = "page-nav page-nav-come";
-          }, 500);
-        }
-      }, index === 0 ? 0 : index * 100);
-    });
-  })();
-</script>
-  </div>
-  <div class="me">
-  <img alt="avatar" class="avatar">
-  <p class="me-p">Live by the sword and die by the sword.</p>
-  <div class="links">
-    <a href="https://github.com/RGM-89sc" target="_blank" class="link github-link" title="github"></a>
-    <a href="mailto:171716669@qq.com" class="link mail-link" title="mail"></a>
-  </div>
-  <div class="all-tags">
-  <span>TAGS LIST</span>
-  <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ANSI/">ANSI</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a><span class="tag-list-count">23</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/">MySQL</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Node-js/">Node.js</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VS-Code/">VS Code</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vue-js/">Vue.js</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/内网穿透/">内网穿透</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据库/">数据库</a><span class="tag-list-count">2</span></li></ul>
-  </div>
-</div>
-  <script src="/js/main.min.js"></script>
-  
-</body>
-</html>
+</code></pre></div></article><div class="end-line"></div><script src="/js/highlight.pack.min.js"></script><link rel="stylesheet" href="/css/atom-one-dark.min.css"><script>!function(){hljs.initHighlightingOnLoad();var e=document.getElementsByClassName("article-content")[0];setTimeout(function(){e.className="article-content article-content-come"},100);var t=document.getElementsByClassName("article-content")[0].getElementsByTagName("img"),n=document.createElement("div"),o=document.createElement("img");function i(e){e.preventDefault()}function c(e){document.body.addEventListener("touchstart",i),document.body.style.paddingRight=window.innerWidth-document.body.offsetWidth+"px",document.body.style.overflow="hidden",o.src=e.target.src,document.body.appendChild(n),setTimeout(function(){n.className="img-view img-view-open"},0)}n.appendChild(o),n.className="img-view",Array.prototype.forEach.call(t,function(e){e.addEventListener("click",c)}),n.addEventListener("click",function(e){e.stopPropagation(),n.className="img-view",document.body.removeEventListener("touchstart",i),document.body.style.overflow="",document.body.style.paddingRight="",setTimeout(function(){document.body.removeChild(n)},300)})}()</script><script>!function(){var a=document.getElementsByClassName("post"),n=document.getElementsByClassName("page-nav")[0];Array.prototype.forEach.call(a,function(e,t){setTimeout(function(){e.className="post post-come",t>=a.length-1&&n&&setTimeout(function(){n.className="page-nav page-nav-come"},500)},0===t?0:100*t)})}()</script></div><div class="me"><img alt="avatar" class="avatar"><p class="me-p">Live by the sword and die by the sword.</p><div class="links"><a href="https://github.com/RGM-89sc" target="_blank" class="link github-link" title="github"></a> <a href="mailto:171716669@qq.com" class="link mail-link" title="mail"></a></div><div class="all-tags"><span>TAGS LIST</span><ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ANSI/">ANSI</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a><span class="tag-list-count">23</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/">MySQL</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Node-js/">Node.js</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VS-Code/">VS Code</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vue-js/">Vue.js</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/内网穿透/">内网穿透</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据库/">数据库</a><span class="tag-list-count">2</span></li></ul></div></div><script src="/js/main.min.js"></script></body></html>

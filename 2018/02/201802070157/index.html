@@ -1,75 +1,11 @@
-<!DOCTYPE html>
-<html lang="zh-cn">
-<head><meta name="generator" content="Hexo 3.8.0">
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <meta name="author" content="RGM">
-  <meta name="keywords" content="前端,front end,javascript,js,css,html,node">
-  <meta name="description" content="RGM的个人博客，分享自己的学习与理解">
-  <meta name="google-site-verification" content="LKCCs3-UtSC016crWb5f1xvBeQoqat3B9Wg_J9AA7i0">
-  <title>RGM's BLOG</title>
-  <link rel="stylesheet" href="/css/main.min.css">
-</head>
-<body>
-  <div class='main full-width'>
-    <header class="full-width">
-  <a href="/" class="brand">RGM's BLOG</a>
-
-  <span class="about-me">About me
-</span></header>
-
-
-    
-    <article class="article-main">
-<nav class="top-nav">
-  <ul class="nav">
-  
-
-  
-    <li>
-      <a href="/" class="current">我的随笔</a>
-    </li>
-  
-    <li>
-      <a href="/tags/" class="">我的标签</a>
-    </li>
-  
-  </ul>
-</nav>
-
-  <div class="article-title">
-    <h1 class="title">对象属性的数据属性与访问器属性</h1>
-  </div>
-  <div class="article-meta">
-  
-    <span class="article-time">Tuesday, 06 Feb 2018</span>
-    
-    <div class="tags">
-      <span>Tags: </span>
-      
-        <a href="/tags/JavaScript/" style="background-color: #f5de19; color: #fff">
-          JavaScript
-        </a>
-      
-    </div>
-    
-  </div>
-  <div class="article-content">
-    <p>在定义对象的属性时，这些属性就带上了一些特性来描述这个属性的行为，这些特性是有分类的，共分为两类：数据属性和访问器属性，这两大属性包含的特性都不能在javascript中访问它们，规范规定这些内部值被放在两对方括号中，比如：[[Enumerable]]</p>
-<h1 id="数据属性"><a href="#数据属性" class="headerlink" title="数据属性"></a>数据属性</h1><p>数据属性有四个特性：<br>|特性|作用|默认值|<br>|:—|:—|:—|<br>|[[Configurable]]|表示能否使用delete删除属性，能否修改为访问器属性|true|<br>|[[Enumerable]]|表示能否通过for-in枚举出来|true|<br>|[[Writable]]|表示能否修改属性的值|true|<br>|[[Value]]|属性的值|undefined|</p>
-<p>先来创建一个对象并赋予一些属性：</p>
-<pre><code class="javascript">var obj = {
+<!DOCTYPE html><html lang="zh-cn"><head><meta name="generator" content="Hexo 3.8.0"><meta charset="UTF-8"><meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1,minimum-scale=1"><meta http-equiv="X-UA-Compatible" content="ie=edge"><meta name="author" content="RGM"><meta name="keywords" content="前端,front end,javascript,js,css,html,node"><meta name="description" content="RGM的个人博客，分享自己的学习与理解"><meta name="google-site-verification" content="LKCCs3-UtSC016crWb5f1xvBeQoqat3B9Wg_J9AA7i0"><title>RGM's BLOG</title><link rel="stylesheet" href="/css/main.min.css"></head><body><div class="main full-width"><header class="full-width"><a href="/" class="brand">RGM's BLOG</a> <span class="about-me">About me</span></header><article class="article-main"><nav class="top-nav"><ul class="nav"><li><a href="/" class="current">我的随笔</a></li><li><a href="/tags/">我的标签</a></li></ul></nav><div class="article-title"><h1 class="title">对象属性的数据属性与访问器属性</h1></div><div class="article-meta"><span class="article-time">Tuesday, 06 Feb 2018</span><div class="tags"><span>Tags: </span><a href="/tags/JavaScript/" style="background-color:#f5de19;color:#fff">JavaScript</a></div></div><div class="article-content"><p>在定义对象的属性时，这些属性就带上了一些特性来描述这个属性的行为，这些特性是有分类的，共分为两类：数据属性和访问器属性，这两大属性包含的特性都不能在javascript中访问它们，规范规定这些内部值被放在两对方括号中，比如：[[Enumerable]]</p><h1 id="数据属性"><a href="#数据属性" class="headerlink" title="数据属性"></a>数据属性</h1><p>数据属性有四个特性：<br>|特性|作用|默认值|<br>|:—|:—|:—|<br>|[[Configurable]]|表示能否使用delete删除属性，能否修改为访问器属性|true|<br>|[[Enumerable]]|表示能否通过for-in枚举出来|true|<br>|[[Writable]]|表示能否修改属性的值|true|<br>|[[Value]]|属性的值|undefined|</p><p>先来创建一个对象并赋予一些属性：</p><pre><code class="javascript">var obj = {
     var1: &quot;var1&quot;,
     var2: &quot;var2&quot;,
     getvar1: function(){
         return this.var1;
     }
 };
-</code></pre>
-<p>向上面这样直接在对象中定义的属性，它们的[[Configurable]]、[[Enumerable]]、[[Writeable]]特性都为true，[[Value]]为指定的值<br>由于这些特性无法直接访问，所以要修改则必须使用Object.defineProperty()这个方法，这个方法接收三个参数：属性所在对象、属性名、描述符对象，描述符对象中可以指定一个或多个特性的值</p>
-<p>示例：</p>
-<pre><code class="javascript">Object.defineProperty(obj, &quot;var1&quot;, {
+</code></pre><p>向上面这样直接在对象中定义的属性，它们的[[Configurable]]、[[Enumerable]]、[[Writeable]]特性都为true，[[Value]]为指定的值<br>由于这些特性无法直接访问，所以要修改则必须使用Object.defineProperty()这个方法，这个方法接收三个参数：属性所在对象、属性名、描述符对象，描述符对象中可以指定一个或多个特性的值</p><p>示例：</p><pre><code class="javascript">Object.defineProperty(obj, &quot;var1&quot;, {
     configurable: false,
     writable: false,
     value: &quot;var0&quot;
@@ -78,10 +14,7 @@ delete obj.var1;
 console.log(obj.var1);  //var0
 obj.var1 = &quot;var1&quot;;
 console.log(obj.var1);  //var0
-</code></pre>
-<p>在上面这个例子中，[[Configurable]]被修改为false，即不可配置，此时obj对象中var1这个属性就无法被删除了，即使使用delete后，这个属性仍然存在（这里要注意：一旦把[[Configurable]]就无法把它改回去了，因为它是“不可配置的”，并且如果继续调用Object.defineProperty()对这个属性的特性进行修改，除[[Writable]]以外，修改任意一个特性都会抛出错误）。<br>除[[Configurable]]外，还把这个属性值设置为了”var0”，并把[[Writeable]]设置为了false，即其值不可修改，所以当通过给属性赋值后，其值依然为”var0”</p>
-<p>Object.defineProperty()不仅可以修改属性的特性，还能通过设置属性的特性（一定要显示设置[[Value]]）来定义一个新属性：</p>
-<pre><code class="javascript">Object.defineProperty(obj, &quot;getVar2&quot;, {
+</code></pre><p>在上面这个例子中，[[Configurable]]被修改为false，即不可配置，此时obj对象中var1这个属性就无法被删除了，即使使用delete后，这个属性仍然存在（这里要注意：一旦把[[Configurable]]就无法把它改回去了，因为它是“不可配置的”，并且如果继续调用Object.defineProperty()对这个属性的特性进行修改，除[[Writable]]以外，修改任意一个特性都会抛出错误）。<br>除[[Configurable]]外，还把这个属性值设置为了”var0”，并把[[Writeable]]设置为了false，即其值不可修改，所以当通过给属性赋值后，其值依然为”var0”</p><p>Object.defineProperty()不仅可以修改属性的特性，还能通过设置属性的特性（一定要显示设置[[Value]]）来定义一个新属性：</p><pre><code class="javascript">Object.defineProperty(obj, &quot;getVar2&quot;, {
     configurable: true,
     enumerable: true,
     writable: true,
@@ -90,14 +23,7 @@ console.log(obj.var1);  //var0
     }
 });
 console.log(obj.getVar2());  //var2
-</code></pre>
-<p>在上面这个例子中，把除[[Value]]外的特性值都设置为了true，value的值则是一个返回var2属性值的函数</p>
-<p>在使用Object.defineProperty()给对象新增属性时，如果不指定，configurable、enumerable和writable都为false</p>
-<h1 id="访问器属性"><a href="#访问器属性" class="headerlink" title="访问器属性"></a>访问器属性</h1><p>访问器属性也有四个特性：<br>|特性|作用|默认值|<br>|:—|:—|:—|<br>|[[Configurable]]|表示能否使用delete删除属性，能否修改为访问器属性|true|<br>|[[Enumerable]]|表示能否通过for-in枚举出来|true|<br>|[[Get]]|在读取属性时调用的函数|undefined|<br>|[[Set]]|在写入属性时调用的函数|undefined|</p>
-<p>访问器属性不包含数据值，当读取访问器属性时会调用getter函数，这个函数负责返回有效的值；当写入访问器属性时会调用setter函数并传入新的值<br>只定义getter函数时意味着属性不可写，只定义setter函数时意味着属性不可读<br>当使用了getter或setter方法，就不允许使用writable和value这两个属性了</p>
-<p>不同于数据属性，访问器属性是不能直接定义的，只能通过Object.defineProperty()来定义</p>
-<p>示例：</p>
-<pre><code class="javascript">var obj = {
+</code></pre><p>在上面这个例子中，把除[[Value]]外的特性值都设置为了true，value的值则是一个返回var2属性值的函数</p><p>在使用Object.defineProperty()给对象新增属性时，如果不指定，configurable、enumerable和writable都为false</p><h1 id="访问器属性"><a href="#访问器属性" class="headerlink" title="访问器属性"></a>访问器属性</h1><p>访问器属性也有四个特性：<br>|特性|作用|默认值|<br>|:—|:—|:—|<br>|[[Configurable]]|表示能否使用delete删除属性，能否修改为访问器属性|true|<br>|[[Enumerable]]|表示能否通过for-in枚举出来|true|<br>|[[Get]]|在读取属性时调用的函数|undefined|<br>|[[Set]]|在写入属性时调用的函数|undefined|</p><p>访问器属性不包含数据值，当读取访问器属性时会调用getter函数，这个函数负责返回有效的值；当写入访问器属性时会调用setter函数并传入新的值<br>只定义getter函数时意味着属性不可写，只定义setter函数时意味着属性不可读<br>当使用了getter或setter方法，就不允许使用writable和value这两个属性了</p><p>不同于数据属性，访问器属性是不能直接定义的，只能通过Object.defineProperty()来定义</p><p>示例：</p><pre><code class="javascript">var obj = {
     var1: &quot;var1&quot;
 };
 
@@ -111,13 +37,7 @@ Object.defineProperty(obj, &quot;var1&quot;, {
 });
 obj.var1 = &quot;var0&quot;;
 console.log(obj.var1);
-</code></pre>
-<p>在上面这个例子中第7行和第10行的var1前面都加上了一个下划线符号”_”，这个下划线表示这个属性只能通过对象方法访问<br>而如果不加会有什么问题呢？<br>抛出错误：”Maximum call stack size exceeded”，超过了最大调用堆栈大小</p>
-<p>原因是：getter和setter函数分别访问、修改this.var1，也就是需要读取修改var1，这就需要调用getter和setter函数了，如此递归调用最后超过了最大调用堆栈大小，抛出错误</p>
-<p>访问器属性一般是使用在设置一个属性值是也让其他属性值变化，但我们也可以不用访问器属性实现</p>
-<h1 id="定义多个属性"><a href="#定义多个属性" class="headerlink" title="定义多个属性"></a>定义多个属性</h1><p>Object.defineProperty()只能定义一个对象属性的特性，而Object.defineProperties()可以一次性定义多个对象属性的特性，这个方法只接受两个参数：第一个参数是要添加和修改其属性的对象，第二个参数也是对象，这个对象是要修改的属性名与其特性描述符对象的集合</p>
-<p>示例：</p>
-<pre><code class="javascript">var obj = {};
+</code></pre><p>在上面这个例子中第7行和第10行的var1前面都加上了一个下划线符号”_”，这个下划线表示这个属性只能通过对象方法访问<br>而如果不加会有什么问题呢？<br>抛出错误：”Maximum call stack size exceeded”，超过了最大调用堆栈大小</p><p>原因是：getter和setter函数分别访问、修改this.var1，也就是需要读取修改var1，这就需要调用getter和setter函数了，如此递归调用最后超过了最大调用堆栈大小，抛出错误</p><p>访问器属性一般是使用在设置一个属性值是也让其他属性值变化，但我们也可以不用访问器属性实现</p><h1 id="定义多个属性"><a href="#定义多个属性" class="headerlink" title="定义多个属性"></a>定义多个属性</h1><p>Object.defineProperty()只能定义一个对象属性的特性，而Object.defineProperties()可以一次性定义多个对象属性的特性，这个方法只接受两个参数：第一个参数是要添加和修改其属性的对象，第二个参数也是对象，这个对象是要修改的属性名与其特性描述符对象的集合</p><p>示例：</p><pre><code class="javascript">var obj = {};
 
 Object.defineProperties(obj, {
     var1: {
@@ -142,115 +62,11 @@ console.log(obj.var1);  //var1
 console.log(obj.var2);  //undefined
 obj.var2 = &quot;var2&quot;;
 console.log(obj.var2);  //var2
-</code></pre>
-<h1 id="读取属性的特性"><a href="#读取属性的特性" class="headerlink" title="读取属性的特性"></a>读取属性的特性</h1><p>Object.getOwnPropertyDescriptor()可以取得给定属性的描述符对象，这个方法的返回值是一个对象，接受两个参数：属性所在的对象、要读取其描述符的属性名称</p>
-<p>示例（接上一个例子）：</p>
-<pre><code class="javascript">var descriptor = Object.getOwnPropertyDescriptor(obj, &quot;var1&quot;);
+</code></pre><h1 id="读取属性的特性"><a href="#读取属性的特性" class="headerlink" title="读取属性的特性"></a>读取属性的特性</h1><p>Object.getOwnPropertyDescriptor()可以取得给定属性的描述符对象，这个方法的返回值是一个对象，接受两个参数：属性所在的对象、要读取其描述符的属性名称</p><p>示例（接上一个例子）：</p><pre><code class="javascript">var descriptor = Object.getOwnPropertyDescriptor(obj, &quot;var1&quot;);
 console.log(descriptor.configurable);  //true
 console.log(descriptor.enumerable);  //true
 console.log(descriptor.writable);  //true
 console.log(descriptor.value);  //var1
 console.log(descriptor.get);  //undefined
 console.log(descriptor.set);  //undefined
-</code></pre>
-
-  </div>
-</article>
-<div class="end-line"></div>
-<!-- Highlight.js -->
-<script src="/js/highlight.pack.min.js"></script>
-<link rel="stylesheet" href="/css/atom-one-dark.min.css">
-<script>
-  (function () {
-    // 代码高亮初始化
-    hljs.initHighlightingOnLoad();
-
-    // 文章内容渐入
-    var articleContent = document.getElementsByClassName('article-content')[0];
-    setTimeout(function () {
-      articleContent.className = "article-content article-content-come";
-    }, 100);
-
-    // 以下是文章内容中图片的查看
-    var imgs = document.getElementsByClassName('article-content')[0].getElementsByTagName('img'),
-      imgView = document.createElement('div'),
-      imgViewImg = document.createElement('img');
-
-      imgView.appendChild(imgViewImg);
-      imgView.className = 'img-view';
-
-    // 打开图片后禁止触摸下拉上拉动作
-    function preventTouchStart (event) {
-      event.preventDefault();
-    }
-
-    // 新窗口打开图片
-    function openImg (event) {
-      document.body.addEventListener('touchstart', preventTouchStart);
-      document.body.style.paddingRight = window.innerWidth - document.body.offsetWidth + 'px';  // 滚动条宽度
-      document.body.style.overflow = 'hidden';
-      imgViewImg.src = event.target.src;
-      document.body.appendChild(imgView);
-      setTimeout(function () {
-        imgView.className = 'img-view img-view-open';
-      }, 0);
-    }
-
-    // 关闭图片
-    function closeImg (event) {
-      event.stopPropagation();  // 阻止冒泡，防止点到遮罩层下的东西
-      imgView.className = 'img-view';
-      document.body.removeEventListener('touchstart', preventTouchStart);
-      document.body.style.overflow = '';
-      document.body.style.paddingRight = '';
-      setTimeout(function () {
-        document.body.removeChild(imgView);
-      }, 300);
-    }
-
-    Array.prototype.forEach.call(imgs, function (img) {
-      img.addEventListener('click', openImg);
-    });
-    
-    imgView.addEventListener('click', closeImg);
-  })();
-</script>
-    
-
-    
-<script>
-  (function () {
-    // 渐入动画
-    var posts = document.getElementsByClassName('post'),
-      pageNav = document.getElementsByClassName('page-nav')[0];
-
-    Array.prototype.forEach.call(posts, function (post, index) {
-      setTimeout(function () {
-        post.className = "post post-come";
-
-        if (index >= posts.length - 1 && pageNav) {
-          setTimeout(function () {
-            pageNav.className = "page-nav page-nav-come";
-          }, 500);
-        }
-      }, index === 0 ? 0 : index * 100);
-    });
-  })();
-</script>
-  </div>
-  <div class="me">
-  <img alt="avatar" class="avatar">
-  <p class="me-p">Live by the sword and die by the sword.</p>
-  <div class="links">
-    <a href="https://github.com/RGM-89sc" target="_blank" class="link github-link" title="github"></a>
-    <a href="mailto:171716669@qq.com" class="link mail-link" title="mail"></a>
-  </div>
-  <div class="all-tags">
-  <span>TAGS LIST</span>
-  <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ANSI/">ANSI</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a><span class="tag-list-count">23</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/">MySQL</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Node-js/">Node.js</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VS-Code/">VS Code</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vue-js/">Vue.js</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/内网穿透/">内网穿透</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据库/">数据库</a><span class="tag-list-count">2</span></li></ul>
-  </div>
-</div>
-  <script src="/js/main.min.js"></script>
-  
-</body>
-</html>
+</code></pre></div></article><div class="end-line"></div><script src="/js/highlight.pack.min.js"></script><link rel="stylesheet" href="/css/atom-one-dark.min.css"><script>!function(){hljs.initHighlightingOnLoad();var e=document.getElementsByClassName("article-content")[0];setTimeout(function(){e.className="article-content article-content-come"},100);var t=document.getElementsByClassName("article-content")[0].getElementsByTagName("img"),n=document.createElement("div"),o=document.createElement("img");function i(e){e.preventDefault()}function c(e){document.body.addEventListener("touchstart",i),document.body.style.paddingRight=window.innerWidth-document.body.offsetWidth+"px",document.body.style.overflow="hidden",o.src=e.target.src,document.body.appendChild(n),setTimeout(function(){n.className="img-view img-view-open"},0)}n.appendChild(o),n.className="img-view",Array.prototype.forEach.call(t,function(e){e.addEventListener("click",c)}),n.addEventListener("click",function(e){e.stopPropagation(),n.className="img-view",document.body.removeEventListener("touchstart",i),document.body.style.overflow="",document.body.style.paddingRight="",setTimeout(function(){document.body.removeChild(n)},300)})}()</script><script>!function(){var a=document.getElementsByClassName("post"),n=document.getElementsByClassName("page-nav")[0];Array.prototype.forEach.call(a,function(e,t){setTimeout(function(){e.className="post post-come",t>=a.length-1&&n&&setTimeout(function(){n.className="page-nav page-nav-come"},500)},0===t?0:100*t)})}()</script></div><div class="me"><img alt="avatar" class="avatar"><p class="me-p">Live by the sword and die by the sword.</p><div class="links"><a href="https://github.com/RGM-89sc" target="_blank" class="link github-link" title="github"></a> <a href="mailto:171716669@qq.com" class="link mail-link" title="mail"></a></div><div class="all-tags"><span>TAGS LIST</span><ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ANSI/">ANSI</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a><span class="tag-list-count">23</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/">MySQL</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Node-js/">Node.js</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VS-Code/">VS Code</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vue-js/">Vue.js</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/内网穿透/">内网穿透</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据库/">数据库</a><span class="tag-list-count">2</span></li></ul></div></div><script src="/js/main.min.js"></script></body></html>
