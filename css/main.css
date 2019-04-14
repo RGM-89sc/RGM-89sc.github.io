@@ -27,6 +27,15 @@ html, body {
   @media only screen and (max-width: 760px) {
     .main {
       width: 100% !important; } }
+  @media only screen and (min-width: 761px) and (max-width: 1279px) {
+    .main {
+      margin-top: 100px; } }
+  @media only screen and (min-width: 1280px) and (max-width: 1399px) {
+    .main {
+      margin-top: 100px; } }
+  @media only screen and (min-width: 1400px) {
+    .main {
+      margin-top: 120px; } }
 
 .full-width {
   width: 100%;
@@ -189,12 +198,21 @@ html, body {
   transition: all ease 1s; }
 
 header {
-  position: relative;
-  padding: 20px 40px; }
+  position: fixed;
+  top: 0;
+  padding: 20px 40px;
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+  width: 100%;
+  z-index: 99;
+  background-color: rgba(255, 255, 255, 0.9); }
   @media only screen and (max-width: 760px) {
     header {
+      position: relative;
       padding: 20px;
-      text-align: center; } }
+      text-align: center;
+      background-color: white; } }
 
 .brand {
   font-size: 2.22rem;
@@ -213,17 +231,15 @@ header {
     .about-me {
       display: none; } }
 
-.about-me-open {
-  margin-right: -1rem; }
-  .about-me-open::after {
-    content: "»"; }
+.about-me-open::after {
+  content: "»"; }
 
 .top-nav {
-  margin: 0 auto;
-  vertical-align: middle; }
+  margin-bottom: 2rem;
+  vertical-align: middle;
+  z-index: 100; }
   @media only screen and (max-width: 760px) {
     .top-nav {
-      margin: 0 20px;
       width: -webkit-calc($main_width_xs - 40px);
       width: -moz-calc($main_width_xs - 40px);
       width: calc($main_width_xs - 40px); } }
@@ -235,11 +251,8 @@ header {
       width: 65%; } }
   @media only screen and (min-width: 1400px) {
     .top-nav {
-      position: absolute;
-      left: 50%;
-      top: 23px;
-      width: 55%;
-      margin-left: -27.5%; } }
+      position: fixed;
+      top: 23px; } }
   .top-nav ul {
     margin: 0;
     padding: 0;
@@ -270,11 +283,10 @@ header {
         border-bottom: 3px solid #41daa7; }
     .top-nav ul .current {
       color: #41daa7;
-      background-color: #fcfcfc;
       border-bottom: 3px solid #41daa7; }
 
 .posts {
-  margin: 50px auto; }
+  margin: 20px auto; }
   @media only screen and (max-width: 760px) {
     .posts {
       padding: 0 20px;
@@ -425,17 +437,16 @@ header {
   transition: all ease 1.5s; }
 
 .article-main {
-  margin: 20px auto 200px; }
+  margin: 0 auto 200px; }
   @media only screen and (max-width: 760px) {
     .article-main {
-      margin: 60px auto 120px;
+      margin: 20px auto 120px;
       padding: 0 20px;
       width: -webkit-calc($main_width_xs - 40px);
       width: -moz-calc($main_width_xs - 40px);
       width: calc($main_width_xs - 40px); } }
   @media only screen and (min-width: 761px) and (max-width: 1279px) {
     .article-main {
-      margin-top: 60px;
       width: 80%; } }
   @media only screen and (min-width: 1280px) and (max-width: 1399px) {
     .article-main {
@@ -623,7 +634,7 @@ blockquote {
     transition: transform ease 0.3s, -webkit-transform ease 0.3s, -moz-transform ease 0.3s, -o-transform ease 0.3s; }
 
 .tag-cloud {
-  margin: 80px auto;
+  margin: 20px auto 80px;
   text-align: center; }
   @media only screen and (min-width: 1400px) {
     .tag-cloud {
