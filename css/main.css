@@ -487,7 +487,8 @@ header {
   .article-meta .tags {
     font-size: 0.7rem; }
     .article-meta .tags a {
-      margin: 0 5px;
+      display: inline-block;
+      margin: 4px 5px;
       padding: 5px 10px;
       text-decoration: none;
       -webkit-border-radius: 5px;

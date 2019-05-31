@@ -1,0 +1,87 @@
+<!doctype html><html lang="zh-cn"><head><meta name="generator" content="Hexo 3.8.0"><meta charset="UTF-8"><meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1,minimum-scale=1"><meta http-equiv="X-UA-Compatible" content="ie=edge"><meta name="author" content="RGM"><meta name="keywords" content="前端,front end,javascript,js,css,html,node"><meta name="description" content="RGM'sblog"><meta name="google-site-verification" content="LKCCs3-UtSC016crWb5f1xvBeQoqat3B9Wg_J9AA7i0"><title>RGM's BLOG</title><link rel="stylesheet" href="/css/main.min.css"></head><body><div class="main full-width"><header class="full-width"><a href="/" class="brand">RGM's BLOG</a> <span class="about-me">About me</span></header><article class="article-main"><nav class="top-nav"><ul class="nav"><li><a href="/" class="current">我的随笔</a></li><li><a href="/tags/">我的标签</a></li></ul></nav><div class="article-title"><h1 class="title">给mand-mobile配置pxtorem</h1></div><div class="article-meta"><span class="article-time">Friday, 31 May 2019</span><div class="tags"><span>Tags: </span><a href="/tags/JavaScript/" style="background-color:#f5de19;color:#fff">JavaScript </a><a href="/tags/Vue-js/" style="background-color:#41b883;color:#fff">Vue.js </a><a href="/tags/Webpack/" style="background-color:#e9e9e9;color:#000">Webpack</a></div></div><div class="article-content"><p>由滴滴开发的Vue移动端UI组件库<a href="https://didi.github.io/mand-mobile/" target="_blank" rel="noopener">mand-mobile</a>的产出包<code>lib</code>目录中的组件样式默认以<code>px</code>为单位，直接使用可能会显得比例很大，有必要的话就可以使用<code>postcss-pxtorem</code>来将mand的组件的px单位按比例转换为rem。</p><p>在文档中也有配置方法：<a href="https://didi.github.io/mand-mobile/#/zh-CN/docs/started?anchor=使用前准备" target="_blank" rel="noopener">https://didi.github.io/mand-mobile/#/zh-CN/docs/started?anchor=%E4%BD%BF%E7%94%A8%E5%89%8D%E5%87%86%E5%A4%87。</a></p><p>本文记录的是在vue.config.js中配置pxtorem的另外几种方法。</p><h2 id="方法一"><a href="#方法一：" class="headerlink" title="方法一："></a>方法一：</h2><p>Vue CLI 内部使用了 PostCSS，我们可以通过<code>css.loaderOptions.postcss</code> 配置 <a href="https://github.com/postcss/postcss-loader" target="_blank" rel="noopener">postcss-loader</a>：</p><pre><code class="javascript">// vue.config.js
+const pxtorem = require(&#39;postcss-pxtorem&#39;);
+
+module.exports = {
+  css: {
+    loaderOptions: {
+      postcss: {
+        plugins: [
+          pxtorem({
+            rootValue: 30,
+            minPixelValue: 2,
+            propList: [&#39;*&#39;],
+            selectorBlackList: []
+          }),
+            ]
+      }
+    }
+  },
+};
+</code></pre><p>这样是直接作用于全局的，即无论是不是mand的组件，只要带px单位的css属性值都会被转换成rem单位，当然你也可以配置selectorBlackList数组来排除某些选择器，也可以配置propList数组来选择需要转换单位的属性，详细可以看postcss-loader的文档：<a href="https://github.com/cuth/postcss-pxtorem" target="_blank" rel="noopener">https://github.com/cuth/postcss-pxtorem</a>。</p><p>这种方法还有一个问题：在用了某些同样需要配置postcss的库后可能就无法直接使用这种方法，下面以配置ckeditor主题为例，加入pxtorem的配置。</p><h2 id="方法二"><a href="#方法二" class="headerlink" title="方法二"></a>方法二</h2><pre><code class="javascript">// vue.config.js
+const { styles } = require(&#39;@ckeditor/ckeditor5-dev-utils&#39;);
+
+const postCssConfig = styles.getPostCssConfig({
+  themeImporter: {
+    themePath: require.resolve(&#39;@ckeditor/ckeditor5-theme-lark&#39;)
+  },
+  minify: true,
+});
+
+module.exports = {
+  css: {
+    loaderOptions: {
+      postcss: postCssConfig
+    }
+  },
+};
+</code></pre><p>在对ckeditor5的主题进行配置后我们无法直接像方法一那样加入pxtorem的配置，但其实styles.getPostCssConfig()就返回了</p><pre><code class="javscript">{
+  plugins: []
+}
+</code></pre><p>这种结构。</p><p>所以我们可以通过<code>postCssConfig.plugins.push()</code>来添加pxtorem的配置：</p><pre><code class="javascript">// vue.config.js
+const pxtorem = require(&#39;postcss-pxtorem&#39;);
+const { styles } = require(&#39;@ckeditor/ckeditor5-dev-utils&#39;);
+
+const postCssConfig = styles.getPostCssConfig({
+  themeImporter: {
+    themePath: require.resolve(&#39;@ckeditor/ckeditor5-theme-lark&#39;)
+  },
+  minify: true,
+});
+
+postCssConfig.plugins.push(pxtorem({
+  rootValue: 30,
+  minPixelValue: 2,
+  propList: [&#39;*&#39;],
+  selectorBlackList: []
+}));
+
+module.exports = {
+  css: {
+    loaderOptions: {
+      postcss: postCssConfig
+    }
+  },
+};
+</code></pre><p>但这种方法还是无法完全实现pxtorem只作用于mand组件的问题。</p><h2 id="方法三推荐"><a href="#方法三（推荐）" class="headerlink" title="方法三（推荐）"></a>方法三（推荐）</h2><p>利用<code>vue.config.js</code>中的<a href="https://cli.vuejs.org/zh/config/#chainwebpack" target="_blank" rel="noopener">chainWebpack</a>属性我们可以对内部的 webpack 配置进行更细粒度的修改：</p><pre><code class="javascript">// vue.config.js
+const pxtorem = require(&#39;postcss-pxtorem&#39;);
+
+module.exports = {
+  chainWebpack: config =&gt; {
+    config.module
+      .rule(&#39;md-postcss&#39;)  // 新增规则，规则名自定义
+      .test(/mand-mobile.*\.css$/)  // 用正则表达式匹配mand-mobile的组件目录下的所有css文件
+      .use(&#39;css-loader&#39;)  // css加载器
+      .loader(&#39;postcss-loader&#39;)  // css处理器
+      .options({  // 这里的内容跟方法一中css.loaderOptions一样
+        plugins: [
+          pxtorem({
+            rootValue: 30,
+            minPixelValue: 2,
+            propList: [&#39;*&#39;],
+            selectorBlackList: []
+          })
+        ]
+      });
+  }
+};
+</code></pre><p>这样既不跟其他库发生冲突又能实现pxtorem的处理只作用于mand的组件了。</p></div></article><div class="end-line"></div><script src="/js/highlight.pack.min.js"></script><link rel="stylesheet" href="/css/atom-one-dark.min.css"><script>!function(){hljs.initHighlightingOnLoad();var e=document.getElementsByClassName("article-content")[0];setTimeout(function(){e.className="article-content article-content-come"},100);var t=document.getElementsByClassName("article-content")[0].getElementsByTagName("img"),n=document.createElement("div"),o=document.createElement("img");function i(e){e.preventDefault()}function c(e){document.body.addEventListener("touchstart",i),document.body.style.paddingRight=window.innerWidth-document.body.offsetWidth+"px",document.body.style.overflow="hidden",o.src=e.target.src,document.body.appendChild(n),setTimeout(function(){n.className="img-view img-view-open"},0)}n.appendChild(o),n.className="img-view",Array.prototype.forEach.call(t,function(e){e.addEventListener("click",c)}),n.addEventListener("click",function(e){e.stopPropagation(),n.className="img-view",document.body.removeEventListener("touchstart",i),document.body.style.overflow="",document.body.style.paddingRight="",setTimeout(function(){document.body.removeChild(n)},300)})}()</script><script>!function(){var a=document.getElementsByClassName("post"),n=document.getElementsByClassName("page-nav")[0];Array.prototype.forEach.call(a,function(e,t){setTimeout(function(){e.className="post post-come",t>=a.length-1&&n&&setTimeout(function(){n.className="page-nav page-nav-come"},500)},0===t?0:100*t)})}()</script></div><div class="me"><img alt="avatar" class="avatar"><p class="me-p">Live by the sword and die by the sword.</p><div class="links"><a href="https://github.com/RGM-89sc" target="_blank" class="link github-link" title="github"></a> <a href="mailto:171716669@qq.com" class="link mail-link" title="mail"></a></div><div class="all-tags"><span>TAGS LIST</span><ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ANSI/">ANSI</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS/">CSS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Electron-js/">Electron.js</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a><span class="tag-list-count">28</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MongoDB/">MongoDB</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/">MySQL</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Node-js/">Node.js</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/React-js/">React.js</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VS-Code/">VS Code</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vue-js/">Vue.js</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Webpack/">Webpack</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/内网穿透/">内网穿透</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据库/">数据库</a><span class="tag-list-count">3</span></li></ul></div></div><script src="/js/main.min.js"></script></body></html>
