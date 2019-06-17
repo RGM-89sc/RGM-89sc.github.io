@@ -73,7 +73,6 @@
         header.className = "eighty-width";
       } 
     }
-    console.log(main.offsetWidth);
   }
   window.onresize = debounce(onResize, 200);
 })();

@@ -71,8 +71,10 @@ html, body {
     .me {
       display: none; } }
   .me .avatar {
-    margin: 14% 10% 10px;
-    width: 80%;
+    margin: -webkit-calc(20px + 0.55rem) 10% 10px;
+    margin: -moz-calc(20px + 0.55rem) 10% 10px;
+    margin: calc(20px + 0.55rem) 10% 10px;
+    width: 60%;
     -webkit-border-radius: 10px;
        -moz-border-radius: 10px;
             border-radius: 10px;
