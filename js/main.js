@@ -57,9 +57,23 @@
     };
   }
   function onResize() {
-    if (document.offsetWidth <= 760 && header.className === "eighty-width") {
+    if (main.offsetWidth <= 760) {
+      aboutMe.className = "about-me";
+      main.className = "main full-width";
       header.className = "full-width";
+      me.className = "me close-me";
+      me_avatar.className = "avatar";
+      me_p.className = "me-p";
+      me_links.className = "links";
+      all_tags.className = 'all-tags';
+      aboutOpen = false;
+    } else {
+      if (aboutOpen) {
+        main.className = "main eighty-width";
+        header.className = "eighty-width";
+      } 
     }
+    console.log(main.offsetWidth);
   }
   window.onresize = debounce(onResize, 200);
 })();
