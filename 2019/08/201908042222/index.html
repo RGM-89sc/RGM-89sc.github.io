@@ -1,0 +1,106 @@
+<!doctype html><html lang="zh-cn"><head><meta name="generator" content="Hexo 3.8.0"><meta charset="UTF-8"><meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1,minimum-scale=1"><meta http-equiv="X-UA-Compatible" content="ie=edge"><meta name="author" content="RGM"><meta name="keywords" content="前端,front end,javascript,js,css,html,node"><meta name="description" content="RGM'sblog"><meta name="google-site-verification" content="LKCCs3-UtSC016crWb5f1xvBeQoqat3B9Wg_J9AA7i0"><title>RGM's BLOG</title><link rel="stylesheet" href="/css/main.min.css"></head><body><div class="main full-width"><header class="full-width"><a href="/" class="brand">RGM's BLOG</a> <span class="about-me">About me</span></header><article class="article-main"><nav class="top-nav"><ul class="nav"><li><a href="/" class="current">我的随笔</a></li><li><a href="/tags/">我的标签</a></li></ul></nav><div class="article-title"><h1 class="title">React+TypeScript+Antd+CSS Modules项目搭建</h1></div><div class="article-meta"><span class="article-time">Sunday, 04 Aug 2019</span><div class="tags"><span>Tags: </span><a href="/tags/JavaScript/" style="background-color:#f5de19;color:#fff">JavaScript </a><a href="/tags/React-js/" style="background-color:#61dafb;color:#fff">React.js </a><a href="/tags/TypeScript/" style="background-color:#e9e9e9;color:#000">TypeScript</a></div></div><div class="article-content"><p>基本环境：</p><blockquote><p>node版本：10.16.1</p><p>yarn版本：1.17.3</p></blockquote><h1 id="新建typescript-react项目"><a href="#新建TypeScript-React项目" class="headerlink" title="新建TypeScript-React项目"></a>新建TypeScript-React项目</h1><p>安装CRA</p><pre><code class="bash">npm install -g create-react-app
+</code></pre><p>创建typescript-react项目</p><pre><code class="bash">create-react-app my-app --typescript
+</code></pre><h1 id="安装antd"><a href="#安装Antd" class="headerlink" title="安装Antd"></a>安装Antd</h1><pre><code class="bash">yarn add antd
+</code></pre><h1 id="antd按需加载"><a href="#Antd按需加载" class="headerlink" title="Antd按需加载"></a>Antd按需加载</h1><pre><code>yarn add react-app-rewired customize-cra babel-plugin-import
+</code></pre><pre><code class="diff">/* package.json */
+&quot;scripts&quot;: {
+-   &quot;start&quot;: &quot;react-scripts start&quot;,
++   &quot;start&quot;: &quot;react-app-rewired start&quot;,
+-   &quot;build&quot;: &quot;react-scripts build&quot;,
++   &quot;build&quot;: &quot;react-app-rewired build&quot;,
+-   &quot;test&quot;: &quot;react-scripts test&quot;,
++   &quot;test&quot;: &quot;react-app-rewired test&quot;,
+}
+</code></pre><p>然后在项目根目录创建一个 <code>config-overrides.js</code> 用于修改默认配置。</p><pre><code class="javascript">// config-overrides.js
+
+const { override, fixBabelImports } = require(&#39;customize-cra&#39;);
+
+module.exports = override(
+  fixBabelImports(&#39;import&#39;, {
+    libraryName: &#39;antd&#39;,
+    libraryDirectory: &#39;es&#39;,
+    style: &#39;css&#39;,
+  }),
+);
+</code></pre><p>把<code>App.tsx</code>修改为如下内容：</p><pre><code class="tsx">import React from &#39;react&#39;;
+import { Button } from &#39;antd&#39;;
+import &#39;./App.css&#39;;
+
+const App: React.FC = () =&gt; {
+  return (
+    &lt;div className=&quot;App&quot;&gt;
+      &lt;Button type=&quot;primary&quot;&gt;Button&lt;/Button&gt;
+    &lt;/div&gt;
+  );
+}
+
+export default App;
+</code></pre><p>让项目跑起来测试下：</p><pre><code class="bash">yarn start
+</code></pre><h1 id="antd自定义主题"><a href="#Antd自定义主题" class="headerlink" title="Antd自定义主题"></a>Antd自定义主题</h1><p>安装less、less-loader</p><pre><code class="bash">yarn add less less-loader
+</code></pre><p>修改<code>config-overrides.js</code>文件的内容：</p><pre><code class="diff">// config-overrides.js
+
+- const { override, fixBabelImports } = require(&#39;customize-cra&#39;);
++ const { override, fixBabelImports, addLessLoader } = require(&#39;customize-cra&#39;);
+
+module.exports = override(
+  fixBabelImports(&#39;import&#39;, {
+    libraryName: &#39;antd&#39;,
+    libraryDirectory: &#39;es&#39;,
+-   style: &#39;css&#39;,
++   style: true,
+  }),
++ addLessLoader({
++   javascriptEnabled: true,
++   modifyVars: { &#39;@primary-color&#39;: &#39;#1DA57A&#39; },
++ }),
+);
+</code></pre><p>详细的主题配置可以查看 <a href="https://ant.design/docs/react/customize-theme-cn" target="_blank" rel="noopener">配置主题</a> 文档。</p><p>让项目跑起来：</p><pre><code class="bash">yarn start
+</code></pre><h1 id="添加对sass的支持"><a href="#添加对Sass的支持" class="headerlink" title="添加对Sass的支持"></a>添加对Sass的支持</h1><pre><code class="bash">yarn add node-sass
+</code></pre><h1 id="css-modules"><a href="#CSS-Modules" class="headerlink" title="CSS Modules"></a>CSS Modules</h1><h2 id="原生css"><a href="#原生css" class="headerlink" title="原生css"></a>原生css</h2><p>参考<a href="https://rgm-89sc.github.io/2019/04/201904250926/">https://rgm-89sc.github.io/2019/04/201904250926/</a></p><h2 id="scss"><a href="#scss" class="headerlink" title="scss"></a>scss</h2><p>1、把<code>App.css</code>文件重命名为<code>App.module.scss</code></p><p>2、同目录下新建<code>App.module.scss.d.ts</code>，并写入以下内容：</p><pre><code class="typescript">export const App: string;
+</code></pre><p>3、把<code>App.tsx</code>文件的内容改为：</p><pre><code class="tsx">import React from &#39;react&#39;;
+import { Button } from &#39;antd&#39;;
+import * as styles from &#39;./App.module.scss&#39;;
+
+const App: React.FC = () =&gt; {
+  return (
+    &lt;div className={styles[&#39;App&#39;]}&gt;
+      &lt;Button type=&quot;primary&quot;&gt;Button&lt;/Button&gt;
+    &lt;/div&gt;
+  );
+}
+
+export default App;
+</code></pre><p>但上面的使用方法由于变量名不支持<code>-</code>符号，所以像<code>foo-bar</code>这样的css类名就无法被支持，不过我们可以把这些类名封装在一个对象里面：</p><p>修改<code>App.module.scss.d.ts</code>：</p><pre><code class="typescript">export default {
+  [&#39;App&#39;]: string,
+  [&#39;App-header&#39;]: string
+};
+</code></pre><p>在<code>App.tsx</code>中引入<code>App.module.scss</code>的方式改为：</p><pre><code class="typescript">import styles from &#39;./App.module.scss&#39;;
+</code></pre><p>使用方式：</p><pre><code class="tsx">&lt;div className={styles[&#39;App-header&#39;]}&gt;&lt;/div&gt;
+</code></pre><p>如果不想每个组件或者页面都创建一个<code>.d.ts</code>文件、列出每个要导出的css类名，那可以直接在<code>react-app-env.d.ts</code>中添加声明，而在<code>.ts</code>文件中的使用方式不变：</p><pre><code class="typescript">declare module &quot;*.module.scss&quot; {
+  const classes: { [key: string]: string };
+  export default classes;
+}
+</code></pre><h2 id="less"><a href="#less" class="headerlink" title="less"></a>less</h2><p>在<code>react-app-env.d.ts</code>中添加声明：</p><pre><code class="typescript">declare module &quot;*.module.less&quot; {
+  const classes: { [key: string]: string };
+  export default classes;
+}
+</code></pre><p><code>config-overrides.js</code>增加3行：</p><pre><code class="diff">const { override, fixBabelImports, addLessLoader } = require(&#39;customize-cra&#39;);
+
+module.exports = override(
+  fixBabelImports(&#39;import&#39;, {
+    libraryName: &#39;antd&#39;,
+    libraryDirectory: &#39;es&#39;,
+    style: true,
+  }),
+  addLessLoader({
+    javascriptEnabled: true,
+    modifyVars: {
+      &#39;@primary-color&#39;: &#39;#1DA57A&#39;
+    },
+
++   strictMath: true,
++   noIeCompat: true,
++   localIdentName: &quot;[local]--[hash:base64:5]&quot;
+  }),
+);
+</code></pre><p>在<code>.tsx</code>文件中的使用方式与scss的一致。</p></div></article><div class="end-line"></div><script src="/js/highlight.pack.min.js"></script><link rel="stylesheet" href="/css/atom-one-dark.min.css"><script>!function(){hljs.initHighlightingOnLoad();var e=document.getElementsByClassName("article-content")[0];setTimeout(function(){e.className="article-content article-content-come"},100);var t=document.getElementsByClassName("article-content")[0].getElementsByTagName("img"),n=document.createElement("div"),o=document.createElement("img");function i(e){e.preventDefault()}function c(e){document.body.addEventListener("touchstart",i),document.body.style.paddingRight=window.innerWidth-document.body.offsetWidth+"px",document.body.style.overflow="hidden",o.src=e.target.src,document.body.appendChild(n),setTimeout(function(){n.className="img-view img-view-open"},0)}n.appendChild(o),n.className="img-view",Array.prototype.forEach.call(t,function(e){e.addEventListener("click",c)}),n.addEventListener("click",function(e){e.stopPropagation(),n.className="img-view",document.body.removeEventListener("touchstart",i),document.body.style.overflow="",document.body.style.paddingRight="",setTimeout(function(){document.body.removeChild(n)},300)})}()</script><script>!function(){var a=document.getElementsByClassName("post"),n=document.getElementsByClassName("page-nav")[0];Array.prototype.forEach.call(a,function(e,t){setTimeout(function(){e.className="post post-come",t>=a.length-1&&n&&setTimeout(function(){n.className="page-nav page-nav-come"},500)},0===t?0:100*t)})}()</script></div><div class="me"><img alt="avatar" class="avatar"><p class="me-p">Live by the sword and die by the sword.</p><div class="links"><a href="https://github.com/RGM-89sc" target="_blank" class="link github-link" title="github"></a> <a href="mailto:171716669@qq.com" class="link mail-link" title="mail"></a></div><div class="all-tags"><span>TAGS LIST</span><ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ANSI/">ANSI</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS/">CSS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Electron-js/">Electron.js</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a><span class="tag-list-count">29</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MongoDB/">MongoDB</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/">MySQL</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Node-js/">Node.js</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/React-js/">React.js</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TypeScript/">TypeScript</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vue-js/">Vue.js</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Webpack/">Webpack</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/内网穿透/">内网穿透</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据库/">数据库</a><span class="tag-list-count">3</span></li></ul></div></div><script src="/js/main.min.js"></script></body></html>
