@@ -474,6 +474,7 @@ header {
   overflow: hidden; }
   .article-title .title {
     margin: 15px 0;
+    word-break: break-all;
     font-size: 1.7rem;
     color: #41daa7; }
 
